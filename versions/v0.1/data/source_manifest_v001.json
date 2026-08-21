@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "source_baseline_commit": "2a4529b69bc237125a1f012835d7a9b78ce3fec9",
+  "source_root": "versions/v0.01/memory",
+  "files": [
+    {
+      "path": "versions/v0.01/memory/00_CHANNEL_AND_METHOD.md",
+      "git_blob_oid": "f71c4f0a8986912be99d04b9ef9e071e4d002d69",
+      "sha256": "3f3606867e297dc662b7c303d738c30be2848ce2502328ff9e65d52e8976fa89",
+      "bytes": 2170
+    },
+    {
+      "path": "versions/v0.01/memory/01_OWNER_WORLDVIEW_CURRENT.md",
+      "git_blob_oid": "539736e4292f20a720166dc499ae1bb0c9795a30",
+      "sha256": "486ad6d427bda29e445c891b54f143eb56e8c83d9675fdd6d81f151cfee9daf3",
+      "bytes": 3095
+    },
+    {
+      "path": "versions/v0.01/memory/02_CAUSAL_SET_LEARNING.md",
+      "git_blob_oid": "ba663cc8c91ee85b0feee2cd59d51b8b9520977e",
+      "sha256": "ea1a57539404e5c715d4d25ada9ba1642b7aacf0e4810b771eadc1a58f59ae76",
+      "bytes": 2126
+    },
+    {
+      "path": "versions/v0.01/memory/03_MODEL_FAMILY_AND_COMPLEMENTARITY.md",
+      "git_blob_oid": "4e5a69473454c4ad184f8ce65993bdd1139ce8b8",
+      "sha256": "6ff46fc0eac2e2105881efdab8d43c5a10ee2911204b50f6d2028c92b260ddcb",
+      "bytes": 1940
+    },
+    {
+      "path": "versions/v0.01/memory/04_ROUTING_AND_LIFECYCLE.md",
+      "git_blob_oid": "05794d213ef52b439240bd600fbb988a77de1313",
+      "sha256": "68a0d32911c050656e9468450c0936eda5db92b850f97f7c707e2cbf7b2ae599",
+      "bytes": 1957
+    },
+    {
+      "path": "versions/v0.01/memory/05_SIMULATION_AND_COMMITTEE.md",
+      "git_blob_oid": "0cc8006ec797f225da5ab60eb5962c31ef6c2719",
+      "sha256": "0c4f452ddd020fdd2ae117f0b7bee031ef89ce14ffac3a83c54790e1b00ba015",
+      "bytes": 2040
+    },
+    {
+      "path": "versions/v0.01/memory/06_MI1_INITIALIZATION_TARGET.md",
+      "git_blob_oid": "83f5c0ef85121e819c2570ec7d2163302f87bc6a",
+      "sha256": "e3cb6898c9296048c3d4048e085ee7f8ffd5557705ed8fc60c7b0bf9a599d6b7",
+      "bytes": 1630
+    },
+    {
+      "path": "versions/v0.01/memory/07_OPEN_QUESTIONS_AND_NEXT_JOBS.md",
+      "git_blob_oid": "d6b4c3f4a6793cb953f18dfe85db80726996e62a",
+      "sha256": "ee2607e56a22c08ff049df45bfa7a0af25a7d28fe114a2b6e234f4be44caaa0c",
+      "bytes": 1823
+    },
+    {
+      "path": "versions/v0.01/memory/08_CHANNEL_CHRONOLOGY.md",
+      "git_blob_oid": "6af7d5315b2c16c193d8708f463642d8bf2b1723",
+      "sha256": "4315272a08fd74d7a90d92ea77056d4859bf2917f921c5d8ae4cf8e9722bf6e3",
+      "bytes": 2874
+    },
+    {
+      "path": "versions/v0.01/memory/09_VERSION_POLICY.md",
+      "git_blob_oid": "be5c8e7f785c5df54004e675f92193a3d3f4dd96",
+      "sha256": "5e51290181902e48085fd0b1bb4e8c84432ba3d53860d966f0d00a15f6dae14e",
+      "bytes": 1553
+    },
+    {
+      "path": "versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md",
+      "git_blob_oid": "386b5f94065e9a6ac0d881f01dc6a520d49d5600",
+      "sha256": "3a82cadd07bf52633aad60bb1798840c8590925ec3da49a490d932452e91dd74",
+      "bytes": 13318
+    },
+    {
+      "path": "versions/v0.01/memory/11_CORE_PRINCIPLES.md",
+      "git_blob_oid": "9f75ccc1d30499ae1dd0a60ef920c4e48f10f6a0",
+      "sha256": "7b5963f290c1b5a3f0ddfbd289b1d2f6bd90e965c75af8faf21c256343ffba38",
+      "bytes": 3274
+    }
+  ]
+}

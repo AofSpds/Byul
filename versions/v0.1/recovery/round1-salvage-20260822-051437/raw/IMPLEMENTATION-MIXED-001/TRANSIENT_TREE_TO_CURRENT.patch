@@ -1,0 +1,27 @@
+diff --git a/versions/v0.1/README.md b/versions/v0.1/README.md
+index eb2d067c1d3d4b3ef69f17e9b551495116bb23fd..82351fd02aa3efefc3868cef1682d803908e9a7b 100644
+--- a/versions/v0.1/README.md
++++ b/versions/v0.1/README.md
+@@ -47,7 +47,7 @@ digests at `2a4529b...`. Loading fails if the commit, file set, blob, length, or
+ digest differs. `12_PARALLEL_PROPOSAL_ROUND1.md`, which exists later in the
+ working tree, is therefore not silently mixed into this implementation target.
+ 
+-`--memory-root <path>` remains available for explicit worktree experiments. It is marked
++`--source-mode worktree --memory-root <path>` remains available for explicit worktree experiments. It is marked
+ `WORKING_TREE_UNPINNED`, and the safe planner fails closed when exact-baseline
+ authority is required.
+ 
+diff --git a/versions/v0.1/tests/test_byul_v01.py b/versions/v0.1/tests/test_byul_v01.py
+index d0f15669aace9b41b1ed46d07c1c361f7e2f7c78..f4b3444267416399f0190e3d01bf71f2d7cfa95d 100644
+--- a/versions/v0.1/tests/test_byul_v01.py
++++ b/versions/v0.1/tests/test_byul_v01.py
+@@ -185,6 +185,9 @@ class ByulV01Tests(unittest.TestCase):
+         self.assertEqual(len(receipt.view_definition_digest), 64)
+         self.assertEqual(receipt.validation_result, "CONTRACT_CHECKED")
+         self.assertIn("UNSELECTED_SOURCE_LINES", receipt.losses)
++        self.assertGreater(len(receipt.dependencies), 0)
++        self.assertIn("OPEN_QUESTION_VIEW_SELECTION_POLICY", receipt.introduced_interpretation)
++        self.assertEqual(receipt.cost_class, "LINEAR_IN_DEPENDENT_SOURCE_ATOMS")
+ 
+     def test_virtual_mutation_changes_exact_digest_and_tracks_dependency_closure(self):
+         result = self.corpus.simulate_virtual_mutation("10_ACTIVE_CHANNEL_LOG.md")
