@@ -6,19 +6,20 @@
 
 README만 열어도 현재 어디를 읽어야 하는지 알 수 있도록 현황파일을 명시합니다.
 
-- **현재 연구 현황파일:** `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
+- **현재 현황파일:** `versions/v0.01/CURRENT_STATUS.md`
+- **상세 진행 로그:** `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
 - **현재 핵심 원칙:** `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 - **현재 연구 스냅샷 안내:** `versions/v0.01/README.md`
 - **현재 실험 구현 현황:** `versions/v0.1/README.md`
 - **현재 구현 계약:** `versions/v0.1/MODEL_CONTRACT.md`
 - **상세 대화/context 복구본:** `versions/v0.00/context/AAA-ASA-ME_CONTEXT_BACKUP_2026-08-22.md`
 
-새 채널이나 후계 인스턴스는 우선 `현재 연구 현황파일`을 확인하고, 필요한 경우 핵심 원칙·구조화 메모·복구본 순으로 확장해서 읽습니다.
+새 채널이나 후계 인스턴스는 우선 `versions/v0.01/CURRENT_STATUS.md`를 읽습니다.
 
 ## Current State
 
 - ACTIVE RESEARCH MEMORY: `versions/v0.01/`
-- CURRENT RESEARCH STATUS FILE: `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
+- CURRENT STATUS FILE: `versions/v0.01/CURRENT_STATUS.md`
 - CURRENT CORE PRINCIPLES: `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 - PREDECESSOR / RECOVERY: `versions/v0.00/`
 - ACTIVE EXPERIMENTAL IMPLEMENTATION: `versions/v0.1/`
@@ -51,17 +52,17 @@ v0.1의 primary DATA는 외부 toy dataset이 아니라 **현재까지 축적된
 
 `versions/v0.01/memory/*.md`
 
-v0.1은 이 memory를 raw ground representation으로 읽고 history/current/open/model-family/lifecycle 등의 derived view를 만들며 `R(S,M,L)` routing과 mutation/invalidation micro-test를 수행합니다.
+v0.1은 이 memory를 raw ground representation으로 읽고 history/current/open/model-family/lifecycle/core-principles 등의 derived view를 만들며 `R(S,M,L)` routing과 mutation/invalidation micro-test를 수행합니다.
 
 ## Succession Rule
 
 AAA-ASA-ME 채널 승계 시 최소 순서는 다음과 같습니다.
 
 1. `README.md`
-2. `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
+2. `versions/v0.01/CURRENT_STATUS.md`
 3. `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 4. `versions/v0.01/README.md`
-5. 필요한 `versions/v0.01/memory/00~09` 구조화 메모
+5. 필요한 `versions/v0.01/memory/00~11` 구조화 메모
 
 긴 대화흐름 또는 context 손실 복구가 필요하면:
 
@@ -85,7 +86,7 @@ v0.1 구현을 이어갈 때는:
 
 ## Entry Points
 
-- **Current status:** `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
+- **Current status:** `versions/v0.01/CURRENT_STATUS.md`
 - **Core principles:** `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 - Research state: `versions/v0.01/README.md`
 - Experimental implementation: `versions/v0.1/README.md`
