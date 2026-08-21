@@ -1,0 +1,161 @@
+{
+  "protocol_version": "0.1.0",
+  "checklist_id": "SEMANTIC_SURFACE_V0_1_ADAPTER_PURITY_AUDIT",
+  "applies_to": ["C0", "C1", "C2"],
+  "audit_timing": "AFTER_ADAPTER_REF_FREEZE_AND_BEFORE_ANY_REAL_STIMULUS",
+  "result_blind": true,
+  "auditor_independence": "AUDITOR_AUTHORED_NEITHER_CANDIDATE_NOR_ADAPTER",
+  "permitted_adapter_operations": [
+    "INVOKE_FROZEN_NATIVE_ENTRYPOINT",
+    "PASS_INPUT_BYTES_WITHOUT_ORACLE_FIELDS",
+    "CAPTURE_NATIVE_STDOUT_STDERR_EXIT_STATUS_AND_ARTIFACT_BYTES",
+    "SERIALIZE_AND_DESERIALIZE_WITHOUT_SEMANTIC_CHANGE",
+    "DECODE_A_DECLARED_TRANSPORT_ENCODING_OR_MEDIA_TYPE_WITHOUT_DISCARDING_NATIVE_BYTES",
+    "RENAME_FIELDS_BY_FROZEN_DECLARATIVE_TABLE",
+    "LOOK_UP_ENUMS_BY_FROZEN_ONE_TO_ONE_TABLE",
+    "APPLY_A_FROZEN_LOSSLESS_PRIMITIVE_TYPE_CONVERSION",
+    "COPY_NATIVE_VALUES_BY_JSON_POINTER_BYTE_RANGE_EXIT_STATUS_OR_ARTIFACT_DIGEST",
+    "COPY_IMMUTABLE_HARNESS_METADATA_INTO_METADATA_ONLY_FIELDS",
+    "EMIT_EXPLICIT_UNSUPPORTED_OR_UNMAPPABLE_WHEN_NATIVE_EVIDENCE_IS_ABSENT"
+  ],
+  "mapping_origin_rule": {
+    "candidate_semantic_fields": ["NATIVE", "MECHANICALLY_MAPPED", "UNSUPPORTED", "UNMAPPABLE"],
+    "metadata_only": ["HARNESS_SUPPLIED"],
+    "grader_only_never_adapter_emitted": ["EVALUATOR_CODED"]
+  },
+  "forbidden_adapter_operations": [
+    "READ_GRADER_ORACLE_OR_CONTROL_TYPE",
+    "READ_ALLOWED_OUTCOMES_FORBIDDEN_BEHAVIORS_OR_REQUIRED_OBSERVATIONS",
+    "BRANCH_ON_SCENARIO_ID_CASE_ID_OPAQUE_RUN_ID_LITERAL_FIXTURE_VALUE_FILE_NAME_OR_PUBLIC_HOLDOUT_STATUS",
+    "INFER_AUTHORITY_OR_RESOLVE_CONFLICT",
+    "CLASSIFY_OR_ERASE_LOSS",
+    "CHOOSE_OR_REJECT_A_PLAN",
+    "RECONSTRUCT_MISSING_CANDIDATE_EVIDENCE",
+    "TURN_UNKNOWN_UNSUPPORTED_OR_UNMAPPABLE_INTO_A_FAVORABLE_OUTCOME",
+    "INVENT_OBSERVATIONS_OR_EVIDENCE_REFS",
+    "RETRY_OR_REPAIR_NATIVE_EXECUTION_SILENTLY",
+    "ALTER_NATIVE_BYTES_OR_REPLACE_THEIR_DIGEST",
+    "USE_A_MODEL_NETWORK_SERVICE_REPOSITORY_SEARCH_OR_EXTERNAL_DATABASE_TO_ADD_SEMANTICS",
+    "READ_SIBLING_CANDIDATE_SOURCE_ADAPTER_OR_RESULTS"
+  ],
+  "allowed_item_statuses": ["PASS", "FAIL", "BLOCKED", "NOT_EVALUATED"],
+  "items": [
+    {
+      "id": "ADP-01",
+      "criterion": "Adapter source, mapping table, tests, dependencies, and file manifest are frozen at exact refs and byte digests.",
+      "evidence": ["ADAPTER_REF_FREEZE", "ADAPTER_FILE_MANIFEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-02",
+      "criterion": "Adapter SLOC, files, dependencies, model/tool use, and repair rounds are within BUILD_BUDGET.yaml and separately counted.",
+      "evidence": ["ADAPTER_BUDGET_RECEIPT", "SLOC_DEPENDENCY_INVENTORY"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-03",
+      "criterion": "The adapter process can read only input-only stimulus bytes, the native invocation contract, candidate-native bytes, and the frozen declarative mapping table.",
+      "evidence": ["PROCESS_ACCESS_ALLOWLIST", "ORACLE_NON_ACCESS_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-04",
+      "criterion": "Static and dynamic traces show no branch, lookup, dispatch, or literal match on scenario identity, case identity, opaque run identity, or fixture-specific values.",
+      "evidence": ["STATIC_BRANCH_SCAN", "RANDOMIZED_IDENTIFIER_DISPATCH_TRACE"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-05",
+      "criterion": "Every common semantic field has exactly one mapping receipt citing a native JSON pointer, native byte range, exit status, or immutable artifact digest.",
+      "evidence": ["FIELD_LEVEL_MAPPING_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-06",
+      "criterion": "Candidate semantic fields use NATIVE, MECHANICALLY_MAPPED, UNSUPPORTED, or UNMAPPABLE; only immutable run/input/ref metadata may be HARNESS_SUPPLIED; EVALUATOR_CODED is grader-only and never adapter-emitted.",
+      "evidence": ["FIELD_ORIGIN_VALIDATION"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-07",
+      "criterion": "Native stdout, stderr, exit status, artifacts, media type, encoding, length, digest, and immutable locator are preserved without rewrite.",
+      "evidence": ["NATIVE_CAPTURE_DIGEST_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-08",
+      "criterion": "A deliberately contradictory native result remains contradictory after mapping and is not converted into the expected or safer answer.",
+      "evidence": ["CONTRADICTORY_NATIVE_MUTATION_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-09",
+      "criterion": "An always-UNKNOWN native result remains UNKNOWN or UNSUPPORTED and does not gain synthetic evidence.",
+      "evidence": ["ALWAYS_UNKNOWN_MUTATION_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-10",
+      "criterion": "An always-CONFLICT native result remains conflict evidence and cannot be silently resolved or erased.",
+      "evidence": ["ALWAYS_CONFLICT_MUTATION_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-11",
+      "criterion": "An explicit native loss remains visible with the same cited evidence and cannot be upgraded to exact recovery.",
+      "evidence": ["LOSS_ERASURE_MUTATION_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-12",
+      "criterion": "A missing native observation maps to UNSUPPORTED or UNMAPPABLE rather than an invented required observation.",
+      "evidence": ["MISSING_OBSERVATION_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-13",
+      "criterion": "A native-byte digest mismatch, truncated capture, or altered artifact causes INVALID and remains non-scoreable.",
+      "evidence": ["NATIVE_DIGEST_MISMATCH_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-14",
+      "criterion": "A wrong spec, candidate, adapter, input, or environment ref causes INVALID before semantic mapping.",
+      "evidence": ["WRONG_REF_TEST_MATRIX"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-15",
+      "criterion": "Malformed native JSON terminates as run state INVALID with reason code NATIVE_PARSE_FAILURE and cannot be left scoreable or downgraded to UNMAPPABLE; UNMAPPABLE is permitted only for a well-formed native capture that lacks a mechanical field mapping.",
+      "evidence": ["MALFORMED_NATIVE_OUTPUT_INVALID_STATE_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-16",
+      "criterion": "STOPPED, BLOCKED, CONTAMINATED, INCOMPLETE, and BUDGET_EXHAUSTED run states remain non-scoreable and cannot be remapped to OBSERVED.",
+      "evidence": ["RUN_STATE_PRESERVATION_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-17",
+      "criterion": "The adapter performs no conflict resolution, loss classification, plan selection, reconstruction, authority judgment, or semantic evidence creation.",
+      "evidence": ["SOURCE_DATAFLOW_AUDIT", "RUNTIME_CALL_TRACE"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "ADP-18",
+      "criterion": "Invocation retry count is zero unless the runner explicitly records a pre-registered transport retry; no retry hides native failure evidence.",
+      "evidence": ["INVOCATION_AND_RETRY_LOG"],
+      "status": "NOT_EVALUATED"
+    }
+  ],
+  "decision_rule": {
+    "pass": "ALL_ITEMS_PASS",
+    "fail": "ANY_ITEM_FAILS",
+    "blocked": "REQUIRED_EVIDENCE_OR_TECHNICAL_ACCESS_TEST_IS_UNAVAILABLE",
+    "contaminated": "ADAPTER_OR_AUDITOR_ACCESSED_ORACLE_HOLDOUT_SIBLING_OR_REAL_RESULT"
+  },
+  "failure_route": "STOP_ADAPTER_AUDIT_AND_KEEP_REAL_STIMULUS_GATE_CLOSED",
+  "semantic_logic_route": "MOVE_LOGIC_INTO_CANDIDATE_COUNT_IT_REFREEZE_AND_REPEAT_RESULT_BLIND_AUDITS_BEFORE_ANY_REAL_STIMULUS",
+  "waiver_allowed": false
+}

@@ -1,0 +1,347 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/mapping_receipt.schema.json",
+  "title": "Semantic Surface v0.1 field-level adapter mapping receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "receipt_id",
+    "run_id",
+    "attempt_id",
+    "observation_id",
+    "native_capture_ref",
+    "native_capture_id",
+    "adapter_ref",
+    "mapping_table_ref",
+    "mappings",
+    "coverage",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "receipt_id": { "type": "string", "pattern": "^MR_[0-9a-f]{32}$" },
+    "run_id": { "type": "string", "pattern": "^RN_[0-9a-f]{32}$" },
+    "attempt_id": { "type": "string", "pattern": "^AT_[0-9a-f]{32}$" },
+    "observation_id": { "type": "string", "pattern": "^OB_[0-9a-f]{32}$" },
+    "native_capture_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "native_capture_id": { "type": "string", "pattern": "^NC_[0-9a-f]{32}$" },
+    "adapter_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "mapping_table_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "mappings": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/observationTargetPointer" },
+      "patternProperties": {
+        "^/(?:schema_version|protocol_id|observation_id|run_id|attempt_id|candidate_alias|run_manifest_ref|run_state_ref|stimulus_ref|native_capture_ref|native_capture_id|run_status|scoreability|native_payload_digests|authority_boundary)(?:/(?:[^~/]|~0|~1)*)*$": {
+          "$ref": "#/$defs/fieldMapping"
+        },
+        "^(?!/(?:schema_version|protocol_id|observation_id|run_id|attempt_id|candidate_alias|run_manifest_ref|run_state_ref|stimulus_ref|native_capture_ref|native_capture_id|run_status|scoreability|native_payload_digests|authority_boundary)(?:/|$))(?!/mapping_receipt_refs(?:/|$))(?:/(?:[^~/]|~0|~1)*)+$": {
+          "allOf": [
+            { "$ref": "#/$defs/fieldMapping" },
+            {
+              "properties": {
+                "origin": { "not": { "const": "HARNESS_SUPPLIED" } }
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inventory_contract",
+        "inventory_order",
+        "excluded_subtrees",
+        "target_field_inventory",
+        "inventory_canonical_json_sha256",
+        "mapping_count",
+        "mapped_count",
+        "unsupported_count",
+        "unmappable_count",
+        "complete"
+      ],
+      "properties": {
+        "inventory_contract": { "const": "OBSERVATION_TERMINAL_JSON_VALUES_V0_1" },
+        "inventory_order": { "const": "UTF8_BYTEWISE_JSON_POINTER_ASCENDING" },
+        "excluded_subtrees": { "const": ["/mapping_receipt_refs"] },
+        "target_field_inventory": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/observationTargetPointer" }
+        },
+        "inventory_canonical_json_sha256": { "$ref": "#/$defs/sha256" },
+        "mapping_count": { "type": "integer", "minimum": 1 },
+        "mapped_count": { "type": "integer", "minimum": 0 },
+        "unsupported_count": { "type": "integer", "minimum": 0 },
+        "unmappable_count": { "type": "integer", "minimum": 0 },
+        "complete": { "const": true }
+      }
+    },
+    "authority_boundary": { "$ref": "#/$defs/authorityBoundary" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "jsonPointer": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" },
+    "observationTargetPointer": {
+      "type": "string",
+      "pattern": "^(?!/mapping_receipt_refs(?:/|$))(?:/(?:[^~/]|~0|~1)*)+$"
+    },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "locator",
+        "sha256",
+        "byte_length",
+        "media_type",
+        "immutability"
+      ],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": {
+          "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"]
+        }
+      }
+    },
+    "runtimeEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "kind", "ref", "description"],
+      "properties": {
+        "evidence_id": { "type": "string", "pattern": "^EV_[0-9a-f]{32}$" },
+        "kind": {
+          "enum": [
+            "NATIVE_BYTES",
+            "RUNTIME_ARTIFACT",
+            "STIMULUS_BYTES",
+            "HARNESS_EVENT",
+            "ADAPTER_AUDIT",
+            "GRADER_RECORD",
+            "CAPABILITY_PROBE"
+          ]
+        },
+        "ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "nativeSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capture_artifact_id",
+        "selector_kind",
+        "json_pointer",
+        "byte_range",
+        "digest_basis",
+        "selected_value_sha256",
+        "evidence_ref"
+      ],
+      "properties": {
+        "capture_artifact_id": { "type": "string", "pattern": "^NA_[0-9a-f]{32}$" },
+        "selector_kind": {
+          "enum": ["JSON_POINTER", "BYTE_RANGE", "EXIT_STATUS", "ARTIFACT_DIGEST", "WHOLE_ARTIFACT"]
+        },
+        "json_pointer": {
+          "oneOf": [
+            { "$ref": "#/$defs/jsonPointer" },
+            { "type": "null" }
+          ]
+        },
+        "byte_range": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["start_inclusive", "end_exclusive"],
+              "properties": {
+                "start_inclusive": { "type": "integer", "minimum": 0 },
+                "end_exclusive": { "type": "integer", "minimum": 0 }
+              }
+            },
+            { "type": "null" }
+          ]
+        },
+        "digest_basis": { "enum": ["EXACT_BYTES", "RFC8785_JSON_VALUE", "SCALAR_TEXT", "EXIT_STATUS"] },
+        "selected_value_sha256": { "$ref": "#/$defs/sha256" },
+        "evidence_ref": { "$ref": "#/$defs/runtimeEvidence" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "selector_kind": { "const": "JSON_POINTER" } } },
+          "then": {
+            "properties": {
+              "json_pointer": { "$ref": "#/$defs/jsonPointer" },
+              "byte_range": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "selector_kind": { "const": "BYTE_RANGE" } } },
+          "then": {
+            "properties": {
+              "json_pointer": { "type": "null" },
+              "byte_range": { "type": "object" }
+            }
+          }
+        }
+      ]
+    },
+    "mechanicalTransform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transform_kind", "transform_ref", "parameters_canonical_json_sha256", "lossless"],
+      "properties": {
+        "transform_kind": {
+          "enum": ["FIELD_RENAME", "TOTAL_ENUM_LOOKUP", "LOSSLESS_TYPE_CAST", "TRANSPORT_DECODE"]
+        },
+        "transform_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "parameters_canonical_json_sha256": { "$ref": "#/$defs/sha256" },
+        "lossless": { "const": true }
+      }
+    },
+    "fieldMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_id",
+        "origin",
+        "mapping_status",
+        "value_canonical_json_sha256",
+        "native_sources",
+        "independent_evidence_refs",
+        "mechanical_transform",
+        "reason",
+        "loss_disclosure_ids"
+      ],
+      "properties": {
+        "mapping_id": { "type": "string", "pattern": "^MP_[0-9a-f]{32}$" },
+        "origin": {
+          "enum": [
+            "NATIVE",
+            "MECHANICALLY_MAPPED",
+            "HARNESS_SUPPLIED",
+            "UNSUPPORTED",
+            "UNMAPPABLE"
+          ]
+        },
+        "mapping_status": { "enum": ["MAPPED", "UNSUPPORTED", "UNMAPPABLE"] },
+        "value_canonical_json_sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "native_sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/nativeSource" }
+        },
+        "independent_evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/runtimeEvidence" }
+        },
+        "mechanical_transform": {
+          "oneOf": [
+            { "$ref": "#/$defs/mechanicalTransform" },
+            { "type": "null" }
+          ]
+        },
+        "reason": { "type": ["string", "null"] },
+        "loss_disclosure_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^LS_[0-9a-f]{32}$" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "origin": { "const": "NATIVE" } } },
+          "then": {
+            "properties": {
+              "mapping_status": { "const": "MAPPED" },
+              "value_canonical_json_sha256": { "$ref": "#/$defs/sha256" },
+              "native_sources": { "minItems": 1 },
+              "mechanical_transform": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "MECHANICALLY_MAPPED" } } },
+          "then": {
+            "properties": {
+              "mapping_status": { "const": "MAPPED" },
+              "value_canonical_json_sha256": { "$ref": "#/$defs/sha256" },
+              "native_sources": { "minItems": 1 },
+              "mechanical_transform": { "$ref": "#/$defs/mechanicalTransform" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "HARNESS_SUPPLIED" } } },
+          "then": {
+            "properties": {
+              "mapping_status": { "const": "MAPPED" },
+              "value_canonical_json_sha256": { "$ref": "#/$defs/sha256" },
+              "native_sources": { "maxItems": 0 },
+              "mechanical_transform": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "UNSUPPORTED" } } },
+          "then": {
+            "properties": {
+              "mapping_status": { "const": "UNSUPPORTED" },
+              "value_canonical_json_sha256": { "type": "null" },
+              "native_sources": { "maxItems": 0 },
+              "mechanical_transform": { "type": "null" },
+              "reason": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "UNMAPPABLE" } } },
+          "then": {
+            "properties": {
+              "mapping_status": { "const": "UNMAPPABLE" },
+              "value_canonical_json_sha256": { "type": "null" },
+              "native_sources": { "minItems": 1 },
+              "mechanical_transform": { "type": "null" },
+              "reason": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "authorityBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_claim",
+        "selection_authority",
+        "promotion_authority",
+        "main_merge_authority",
+        "production_authority"
+      ],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "promotion_authority": { "const": "NONE" },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false }
+      }
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aofspds.example/schemas/byul/holdout_oracle_bridge.v1.json",
+  "title": "Byul private holdout to core CASE_KEY oracle identity bridge v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bridge_id",
+    "experiment_id",
+    "opaque_case_id",
+    "source",
+    "target",
+    "transformation",
+    "audit",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "bridge_id": { "type": "string", "pattern": "^HB-[A-F0-9]{16,64}$" },
+    "experiment_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "opaque_case_id": { "type": "string", "pattern": "^HC-[A-F0-9]{16,64}$" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "private_manifest_id",
+        "private_manifest_canonical_sha256",
+        "case_array_index",
+        "case_key_json_pointer",
+        "case_key",
+        "case_key_canonical_sha256"
+      ],
+      "properties": {
+        "private_manifest_id": {
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9._-]{7,127}$"
+        },
+        "private_manifest_canonical_sha256": { "$ref": "#/$defs/sha256" },
+        "case_array_index": { "type": "integer", "minimum": 0 },
+        "case_key_json_pointer": {
+          "type": "string",
+          "pattern": "^/cases/[0-9]+/oracle/case_key$"
+        },
+        "case_key": {
+          "allOf": [
+            { "$ref": "../../protocol/schemas/oracle.schema.json" },
+            {
+              "properties": {
+                "oracle_kind": { "const": "CASE_KEY" },
+                "dummy_fixture": { "type": "null" }
+              },
+              "required": ["oracle_kind", "dummy_fixture"]
+            }
+          ]
+        },
+        "case_key_canonical_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oracle_id",
+        "oracle_kind",
+        "sealed_artifact_ref",
+        "exact_bytes_sha256",
+        "exact_byte_length",
+        "media_type"
+      ],
+      "properties": {
+        "oracle_id": { "type": "string", "pattern": "^OR_[0-9a-f]{32}$" },
+        "oracle_kind": { "const": "CASE_KEY" },
+        "sealed_artifact_ref": { "$ref": "#/$defs/sealedArtifactRef" },
+        "exact_bytes_sha256": { "$ref": "#/$defs/sha256" },
+        "exact_byte_length": { "type": "integer", "minimum": 1 },
+        "media_type": { "const": "application/json" }
+      }
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "ordered_steps",
+        "output_encoding",
+        "semantic_mutation_allowed",
+        "field_drop_allowed",
+        "field_add_allowed"
+      ],
+      "properties": {
+        "algorithm": { "const": "IDENTITY_JCS_EXTRACT_V1" },
+        "ordered_steps": {
+          "const": [
+            "RESOLVE_PRIVATE_MANIFEST_EXACT_BYTES",
+            "VALIDATE_PRIVATE_MANIFEST_SCHEMA",
+            "RESOLVE_CASE_BY_INDEX_AND_OPAQUE_CASE_ID",
+            "EXTRACT_ORACLE_CASE_KEY_JSON_POINTER",
+            "VALIDATE_CORE_ORACLE_SCHEMA_AND_CASE_KEY_KIND",
+            "RFC8785_JCS_ENCODE_UTF8_NO_BOM_NO_TRAILING_BYTES",
+            "SHA256_EXACT_OUTPUT_BYTES",
+            "SEAL_EXACT_OUTPUT_BYTES"
+          ]
+        },
+        "output_encoding": { "const": "RFC8785_JCS_UTF8_NO_BOM_NO_TRAILING_BYTES" },
+        "semantic_mutation_allowed": { "const": false },
+        "field_drop_allowed": { "const": false },
+        "field_add_allowed": { "const": false }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "auditor_role_id",
+        "audited_at",
+        "source_manifest_schema_valid",
+        "source_case_key_schema_valid",
+        "target_case_key_schema_valid",
+        "opaque_case_id_matches",
+        "oracle_id_matches",
+        "stimulus_ref_matches_candidate_input",
+        "derivation_vocabulary_exact",
+        "canonical_source_target_digest_equal",
+        "status",
+        "audit_evidence_digest_sha256"
+      ],
+      "properties": {
+        "auditor_role_id": { "type": "string", "minLength": 8, "maxLength": 160 },
+        "audited_at": { "type": "string", "format": "date-time" },
+        "source_manifest_schema_valid": { "const": true },
+        "source_case_key_schema_valid": { "const": true },
+        "target_case_key_schema_valid": { "const": true },
+        "opaque_case_id_matches": { "const": true },
+        "oracle_id_matches": { "const": true },
+        "stimulus_ref_matches_candidate_input": { "const": true },
+        "derivation_vocabulary_exact": { "const": true },
+        "canonical_source_target_digest_equal": { "const": true },
+        "status": { "const": "PASS" },
+        "audit_evidence_digest_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_claim",
+        "selection_authority",
+        "main_merge_authority",
+        "production_authority"
+      ],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sealedArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "store_object_id",
+        "version_id",
+        "sha256",
+        "byte_length",
+        "immutability"
+      ],
+      "properties": {
+        "store_object_id": { "type": "string", "minLength": 8, "maxLength": 240 },
+        "version_id": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 1 },
+        "immutability": { "const": "ACL_SEALED_OBJECT" }
+      }
+    }
+  }
+}

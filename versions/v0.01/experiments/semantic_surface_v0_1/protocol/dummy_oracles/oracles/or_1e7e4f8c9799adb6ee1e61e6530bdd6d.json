@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1", "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_1e7e4f8c9799adb6ee1e61e6530bdd6d", "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_694b98d7e6847e3f259b8e925ed219fd",
+  "stimulus_ref": { "ref_id": "RF_462f1b7f2e4d43b762fe1081867ce582", "locator": "dummy_oracles/stimuli/st_694b98d7e6847e3f259b8e925ed219fd.json", "sha256": "21eb7fa99de371308cddced7855a62a04a956ba7f1580b14b4ad8fd197c0e48a", "byte_length": 853, "media_type": "application/json", "immutability": "CONTENT_ADDRESS" },
+  "axis_applicability": { "resolution": true, "decision": false, "recoverability": true, "plan_status": false },
+  "allowed_outcome_tuples": [{ "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "PARTIAL", "plan_status": "NOT_REQUESTED" }],
+  "required_claims": [{ "claim_id": "RQ_865246cdd49239a8801b7bc7e11e4169", "target_json_pointer": "/losses", "predicate": { "operator": "RETAINS_NATIVE_RECORD", "expected_value": "loss_c9" }, "evidence_standard": "NATIVE_POINTER", "allowed_mapping_origins": ["NATIVE", "MECHANICALLY_MAPPED"] }],
+  "forbidden_behaviors": [{ "behavior_id": "FB_f28744f67f6f24b256cf9476e9399665", "rule_code": "ADAPTER_ERASED_LOSS", "description": "A native loss record cannot disappear from the observation." }],
+  "derivation_records": [{ "derivation_id": "DR_6b85abdceb4a91d446d24dc824d8dbc0", "basis_class": "EXPERIMENTAL_CONVENTION", "statement": "This vector tests mapping monotonicity for an explicit native byte loss.", "evidence_refs": [] }],
+  "scoreability_rule": { "scoreable_run_states": ["OBSERVED"], "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"] },
+  "dummy_fixture": {
+    "profile": "ERASED_LOSS",
+    "native_emission": { "media_type": "application/json", "content_encoding": "UTF-8", "content_base64": "eyJsb3NzZXMiOlt7ImlkIjoibG9zc19jOSIsImtpbmQiOiJCWVRFIiwiZGV0YWlsIjoibGluZSBlbmRpbmcgcmVtb3ZlZCJ9XSwib3V0Y29tZSI6eyJyZXNvbHV0aW9uIjoiUkVTT0xWRUQiLCJkZWNpc2lvbiI6Ik5PVF9BUFBMSUNBQkxFIiwicmVjb3ZlcmFiaWxpdHkiOiJQQVJUSUFMIiwicGxhbl9zdGF0dXMiOiJOT1RfUkVRVUVTVEVEIn19", "byte_length": 195, "actual_sha256": "a7c32bb235fa98f3fa212a6dfe15e2f6a303fa76d431893203dde8a31633fe15", "capture_declared_sha256": "a7c32bb235fa98f3fa212a6dfe15e2f6a303fa76d431893203dde8a31633fe15", "exit_code": 0 },
+    "adapter_projection": { "outcome": { "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "PARTIAL", "plan_status": "NOT_REQUESTED" }, "claim_ids": [], "conflict_ids": [], "unknown_ids": [], "loss_ids": [], "native_digest_seen": "a7c32bb235fa98f3fa212a6dfe15e2f6a303fa76d431893203dde8a31633fe15", "ref_tokens": { "spec": "TK_84f155c8eb305dfc02c109f2d7334c18", "harness": "TK_3370c5dcebd8140d214513103f9672f8", "candidate": "TK_34490be14352b8668fe377215a05a61a", "adapter": "TK_d7b07dc333dd615abc391edea8651a8e", "environment": "TK_e595bef23138c174edc1a0c39ee18913", "resource": "TK_5cf8d730eafafce607b36b695c7a263c", "stimulus": "TK_de68c9f010078f898e6bab418357d14a", "oracle": "TK_71aac4e56fcd81b3f5e3d68d9d4e0d8e" } },
+    "forced_run_state": "INVALID", "expected_mechanical_disposition": "REJECT", "expected_semantic_disposition": "NOT_EVALUATED", "expected_scoreability": "NON_SCOREABLE", "expected_reason_codes": ["ADAPTER_ERASED_LOSS"]
+  },
+  "authority_boundary": { "validation_claim": "NONE", "selection_authority": "NONE", "promotion_authority": "NONE", "main_merge_authority": false, "production_authority": false }
+}

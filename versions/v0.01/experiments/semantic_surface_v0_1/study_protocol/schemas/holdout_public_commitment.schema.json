@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aofspds.example/schemas/byul/holdout_public_commitment.v1.json",
+  "title": "Byul Holdout Public Commitment v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "commitment_id",
+    "experiment_id",
+    "state",
+    "created_at",
+    "canonicalization",
+    "hash_algorithm",
+    "commitment_context",
+    "commitment_preimage_contract",
+    "commitment_digest_sha256",
+    "salt_disclosed",
+    "plaintext_holdout_present",
+    "primary_case_count",
+    "reserve_case_count",
+    "family_counts",
+    "balance_counts",
+    "novel_primary_count",
+    "expectation_pair_count",
+    "private_manifest_schema_digest_sha256",
+    "balance_projection_canonical_sha256",
+    "access_log_genesis_event_digest_sha256",
+    "access_log_head_commitment_sha256",
+    "witness"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "commitment_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{7,127}$"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "state": {
+      "const": "COMMITTED_PRE_CANDIDATE"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "canonicalization": {
+      "const": "RFC8785_JCS_UTF8"
+    },
+    "hash_algorithm": {
+      "const": "SHA-256"
+    },
+    "commitment_context": {
+      "const": "BYUL-HOLDOUT-v0.1"
+    },
+    "commitment_preimage_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_prefix_utf8",
+        "nul_separator_hex",
+        "salt_min_bytes",
+        "bundle_encoding",
+        "formula"
+      ],
+      "properties": {
+        "context_prefix_utf8": { "const": "BYUL-HOLDOUT-v0.1" },
+        "nul_separator_hex": { "const": "00" },
+        "salt_min_bytes": { "const": 32 },
+        "bundle_encoding": { "const": "RFC8785_JCS_UTF8_NO_BOM_NO_TRAILING_BYTES" },
+        "formula": {
+          "const": "SHA256(UTF8(context_prefix_utf8)||0x00||salt_bytes||canonical_private_bundle_index_bytes)"
+        }
+      }
+    },
+    "commitment_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "salt_disclosed": {
+      "const": false
+    },
+    "plaintext_holdout_present": {
+      "const": false
+    },
+    "primary_case_count": {
+      "type": "integer",
+      "minimum": 8
+    },
+    "reserve_case_count": {
+      "type": "integer",
+      "minimum": 4
+    },
+    "family_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AUTHORITY_CONFLICT",
+        "PRESERVATION_LOSS",
+        "LIFECYCLE_IDENTITY",
+        "RECONSTRUCTION_INVALIDATION"
+      ],
+      "properties": {
+        "AUTHORITY_CONFLICT": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "PRESERVATION_LOSS": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "LIFECYCLE_IDENTITY": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "RECONSTRUCTION_INVALIDATION": {
+          "type": "integer",
+          "minimum": 2
+        }
+      }
+    },
+    "balance_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "EXECUTION_REQUIRED",
+        "REFUSAL_REQUIRED",
+        "RESOLVABLE",
+        "UNRESOLVED",
+        "RAW_EVIDENCE",
+        "STRUCTURED"
+      ],
+      "properties": {
+        "EXECUTION_REQUIRED": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "REFUSAL_REQUIRED": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "RESOLVABLE": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "UNRESOLVED": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "RAW_EVIDENCE": {
+          "type": "integer",
+          "minimum": 4
+        },
+        "STRUCTURED": {
+          "type": "integer",
+          "minimum": 4
+        }
+      }
+    },
+    "novel_primary_count": {
+      "type": "integer",
+      "minimum": 4
+    },
+    "expectation_pair_count": {
+      "type": "integer",
+      "minimum": 4
+    },
+    "private_manifest_schema_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "balance_projection_canonical_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "access_log_genesis_event_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "access_log_head_commitment_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "witness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "witness_type",
+        "receipt_digest_sha256",
+        "witnessed_at"
+      ],
+      "properties": {
+        "witness_type": {
+          "enum": [
+            "EXTERNAL_TIMESTAMP",
+            "INDEPENDENT_SIGNED_RECEIPT"
+          ]
+        },
+        "receipt_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "witnessed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

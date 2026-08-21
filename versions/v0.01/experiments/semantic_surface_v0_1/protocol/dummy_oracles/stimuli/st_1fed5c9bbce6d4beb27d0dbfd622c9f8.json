@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.1",
+  "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "stimulus_id": "ST_1fed5c9bbce6d4beb27d0dbfd622c9f8",
+  "input_blobs": [
+    {
+      "input_id": "IN_856bbb34d5df19544996a4c860d9f0a7",
+      "media_type": "application/json",
+      "content_encoding": "UTF-8",
+      "transfer_encoding": "BASE64",
+      "sha256": "f624df7520db664e2c8fbfd8841e3524d5ea985857c095adcff586865b939992",
+      "byte_length": 47,
+      "source": "INLINE",
+      "content_base64": "eyJmYWN0cyI6eyJtMiI6Ino4In0sInJlcXVlc3QiOnsibG9va3VwIjoibTIifX0=",
+      "artifact_ref": null
+    }
+  ],
+  "invocation": {
+    "dispatch_token": "OP_94ee6f43405c48d3d42743c212210e1e",
+    "transport": "STDIN",
+    "ordered_input_ids": ["IN_856bbb34d5df19544996a4c860d9f0a7"]
+  }
+}

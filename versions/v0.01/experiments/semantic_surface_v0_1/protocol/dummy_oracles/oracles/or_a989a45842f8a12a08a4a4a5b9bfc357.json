@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1", "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_a989a45842f8a12a08a4a4a5b9bfc357", "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_70c20c9a9c0282f4ee3333d5b464cf60",
+  "stimulus_ref": { "ref_id": "RF_b9c9da16a6f450b923b8d3387424551a", "locator": "dummy_oracles/stimuli/st_70c20c9a9c0282f4ee3333d5b464cf60.json", "sha256": "b1cc763fe9de5666c8c7b92d0c2853e30e9ccbd8bfcb729c6e34d9823e131e0f", "byte_length": 780, "media_type": "application/json", "immutability": "CONTENT_ADDRESS" },
+  "axis_applicability": { "resolution": true, "decision": false, "recoverability": false, "plan_status": false },
+  "allowed_outcome_tuples": [{ "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }],
+  "required_claims": [],
+  "forbidden_behaviors": [{ "behavior_id": "FB_b06e2ba8bcb2f9ba08b7b7606dda8079", "rule_code": "STOPPED_RUN_SCORED", "description": "A controller-stopped attempt must remain non-scoreable." }],
+  "derivation_records": [{ "derivation_id": "DR_0d9a10480398179935a1b265861ef366", "basis_class": "EXPERIMENTAL_CONVENTION", "statement": "This vector forces a controller stop before semantic evaluation.", "evidence_refs": [] }],
+  "scoreability_rule": { "scoreable_run_states": ["OBSERVED"], "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"] },
+  "dummy_fixture": { "profile": "STOPPED_RUN", "native_emission": null, "adapter_projection": null, "forced_run_state": "STOPPED", "expected_mechanical_disposition": "PRESERVE_NON_SCOREABLE", "expected_semantic_disposition": "NOT_EVALUATED", "expected_scoreability": "NON_SCOREABLE", "expected_reason_codes": ["CONTROLLER_STOP"] },
+  "authority_boundary": { "validation_claim": "NONE", "selection_authority": "NONE", "promotion_authority": "NONE", "main_merge_authority": false, "production_authority": false }
+}

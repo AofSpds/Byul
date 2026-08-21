@@ -1,0 +1,92 @@
+{
+  "protocol_version": "0.1.0",
+  "candidate_id": "C0",
+  "role": "ARCHIVAL_CALIBRATION_ONLY",
+  "status": "FROZEN_HISTORICAL_SPECIMEN",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "comparison_eligibility": {
+    "winner_claim": false,
+    "dominance_claim": false,
+    "pareto_membership": false,
+    "candidate_narrowing": false,
+    "c3_trigger_evidence": false,
+    "permitted_use": [
+      "HISTORICAL_COVERAGE_CALIBRATION",
+      "HISTORICAL_DISTANCE_MEASUREMENT",
+      "KNOWN_LIMITATION_CONFIRMATION"
+    ]
+  },
+  "implementation_pin": {
+    "repository": "AofSpds/Byul",
+    "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "path": "versions/v0.1/src/byul_v01.py",
+    "blob": "467396287fa5a1c699b89485348080efac9f7b0e"
+  },
+  "contract_pin": {
+    "repository": "AofSpds/Byul",
+    "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "path": "versions/v0.1/MODEL_CONTRACT.md",
+    "blob": "8b7fb404c41a13e09de55d3adac8d309bf0352e3"
+  },
+  "test_pin": {
+    "repository": "AofSpds/Byul",
+    "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "path": "versions/v0.1/tests/test_byul_v01.py",
+    "blob": "a39f5d3bdd91e865fdd3c98f17b688d7533df7a1"
+  },
+  "execution_pin": {
+    "detached_worktree_commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "source_data_commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "source_root": "versions/v0.01/memory",
+    "source_tree": "4bc7bb202a498a13c6ea1a76d676a790537a586e",
+    "loader_behavior": "SORTED_GLOB_ALL_MARKDOWN_FILES",
+    "expected_document_count": 19,
+    "external_memory_root_override": false
+  },
+  "embedded_baseline_mismatch": {
+    "code_constant_name": "SOURCE_BASELINE_COMMIT",
+    "code_declared_value": "2a4529b69bc237125a1f012835d7a9b78ce3fec9",
+    "actual_pinned_source_data_commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "required_interpretation": "PRESERVE_AS_ARCHIVAL_LIMITATION_DO_NOT_PATCH",
+    "forbidden_interpretation": "TREAT_CODE_CONSTANT_AS_ACTUAL_EXECUTION_CORPUS_PIN"
+  },
+  "source_blob_manifest": [
+    {"path": "versions/v0.01/memory/00_CHANNEL_AND_METHOD.md", "blob": "f71c4f0a8986912be99d04b9ef9e071e4d002d69"},
+    {"path": "versions/v0.01/memory/01_OWNER_WORLDVIEW_CURRENT.md", "blob": "539736e4292f20a720166dc499ae1bb0c9795a30"},
+    {"path": "versions/v0.01/memory/02_CAUSAL_SET_LEARNING.md", "blob": "ba663cc8c91ee85b0feee2cd59d51b8b9520977e"},
+    {"path": "versions/v0.01/memory/03_MODEL_FAMILY_AND_COMPLEMENTARITY.md", "blob": "4e5a69473454c4ad184f8ce65993bdd1139ce8b8"},
+    {"path": "versions/v0.01/memory/04_ROUTING_AND_LIFECYCLE.md", "blob": "05794d213ef52b439240bd600fbb988a77de1313"},
+    {"path": "versions/v0.01/memory/05_SIMULATION_AND_COMMITTEE.md", "blob": "0cc8006ec797f225da5ab60eb5962c31ef6c2719"},
+    {"path": "versions/v0.01/memory/06_MI1_INITIALIZATION_TARGET.md", "blob": "83f5c0ef85121e819c2570ec7d2163302f87bc6a"},
+    {"path": "versions/v0.01/memory/07_OPEN_QUESTIONS_AND_NEXT_JOBS.md", "blob": "d6b4c3f4a6793cb953f18dfe85db80726996e62a"},
+    {"path": "versions/v0.01/memory/08_CHANNEL_CHRONOLOGY.md", "blob": "6af7d5315b2c16c193d8708f463642d8bf2b1723"},
+    {"path": "versions/v0.01/memory/09_VERSION_POLICY.md", "blob": "be5c8e7f785c5df54004e675f92193a3d3f4dd96"},
+    {"path": "versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md", "blob": "386b5f94065e9a6ac0d881f01dc6a520d49d5600"},
+    {"path": "versions/v0.01/memory/11_CORE_PRINCIPLES.md", "blob": "9f75ccc1d30499ae1dd0a60ef920c4e48f10f6a0"},
+    {"path": "versions/v0.01/memory/12_PARALLEL_PROPOSAL_ROUND1.md", "blob": "9792a1d3bcc3b9389517bbc30fb9ba8cadf3275c"},
+    {"path": "versions/v0.01/memory/13_ROUND1_ACCIDENTAL_IMPLEMENTATION_INCIDENT.md", "blob": "4505dcc932053d2d398a99950b35de7b83277fa6"},
+    {"path": "versions/v0.01/memory/14_ROUND1_RERUN_SAFETY_CORRECTION.md", "blob": "78017ed909b8ce9421f0cfa2f25a3e64d5535aaa"},
+    {"path": "versions/v0.01/memory/15_ROUND1_CLEAN_RERUN_EOL_HASH_GATE_CORRECTION.md", "blob": "9c994bc00adea853af8d0543837de55ac871ae34"},
+    {"path": "versions/v0.01/memory/15_ROUND1_CLEAN_RERUN_LAUNCHED_9_WORKERS.md", "blob": "ac3edc9cae364a56a60a1c94fcf386f26c537230"},
+    {"path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md", "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb"},
+    {"path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md", "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0"}
+  ],
+  "adapter_freeze": {
+    "required_before_any_calibration_run": true,
+    "current_adapter_ref": null,
+    "null_meaning": "NOT_CREATED_AND_RUN_BLOCKED",
+    "semantic_repair_forbidden": true,
+    "unsupported_native_capability_must_remain": "UNSUPPORTED"
+  },
+  "run_rules": [
+    "VERIFY_EVERY_PIN_BEFORE_PROCESS_START",
+    "RUN_ONLY_IN_DETACHED_EXECUTION_TREE",
+    "PRESERVE_NATIVE_BYTES_AND_ARCHIVAL_METADATA_VERBATIM",
+    "DO_NOT_PATCH_CODE_CONTRACT_TESTS_OR_DATA",
+    "DO_NOT_INCLUDE_C0_IN_C1_C2_COMPARATIVE_RELATIONS",
+    "DO_NOT_USE_C0_TO_TRIGGER_C3"
+  ],
+  "pin_failure_route": "BLOCKED_C0_ARCHIVAL_PIN_MISMATCH"
+}

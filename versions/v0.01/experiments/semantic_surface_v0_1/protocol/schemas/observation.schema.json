@@ -1,0 +1,709 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/observation.schema.json",
+  "title": "Semantic Surface v0.1 candidate-neutral observation envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "observation_id",
+    "run_id",
+    "attempt_id",
+    "candidate_alias",
+    "run_manifest_ref",
+    "run_state_ref",
+    "stimulus_ref",
+    "native_capture_ref",
+    "native_capture_id",
+    "run_status",
+    "scoreability",
+    "native_payload_digests",
+    "mapping_receipt_refs",
+    "outcome",
+    "semantic_claims",
+    "conflicts",
+    "unknowns",
+    "losses",
+    "action_record",
+    "plan_record",
+    "produced_artifacts",
+    "reconstruction_evidence",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "observation_id": { "type": "string", "pattern": "^OB_[0-9a-f]{32}$" },
+    "run_id": { "type": "string", "pattern": "^RN_[0-9a-f]{32}$" },
+    "attempt_id": { "type": "string", "pattern": "^AT_[0-9a-f]{32}$" },
+    "candidate_alias": { "type": "string", "pattern": "^CA_[0-9a-f]{32}$" },
+    "run_manifest_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "run_state_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "stimulus_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "native_capture_ref": {
+      "oneOf": [
+        { "$ref": "#/$defs/immutableArtifactRef" },
+        { "type": "null" }
+      ]
+    },
+    "native_capture_id": {
+      "oneOf": [
+        { "type": "string", "pattern": "^NC_[0-9a-f]{32}$" },
+        { "type": "null" }
+      ]
+    },
+    "run_status": {
+      "enum": [
+        "OBSERVED",
+        "BLOCKED",
+        "STOPPED",
+        "CONTAMINATED",
+        "INVALID",
+        "INCOMPLETE",
+        "BUDGET_EXHAUSTED"
+      ]
+    },
+    "scoreability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason_codes", "evidence_refs"],
+      "properties": {
+        "status": { "enum": ["ELIGIBLE_PENDING_GATES", "NON_SCOREABLE"] },
+        "reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        }
+      }
+    },
+    "native_payload_digests": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "sha256"],
+        "properties": {
+          "artifact_id": { "type": "string", "pattern": "^NA_[0-9a-f]{32}$" },
+          "sha256": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "mapping_receipt_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["receipt_id", "ref"],
+        "properties": {
+          "receipt_id": { "type": "string", "pattern": "^MR_[0-9a-f]{32}$" },
+          "ref": { "$ref": "#/$defs/immutableArtifactRef" }
+        }
+      }
+    },
+    "outcome": {
+      "oneOf": [
+        { "$ref": "#/$defs/outcomeTuple" },
+        { "type": "null" }
+      ]
+    },
+    "semantic_claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/semanticClaim" }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/conflictRecord" }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/unknownRecord" }
+    },
+    "losses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lossRecord" }
+    },
+    "action_record": {
+      "oneOf": [
+        { "$ref": "#/$defs/actionRecord" },
+        { "type": "null" }
+      ]
+    },
+    "plan_record": {
+      "oneOf": [
+        { "$ref": "#/$defs/planRecord" },
+        { "type": "null" }
+      ]
+    },
+    "produced_artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/immutableArtifactRef" }
+    },
+    "reconstruction_evidence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "authority_boundary": { "$ref": "#/$defs/authorityBoundary" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "run_status": { "const": "OBSERVED" } }, "required": ["run_status"] },
+      "then": {
+        "properties": {
+          "scoreability": {
+            "properties": {
+              "status": { "const": "ELIGIBLE_PENDING_GATES" },
+              "reason_codes": { "maxItems": 0 },
+              "evidence_refs": { "maxItems": 0 }
+            }
+          },
+          "outcome": { "$ref": "#/$defs/outcomeTuple" },
+          "native_capture_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+          "native_capture_id": { "type": "string", "pattern": "^NC_[0-9a-f]{32}$" },
+          "native_payload_digests": { "minItems": 1 },
+          "mapping_receipt_refs": { "minItems": 1 }
+        }
+      },
+      "else": {
+        "properties": {
+          "scoreability": {
+            "properties": {
+              "status": { "const": "NON_SCOREABLE" },
+              "reason_codes": { "minItems": 1 },
+              "evidence_refs": { "minItems": 1 }
+            }
+          },
+          "outcome": { "type": "null" },
+          "semantic_claims": { "maxItems": 0 },
+          "conflicts": { "maxItems": 0 },
+          "unknowns": { "maxItems": 0 },
+          "losses": { "maxItems": 0 },
+          "action_record": { "type": "null" },
+          "plan_record": { "type": "null" },
+          "produced_artifacts": { "maxItems": 0 },
+          "reconstruction_evidence": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "resolution": { "const": "CONFLICT" } },
+            "required": ["resolution"]
+          }
+        }
+      },
+      "then": { "properties": { "conflicts": { "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "resolution": { "const": "UNKNOWN" } },
+            "required": ["resolution"]
+          }
+        }
+      },
+      "then": { "properties": { "unknowns": { "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "recoverability": { "const": "PARTIAL" } },
+            "required": ["recoverability"]
+          }
+        }
+      },
+      "then": { "properties": { "losses": { "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "recoverability": { "const": "EXACT" } },
+            "required": ["recoverability"]
+          }
+        }
+      },
+      "then": { "properties": { "reconstruction_evidence": { "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "recoverability": { "const": "NON_RECOVERABLE" } },
+            "required": ["recoverability"]
+          }
+        }
+      },
+      "then": { "properties": { "reconstruction_evidence": { "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "decision": { "enum": ["EXECUTE", "REVIEW", "REFUSE"] } },
+            "required": ["decision"]
+          }
+        }
+      },
+      "then": { "properties": { "action_record": { "$ref": "#/$defs/actionRecord" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "decision": { "const": "EXECUTE" } },
+            "required": ["decision"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action_record": {
+            "allOf": [
+              { "$ref": "#/$defs/actionRecord" },
+              { "properties": { "posture": { "const": "EXECUTE" } } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "decision": { "const": "REVIEW" } },
+            "required": ["decision"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action_record": {
+            "allOf": [
+              { "$ref": "#/$defs/actionRecord" },
+              { "properties": { "posture": { "const": "REVIEW" } } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "decision": { "const": "REFUSE" } },
+            "required": ["decision"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action_record": {
+            "allOf": [
+              { "$ref": "#/$defs/actionRecord" },
+              { "properties": { "posture": { "const": "REFUSE" } } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "decision": { "const": "NOT_APPLICABLE" } },
+            "required": ["decision"]
+          }
+        }
+      },
+      "then": { "properties": { "action_record": { "type": "null" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "plan_status": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "UNKNOWN"] } },
+            "required": ["plan_status"]
+          }
+        }
+      },
+      "then": { "properties": { "plan_record": { "$ref": "#/$defs/planRecord" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "plan_status": { "const": "SAFE_PLAN" } },
+            "required": ["plan_status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "plan_record": {
+            "allOf": [
+              { "$ref": "#/$defs/planRecord" },
+              {
+                "properties": {
+                  "status": { "const": "SAFE_PLAN" },
+                  "plan_artifact_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "plan_status": { "const": "NO_SAFE_PLAN" } },
+            "required": ["plan_status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "plan_record": {
+            "allOf": [
+              { "$ref": "#/$defs/planRecord" },
+              {
+                "properties": {
+                  "status": { "const": "NO_SAFE_PLAN" },
+                  "plan_artifact_ref": { "type": "null" }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "plan_status": { "const": "UNKNOWN" } },
+            "required": ["plan_status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "plan_record": {
+            "allOf": [
+              { "$ref": "#/$defs/planRecord" },
+              {
+                "properties": {
+                  "status": { "const": "UNKNOWN" },
+                  "plan_artifact_ref": { "type": "null" }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "type": "object",
+            "properties": { "plan_status": { "const": "NOT_REQUESTED" } },
+            "required": ["plan_status"]
+          }
+        }
+      },
+      "then": { "properties": { "plan_record": { "type": "null" } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "jsonPointer": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "locator",
+        "sha256",
+        "byte_length",
+        "media_type",
+        "immutability"
+      ],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": {
+          "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"]
+        }
+      }
+    },
+    "nativePointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capture_artifact_id", "selector_kind", "selector"],
+      "properties": {
+        "capture_artifact_id": { "type": "string", "pattern": "^NA_[0-9a-f]{32}$" },
+        "selector_kind": {
+          "enum": ["JSON_POINTER", "BYTE_RANGE", "EXIT_STATUS", "ARTIFACT_DIGEST", "WHOLE_ARTIFACT"]
+        },
+        "selector": { "type": "string", "minLength": 1 }
+      }
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "kind", "ref", "native_pointer", "description"],
+      "properties": {
+        "evidence_id": { "type": "string", "pattern": "^EV_[0-9a-f]{32}$" },
+        "kind": {
+          "enum": [
+            "NATIVE_POINTER",
+            "RUNTIME_ARTIFACT",
+            "STIMULUS_BYTES",
+            "HARNESS_EVENT",
+            "EXTERNAL_PIN",
+            "CAPABILITY_PROBE"
+          ]
+        },
+        "ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "native_pointer": {
+          "oneOf": [
+            { "$ref": "#/$defs/nativePointer" },
+            { "type": "null" }
+          ]
+        },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "outcomeTuple": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolution", "decision", "recoverability", "plan_status"],
+      "properties": {
+        "resolution": { "enum": ["RESOLVED", "CONFLICT", "UNKNOWN", "NOT_APPLICABLE"] },
+        "decision": { "enum": ["EXECUTE", "REVIEW", "REFUSE", "NOT_APPLICABLE"] },
+        "recoverability": {
+          "enum": ["EXACT", "PARTIAL", "NON_RECOVERABLE", "UNKNOWN", "NOT_APPLICABLE"]
+        },
+        "plan_status": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "UNKNOWN", "NOT_REQUESTED"] }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "properties": {
+              "decision": { "const": "EXECUTE" },
+              "plan_status": { "enum": ["NO_SAFE_PLAN", "UNKNOWN"] }
+            },
+            "required": ["decision", "plan_status"]
+          },
+          {
+            "properties": {
+              "decision": { "const": "REFUSE" },
+              "plan_status": { "const": "SAFE_PLAN" }
+            },
+            "required": ["decision", "plan_status"]
+          }
+        ]
+      }
+    },
+    "semanticClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "field_path", "value", "evidence_refs"],
+      "properties": {
+        "claim_id": { "type": "string", "pattern": "^CL_[0-9a-f]{32}$" },
+        "field_path": { "$ref": "#/$defs/jsonPointer" },
+        "value": {},
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        }
+      }
+    },
+    "conflictRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict_id",
+        "conflict_kind",
+        "subject",
+        "scope",
+        "claim_evidence_refs",
+        "retained",
+        "description"
+      ],
+      "properties": {
+        "conflict_id": { "type": "string", "pattern": "^CF_[0-9a-f]{32}$" },
+        "conflict_kind": {
+          "enum": [
+            "DIRECT_INCOMPATIBILITY",
+            "SCOPE_AMBIGUITY",
+            "PRECEDENCE_AMBIGUITY",
+            "POLICY_CONFLICT",
+            "OTHER"
+          ]
+        },
+        "subject": { "type": "string", "minLength": 1 },
+        "scope": { "type": ["string", "null"] },
+        "claim_evidence_refs": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        },
+        "retained": { "const": true },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "unknownRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unknown_id", "unknown_kind", "subject", "missing_elements", "evidence_refs"],
+      "properties": {
+        "unknown_id": { "type": "string", "pattern": "^UN_[0-9a-f]{32}$" },
+        "unknown_kind": {
+          "enum": [
+            "MISSING_EVIDENCE",
+            "MISSING_POLICY",
+            "AMBIGUOUS_SCOPE",
+            "INDETERMINATE_IDENTITY",
+            "INCOMPLETE_SEARCH_BOUNDARY",
+            "NATIVE_UNKNOWN",
+            "OTHER"
+          ]
+        },
+        "subject": { "type": "string", "minLength": 1 },
+        "missing_elements": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        }
+      }
+    },
+    "lossRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "loss_id",
+        "loss_kind",
+        "stage",
+        "subject",
+        "extent",
+        "disclosed",
+        "description",
+        "evidence_refs"
+      ],
+      "properties": {
+        "loss_id": { "type": "string", "pattern": "^LS_[0-9a-f]{32}$" },
+        "loss_kind": {
+          "enum": [
+            "BYTE",
+            "STRUCTURE",
+            "ORDER",
+            "PROVENANCE",
+            "AUTHORITY",
+            "CONFLICT",
+            "IDENTITY",
+            "TEMPORAL",
+            "OTHER"
+          ]
+        },
+        "stage": { "enum": ["INGEST", "TRANSFORM", "MAP", "STORE", "RECONSTRUCT", "OUTPUT", "UNKNOWN"] },
+        "subject": { "type": "string", "minLength": 1 },
+        "extent": { "enum": ["EXACTLY_IDENTIFIED", "BOUNDED", "UNBOUNDED", "UNKNOWN"] },
+        "disclosed": { "const": true },
+        "description": { "type": "string", "minLength": 1 },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        }
+      }
+    },
+    "actionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["posture", "reason", "evidence_refs"],
+      "properties": {
+        "posture": { "enum": ["EXECUTE", "REVIEW", "REFUSE"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        }
+      }
+    },
+    "planRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason", "evidence_refs", "plan_artifact_ref"],
+      "properties": {
+        "status": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "UNKNOWN"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        },
+        "plan_artifact_ref": {
+          "oneOf": [
+            { "$ref": "#/$defs/immutableArtifactRef" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "authorityBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_claim",
+        "selection_authority",
+        "promotion_authority",
+        "main_merge_authority",
+        "production_authority"
+      ],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "promotion_authority": { "const": "NONE" },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false }
+      }
+    }
+  }
+}

@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/oracle.schema.json",
+  "title": "Semantic Surface v0.1 grader-only oracle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "oracle_id",
+    "oracle_kind",
+    "stimulus_id",
+    "stimulus_ref",
+    "axis_applicability",
+    "allowed_outcome_tuples",
+    "required_claims",
+    "forbidden_behaviors",
+    "derivation_records",
+    "scoreability_rule",
+    "dummy_fixture",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "oracle_id": { "type": "string", "pattern": "^OR_[0-9a-f]{32}$" },
+    "oracle_kind": { "enum": ["CASE_KEY", "HARNESS_DUMMY_KEY"] },
+    "stimulus_id": { "type": "string", "pattern": "^ST_[0-9a-f]{32}$" },
+    "stimulus_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "axis_applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolution", "decision", "recoverability", "plan_status"],
+      "properties": {
+        "resolution": { "type": "boolean" },
+        "decision": { "type": "boolean" },
+        "recoverability": { "type": "boolean" },
+        "plan_status": { "type": "boolean" }
+      }
+    },
+    "allowed_outcome_tuples": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/outcomeTuple" }
+    },
+    "required_claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/requiredClaim" }
+    },
+    "forbidden_behaviors": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/forbiddenBehavior" }
+    },
+    "derivation_records": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/derivationRecord" }
+    },
+    "scoreability_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scoreable_run_states", "non_scoreable_run_states"],
+      "properties": {
+        "scoreable_run_states": {
+          "const": ["OBSERVED"]
+        },
+        "non_scoreable_run_states": {
+          "type": "array",
+          "const": [
+            "BLOCKED",
+            "STOPPED",
+            "CONTAMINATED",
+            "INVALID",
+            "INCOMPLETE",
+            "BUDGET_EXHAUSTED"
+          ]
+        }
+      }
+    },
+    "dummy_fixture": {
+      "oneOf": [
+        { "$ref": "#/$defs/dummyFixture" },
+        { "type": "null" }
+      ]
+    },
+    "authority_boundary": { "$ref": "#/$defs/authorityBoundary" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "oracle_kind": { "const": "HARNESS_DUMMY_KEY" } } },
+      "then": { "properties": { "dummy_fixture": { "$ref": "#/$defs/dummyFixture" } } },
+      "else": { "properties": { "dummy_fixture": { "type": "null" } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "opaqueRefToken": { "type": "string", "pattern": "^TK_[0-9a-f]{32}$" },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "locator",
+        "sha256",
+        "byte_length",
+        "media_type",
+        "immutability"
+      ],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": {
+          "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"]
+        }
+      }
+    },
+    "outcomeTuple": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolution", "decision", "recoverability", "plan_status"],
+      "properties": {
+        "resolution": { "enum": ["RESOLVED", "CONFLICT", "UNKNOWN", "NOT_APPLICABLE"] },
+        "decision": { "enum": ["EXECUTE", "REVIEW", "REFUSE", "NOT_APPLICABLE"] },
+        "recoverability": {
+          "enum": ["EXACT", "PARTIAL", "NON_RECOVERABLE", "UNKNOWN", "NOT_APPLICABLE"]
+        },
+        "plan_status": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "UNKNOWN", "NOT_REQUESTED"] }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "properties": {
+              "decision": { "const": "EXECUTE" },
+              "plan_status": { "enum": ["NO_SAFE_PLAN", "UNKNOWN"] }
+            },
+            "required": ["decision", "plan_status"]
+          },
+          {
+            "properties": {
+              "decision": { "const": "REFUSE" },
+              "plan_status": { "const": "SAFE_PLAN" }
+            },
+            "required": ["decision", "plan_status"]
+          }
+        ]
+      }
+    },
+    "requiredClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "target_json_pointer",
+        "predicate",
+        "evidence_standard",
+        "allowed_mapping_origins"
+      ],
+      "properties": {
+        "claim_id": { "type": "string", "pattern": "^RQ_[0-9a-f]{32}$" },
+        "target_json_pointer": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" },
+        "predicate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["operator", "expected_value"],
+          "properties": {
+            "operator": {
+              "enum": [
+                "EXISTS",
+                "EQUALS",
+                "NONEMPTY",
+                "DIGEST_MATCH",
+                "RETAINS_NATIVE_RECORD",
+                "EVIDENCE_RESOLVES",
+                "NO_STRONGER_THAN_NATIVE"
+              ]
+            },
+            "expected_value": {}
+          }
+        },
+        "evidence_standard": {
+          "enum": ["NATIVE_POINTER", "BYTE_RANGE", "IMMUTABLE_ARTIFACT", "CROSS_FILE_PROOF"]
+        },
+        "allowed_mapping_origins": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["NATIVE", "MECHANICALLY_MAPPED"] }
+        }
+      }
+    },
+    "forbiddenBehavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["behavior_id", "rule_code", "description"],
+      "properties": {
+        "behavior_id": { "type": "string", "pattern": "^FB_[0-9a-f]{32}$" },
+        "rule_code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "derivationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["derivation_id", "basis_class", "statement", "evidence_refs"],
+      "properties": {
+        "derivation_id": { "type": "string", "pattern": "^DR_[0-9a-f]{32}$" },
+        "basis_class": {
+          "enum": ["SOURCE_SUPPORTED", "OWNER_DIRECTION", "EXPERIMENTAL_CONVENTION", "WORKING_HYPOTHESIS", "UNRESOLVED"]
+        },
+        "statement": { "type": "string", "minLength": 1 },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/immutableArtifactRef" }
+        }
+      }
+    },
+    "nativeEmission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "media_type",
+        "content_encoding",
+        "content_base64",
+        "byte_length",
+        "actual_sha256",
+        "capture_declared_sha256",
+        "exit_code"
+      ],
+      "properties": {
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "content_encoding": {
+          "enum": ["BINARY", "UTF-8", "US-ASCII", "UTF-16LE", "UTF-16BE", "OTHER"]
+        },
+        "content_base64": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "actual_sha256": { "$ref": "#/$defs/sha256" },
+        "capture_declared_sha256": { "$ref": "#/$defs/sha256" },
+        "exit_code": { "type": "integer" }
+      }
+    },
+    "adapterProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome",
+        "claim_ids",
+        "conflict_ids",
+        "unknown_ids",
+        "loss_ids",
+        "native_digest_seen",
+        "ref_tokens"
+      ],
+      "properties": {
+        "outcome": {
+          "oneOf": [
+            { "$ref": "#/$defs/outcomeTuple" },
+            { "type": "null" }
+          ]
+        },
+        "claim_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" }
+        },
+        "conflict_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" }
+        },
+        "unknown_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" }
+        },
+        "loss_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" }
+        },
+        "native_digest_seen": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "ref_tokens": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "spec",
+            "harness",
+            "candidate",
+            "adapter",
+            "environment",
+            "resource",
+            "stimulus",
+            "oracle"
+          ],
+          "properties": {
+            "spec": { "$ref": "#/$defs/opaqueRefToken" },
+            "harness": { "$ref": "#/$defs/opaqueRefToken" },
+            "candidate": { "$ref": "#/$defs/opaqueRefToken" },
+            "adapter": { "$ref": "#/$defs/opaqueRefToken" },
+            "environment": { "$ref": "#/$defs/opaqueRefToken" },
+            "resource": { "$ref": "#/$defs/opaqueRefToken" },
+            "stimulus": { "$ref": "#/$defs/opaqueRefToken" },
+            "oracle": { "$ref": "#/$defs/opaqueRefToken" }
+          }
+        }
+      }
+    },
+    "dummyFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "native_emission",
+        "adapter_projection",
+        "forced_run_state",
+        "expected_mechanical_disposition",
+        "expected_semantic_disposition",
+        "expected_scoreability",
+        "expected_reason_codes"
+      ],
+      "properties": {
+        "profile": {
+          "enum": [
+            "VALID_POSITIVE",
+            "ALWAYS_UNKNOWN",
+            "ALWAYS_CONFLICT",
+            "ALWAYS_REFUSE",
+            "MALFORMED_NATIVE",
+            "SEMANTICALLY_INCOMPLETE",
+            "NATIVE_DIGEST_MISMATCH",
+            "ERASED_CONFLICT",
+            "ERASED_LOSS",
+            "WRONG_REFS",
+            "CONTAMINATED_RUN",
+            "STOPPED_RUN"
+          ]
+        },
+        "native_emission": {
+          "oneOf": [
+            { "$ref": "#/$defs/nativeEmission" },
+            { "type": "null" }
+          ]
+        },
+        "adapter_projection": {
+          "oneOf": [
+            { "$ref": "#/$defs/adapterProjection" },
+            { "type": "null" }
+          ]
+        },
+        "forced_run_state": {
+          "oneOf": [
+            {
+              "enum": [
+                "OBSERVED",
+                "BLOCKED",
+                "STOPPED",
+                "CONTAMINATED",
+                "INVALID",
+                "INCOMPLETE",
+                "BUDGET_EXHAUSTED"
+              ]
+            },
+            { "type": "null" }
+          ]
+        },
+        "expected_mechanical_disposition": {
+          "enum": ["ACCEPT", "REJECT", "PRESERVE_NON_SCOREABLE"]
+        },
+        "expected_semantic_disposition": { "enum": ["MATCH", "MISMATCH", "NOT_EVALUATED"] },
+        "expected_scoreability": { "enum": ["SCOREABLE", "NON_SCOREABLE"] },
+        "expected_reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" }
+        }
+      }
+    },
+    "authorityBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_claim",
+        "selection_authority",
+        "promotion_authority",
+        "main_merge_authority",
+        "production_authority"
+      ],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "promotion_authority": { "const": "NONE" },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false }
+      }
+    }
+  }
+}

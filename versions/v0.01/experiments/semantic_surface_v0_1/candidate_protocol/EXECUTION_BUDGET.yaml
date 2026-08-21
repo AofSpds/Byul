@@ -1,0 +1,121 @@
+{
+  "protocol_version": "0.1.0",
+  "budget_id": "SEMANTIC_SURFACE_V0_1_EXECUTION_BUDGET",
+  "covered_candidates": ["C1", "C2"],
+  "archival_calibration_candidate": "C0",
+  "parity_rule": "C1_AND_C2_RECEIVE_IDENTICAL_HARD_LIMITS_AND_NO_SHARED_RUNTIME",
+  "c0_rule": "C0_USES_THE_SAME_CONTAINER_LIMITS_BUT_REMAINS_COMPARISON_INELIGIBLE",
+  "compute_limits_per_candidate": {
+    "cpu_quota_cores": 2,
+    "memory_limit_mib": 2048,
+    "swap_limit_mib": 0,
+    "writable_disk_limit_mib": 1024,
+    "temporary_disk_limit_mib": 256,
+    "process_limit": 64,
+    "open_file_descriptor_limit": 256,
+    "concurrent_candidate_processes": 1
+  },
+  "network_limits": {
+    "external_ingress_bytes": 0,
+    "external_egress_bytes": 0,
+    "dns_queries": 0,
+    "loopback_tcp_connections": 0,
+    "unix_domain_harness_connections": 1,
+    "network_namespace_mode": "NO_EXTERNAL_INTERFACES"
+  },
+  "time_limits_seconds": {
+    "total_candidate_evaluation_wall": 2700,
+    "environment_setup": 120,
+    "single_semantic_case_hard_timeout": 30,
+    "single_cold_ingest_hard_timeout": 60,
+    "single_query_hard_timeout": 15,
+    "single_mutation_hard_timeout": 20,
+    "single_reconstruction_hard_timeout": 30,
+    "single_fault_control_hard_timeout": 30,
+    "cleanup_and_evidence_seal": 120
+  },
+  "semantic_case_execution": {
+    "public_case_batch_count": 1,
+    "holdout_case_batch_count": 1,
+    "repetitions_per_public_case": 3,
+    "repetitions_per_holdout_case": 3,
+    "warmup_repetitions_on_public_cases": 0,
+    "warmup_repetitions_on_holdout_cases": 0,
+    "fresh_fixture_clone_per_semantic_repetition": true,
+    "identical_initial_state_digest_per_candidate_and_repetition": true,
+    "candidate_and_adapter_refs_fixed_across_repetitions": true,
+    "outputs_sealed_until_global_freeze": true,
+    "rerun_after_result_disclosure": false
+  },
+  "cost_benchmark_repetitions": {
+    "fixture_scope": "NON_SECRET_FROZEN_BENCHMARK_FIXTURE_ONLY",
+    "cold_ingest": {
+      "warmup": 0,
+      "measured": 5,
+      "fresh_repository_and_container_each_repetition": true
+    },
+    "query": {
+      "warmup": 2,
+      "measured": 10,
+      "state_reset_between_measured_repetitions": false
+    },
+    "mutation": {
+      "warmup": 2,
+      "measured": 10,
+      "state_reset_between_measured_repetitions": true
+    },
+    "reconstruction": {
+      "warmup": 2,
+      "measured": 10,
+      "projection_removed_before_each_measured_repetition": true
+    },
+    "fault_and_recovery_control": {
+      "warmup": 0,
+      "measured": 3,
+      "clean_reset_between_measured_repetitions": true
+    }
+  },
+  "environment_parity": {
+    "same_container_image_digest": true,
+    "same_kernel_and_architecture": true,
+    "same_python_executable_digest": true,
+    "same_git_executable_digest": true,
+    "same_read_only_fixture_digest": true,
+    "same_harness_and_runner_refs": true,
+    "same_environment_variable_allowlist": true,
+    "same_cpu_affinity_policy": true,
+    "same_scheduler_priority": true,
+    "no_colocated_candidate_execution": true
+  },
+  "measurement": {
+    "wall_clock": "MONOTONIC_NS",
+    "cpu_time": "PROCESS_CPU_TIME_NS",
+    "peak_memory": "CONTAINER_CGROUP_PEAK_BYTES",
+    "disk": "ALLOCATED_AND_LOGICAL_BYTES_BEFORE_AND_AFTER",
+    "git_object_store": "GIT_COUNT_OBJECTS_VERBOSE_AND_FILESYSTEM_ALLOCATED_BYTES",
+    "report_distribution": ["MIN", "MEDIAN", "P95", "MAX", "ALL_RAW_SAMPLES"],
+    "unknown_measurement_value": "UNKNOWN",
+    "unknown_is_zero": false
+  },
+  "resource_exhaustion_behavior": {
+    "immediate_action": "KILL_ONLY_THE_EXHAUSTED_CANDIDATE_PROCESS_AND_SEAL_PARTIAL_EVIDENCE",
+    "run_state": "BUDGET_EXHAUSTED",
+    "scoreable": false,
+    "semantic_failure_claim": false,
+    "automatic_retry": false,
+    "increase_limit_after_observing_other_result": false,
+    "preserve": [
+      "NATIVE_BYTES_CAPTURED_BEFORE_STOP",
+      "RESOURCE_COUNTERS",
+      "PARTIAL_OPERATION_LOG",
+      "EXACT_FROZEN_REFS",
+      "STOP_REASON"
+    ]
+  },
+  "cap_rationale": {
+    "compute": "Two CPU cores, 2 GiB RAM, and 1 GiB writable disk are materially above the needs of small standard-library prototypes but below service-scale implementations.",
+    "network": "The candidates require only a frozen local Git repository and local harness transport; zero external network prevents dependency and oracle leakage.",
+    "repetitions": "Three sealed semantic repetitions expose instability without post-result tuning; separate five-to-ten-sample benchmark loops provide cost distributions without using holdout cases as warmups.",
+    "time": "Forty-five minutes per candidate covers all frozen cases, repetitions, benchmark operations, and evidence sealing while retaining a hard exhaustion route."
+  }
+}

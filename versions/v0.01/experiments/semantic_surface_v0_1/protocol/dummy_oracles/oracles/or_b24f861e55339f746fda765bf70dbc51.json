@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1", "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_b24f861e55339f746fda765bf70dbc51", "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_9fcdcef311fe1432dbead85df79e97e8",
+  "stimulus_ref": { "ref_id": "RF_7a5f9611324ed9226d4c5bd890dda01c", "locator": "dummy_oracles/stimuli/st_9fcdcef311fe1432dbead85df79e97e8.json", "sha256": "db49f47cb762fc5228fb41b53d2a60efc0b1fc8f3c95219899b896b6961d0266", "byte_length": 780, "media_type": "application/json", "immutability": "CONTENT_ADDRESS" },
+  "axis_applicability": { "resolution": true, "decision": false, "recoverability": false, "plan_status": false },
+  "allowed_outcome_tuples": [{ "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }],
+  "required_claims": [],
+  "forbidden_behaviors": [{ "behavior_id": "FB_e6b197b048c63033bb0890bd414e507e", "rule_code": "CONTAMINATED_RUN_SCORED", "description": "A contaminated attempt must remain non-scoreable." }],
+  "derivation_records": [{ "derivation_id": "DR_611a4f2c0e99934db06c079663e826d1", "basis_class": "EXPERIMENTAL_CONVENTION", "statement": "This vector forces contamination before semantic evaluation.", "evidence_refs": [] }],
+  "scoreability_rule": { "scoreable_run_states": ["OBSERVED"], "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"] },
+  "dummy_fixture": { "profile": "CONTAMINATED_RUN", "native_emission": null, "adapter_projection": null, "forced_run_state": "CONTAMINATED", "expected_mechanical_disposition": "PRESERVE_NON_SCOREABLE", "expected_semantic_disposition": "NOT_EVALUATED", "expected_scoreability": "NON_SCOREABLE", "expected_reason_codes": ["ORACLE_ACCESS_CONTAMINATION"] },
+  "authority_boundary": { "validation_claim": "NONE", "selection_authority": "NONE", "promotion_authority": "NONE", "main_merge_authority": false, "production_authority": false }
+}

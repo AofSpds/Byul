@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/run_manifest.schema.json",
+  "title": "Semantic Surface v0.1 controller-private run manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "trial_id",
+    "run_id",
+    "attempt_id",
+    "trial_class",
+    "created_at",
+    "refs",
+    "trial_authority",
+    "blinding",
+    "isolation",
+    "execution",
+    "sealed_holdout",
+    "result_visibility"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "trial_id": { "type": "string", "pattern": "^TR_[0-9a-f]{32}$" },
+    "run_id": { "type": "string", "pattern": "^RN_[0-9a-f]{32}$" },
+    "attempt_id": { "type": "string", "pattern": "^AT_[0-9a-f]{32}$" },
+    "trial_class": {
+      "enum": ["HARNESS_DUMMY", "PUBLIC_REHEARSAL", "SEALED_HOLDOUT", "ARCHIVAL_CALIBRATION"]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "harness",
+        "runner",
+        "candidate",
+        "adapter",
+        "environment",
+        "dependency_lock",
+        "resource_envelope",
+        "stimulus",
+        "oracle"
+      ],
+      "properties": {
+        "spec": { "$ref": "#/$defs/immutableArtifactRef" },
+        "harness": { "$ref": "#/$defs/immutableArtifactRef" },
+        "runner": { "$ref": "#/$defs/immutableArtifactRef" },
+        "candidate": { "$ref": "#/$defs/immutableArtifactRef" },
+        "adapter": { "$ref": "#/$defs/immutableArtifactRef" },
+        "environment": { "$ref": "#/$defs/immutableArtifactRef" },
+        "dependency_lock": { "$ref": "#/$defs/immutableArtifactRef" },
+        "resource_envelope": { "$ref": "#/$defs/immutableArtifactRef" },
+        "stimulus": { "$ref": "#/$defs/immutableArtifactRef" },
+        "oracle": { "$ref": "#/$defs/immutableArtifactRef" }
+      }
+    },
+    "trial_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trial_execution",
+        "shared_baseline_mutation_authority",
+        "main_merge_authority",
+        "production_authority",
+        "release_authority",
+        "selection_authority",
+        "promotion_authority",
+        "validation_claim"
+      ],
+      "properties": {
+        "trial_execution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "scope", "authority_ref"],
+          "properties": {
+            "status": { "enum": ["AUTHORIZED", "NOT_AUTHORIZED", "UNKNOWN"] },
+            "scope": { "type": "string", "minLength": 1 },
+            "authority_ref": {
+              "oneOf": [
+                { "$ref": "#/$defs/immutableArtifactRef" },
+                { "type": "null" }
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": { "status": { "const": "AUTHORIZED" } },
+                "required": ["status"]
+              },
+              "then": {
+                "properties": {
+                  "authority_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+                }
+              },
+              "else": {
+                "properties": { "authority_ref": { "type": "null" } }
+              }
+            }
+          ]
+        },
+        "shared_baseline_mutation_authority": { "const": false },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false },
+        "release_authority": { "const": false },
+        "selection_authority": { "const": "NONE" },
+        "promotion_authority": { "const": "NONE" },
+        "validation_claim": { "const": "NONE" }
+      }
+    },
+    "blinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_alias", "adapter_alias", "grader_packet_alias", "relink_map_ref"],
+      "properties": {
+        "candidate_alias": { "type": "string", "pattern": "^CA_[0-9a-f]{32}$" },
+        "adapter_alias": { "type": "string", "pattern": "^AA_[0-9a-f]{32}$" },
+        "grader_packet_alias": { "type": "string", "pattern": "^GP_[0-9a-f]{32}$" },
+        "relink_map_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+      }
+    },
+    "isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "isolation_id",
+        "base_ref",
+        "access_policy_ref",
+        "context_policy_ref",
+        "oracle_readable_by_candidate",
+        "oracle_readable_by_adapter",
+        "sibling_results_readable",
+        "access_denial_evidence_ref"
+      ],
+      "properties": {
+        "isolation_id": { "type": "string", "pattern": "^IS_[0-9a-f]{32}$" },
+        "base_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "access_policy_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "context_policy_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "oracle_readable_by_candidate": { "const": false },
+        "oracle_readable_by_adapter": { "const": false },
+        "sibling_results_readable": { "const": false },
+        "access_denial_evidence_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repetition_index",
+        "random_seed",
+        "scheduled_start_at",
+        "candidate_packet_ref",
+        "adapter_packet_ref"
+      ],
+      "properties": {
+        "repetition_index": { "type": "integer", "minimum": 0 },
+        "random_seed": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "scheduled_start_at": { "type": "string", "format": "date-time" },
+        "candidate_packet_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "adapter_packet_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+      }
+    },
+    "sealed_holdout": {
+      "oneOf": [
+        { "$ref": "#/$defs/sealedHoldoutEvidence" },
+        { "type": "null" }
+      ]
+    },
+    "result_visibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sealed_until_barrier", "barrier_ref", "prior_result_access"],
+      "properties": {
+        "sealed_until_barrier": { "const": true },
+        "barrier_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "prior_result_access": { "const": false }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "trial_class": { "const": "SEALED_HOLDOUT" } },
+        "required": ["trial_class"]
+      },
+      "then": {
+        "properties": {
+          "trial_authority": {
+            "properties": {
+              "trial_execution": {
+                "properties": {
+                  "status": { "const": "AUTHORIZED" },
+                  "authority_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+                }
+              }
+            }
+          },
+          "sealed_holdout": { "$ref": "#/$defs/sealedHoldoutEvidence" }
+        }
+      },
+      "else": {
+        "properties": { "sealed_holdout": { "type": "null" } }
+      }
+    }
+  ],
+  "$defs": {
+    "sealedHoldoutEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oracle_kind",
+        "public_commitment_ref",
+        "private_manifest_commitment_ref",
+        "access_log_head_ref",
+        "access_log_audit_ref",
+        "custodian_release_ref",
+        "external_acl_evidence_ref"
+      ],
+      "properties": {
+        "oracle_kind": { "const": "CASE_KEY" },
+        "public_commitment_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "private_manifest_commitment_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "access_log_head_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "access_log_audit_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "custodian_release_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+        "external_acl_evidence_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+      }
+    },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "locator",
+        "sha256",
+        "byte_length",
+        "media_type",
+        "immutability"
+      ],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": {
+          "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"]
+        }
+      }
+    }
+  },
+  "unevaluatedProperties": false
+}

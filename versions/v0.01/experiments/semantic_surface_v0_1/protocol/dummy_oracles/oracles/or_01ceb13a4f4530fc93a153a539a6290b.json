@@ -1,0 +1,104 @@
+{
+  "schema_version": "0.1",
+  "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_01ceb13a4f4530fc93a153a539a6290b",
+  "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_3e780756c06afaa10e1ae15b06830532",
+  "stimulus_ref": {
+    "ref_id": "RF_d78e796ec7b4890bdab43b741cbd79e7",
+    "locator": "dummy_oracles/stimuli/st_3e780756c06afaa10e1ae15b06830532.json",
+    "sha256": "e0417da42b26512d1a95ef39466dfcdd797fef57bd7612cc57b19d1a811f4a82",
+    "byte_length": 780,
+    "media_type": "application/json",
+    "immutability": "CONTENT_ADDRESS"
+  },
+  "axis_applicability": {
+    "resolution": true,
+    "decision": false,
+    "recoverability": false,
+    "plan_status": false
+  },
+  "allowed_outcome_tuples": [
+    {
+      "resolution": "RESOLVED",
+      "decision": "NOT_APPLICABLE",
+      "recoverability": "NOT_APPLICABLE",
+      "plan_status": "NOT_REQUESTED"
+    }
+  ],
+  "required_claims": [
+    {
+      "claim_id": "RQ_bc9f36fd8367d8f4920b6738f764b682",
+      "target_json_pointer": "/semantic_claims",
+      "predicate": { "operator": "NONEMPTY", "expected_value": true },
+      "evidence_standard": "NATIVE_POINTER",
+      "allowed_mapping_origins": ["NATIVE", "MECHANICALLY_MAPPED"]
+    }
+  ],
+  "forbidden_behaviors": [
+    {
+      "behavior_id": "FB_63d916293d3c2862c5ecd5662b51b85d",
+      "rule_code": "ANSWER_WITHOUT_NATIVE_EVIDENCE",
+      "description": "A resolved answer without candidate-native evidence is forbidden."
+    }
+  ],
+  "derivation_records": [
+    {
+      "derivation_id": "DR_c06ea8e9dce6d83681caf0a7e02ae801",
+      "basis_class": "EXPERIMENTAL_CONVENTION",
+      "statement": "This synthetic lookup has one explicit value and is only a harness transport control.",
+      "evidence_refs": []
+    }
+  ],
+  "scoreability_rule": {
+    "scoreable_run_states": ["OBSERVED"],
+    "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"]
+  },
+  "dummy_fixture": {
+    "profile": "VALID_POSITIVE",
+    "native_emission": {
+      "media_type": "application/json",
+      "content_encoding": "UTF-8",
+      "content_base64": "eyJjbGFpbXMiOlt7ImlkIjoiY2xtX2ExIiwicGF0aCI6Ii9yZXN1bHQvdmFsdWUiLCJ2YWx1ZSI6InYzIn1dLCJvdXRjb21lIjp7InJlc29sdXRpb24iOiJSRVNPTFZFRCIsImRlY2lzaW9uIjoiTk9UX0FQUExJQ0FCTEUiLCJyZWNvdmVyYWJpbGl0eSI6Ik5PVF9BUFBMSUNBQkxFIiwicGxhbl9zdGF0dXMiOiJOT1RfUkVRVUVTVEVEIn0sInJlc3VsdCI6eyJ2YWx1ZSI6InYzIn19",
+      "byte_length": 216,
+      "actual_sha256": "24be3c09428c2ec36676a7ef86c049f4ef37c927400a8bfb507fb4c7a102e0e6",
+      "capture_declared_sha256": "24be3c09428c2ec36676a7ef86c049f4ef37c927400a8bfb507fb4c7a102e0e6",
+      "exit_code": 0
+    },
+    "adapter_projection": {
+      "outcome": {
+        "resolution": "RESOLVED",
+        "decision": "NOT_APPLICABLE",
+        "recoverability": "NOT_APPLICABLE",
+        "plan_status": "NOT_REQUESTED"
+      },
+      "claim_ids": ["clm_a1"],
+      "conflict_ids": [],
+      "unknown_ids": [],
+      "loss_ids": [],
+      "native_digest_seen": "24be3c09428c2ec36676a7ef86c049f4ef37c927400a8bfb507fb4c7a102e0e6",
+      "ref_tokens": {
+        "spec": "TK_84f155c8eb305dfc02c109f2d7334c18",
+        "harness": "TK_3370c5dcebd8140d214513103f9672f8",
+        "candidate": "TK_34490be14352b8668fe377215a05a61a",
+        "adapter": "TK_d7b07dc333dd615abc391edea8651a8e",
+        "environment": "TK_e595bef23138c174edc1a0c39ee18913",
+        "resource": "TK_5cf8d730eafafce607b36b695c7a263c",
+        "stimulus": "TK_de68c9f010078f898e6bab418357d14a",
+        "oracle": "TK_71aac4e56fcd81b3f5e3d68d9d4e0d8e"
+      }
+    },
+    "forced_run_state": "OBSERVED",
+    "expected_mechanical_disposition": "ACCEPT",
+    "expected_semantic_disposition": "MATCH",
+    "expected_scoreability": "SCOREABLE",
+    "expected_reason_codes": []
+  },
+  "authority_boundary": {
+    "validation_claim": "NONE",
+    "selection_authority": "NONE",
+    "promotion_authority": "NONE",
+    "main_merge_authority": false,
+    "production_authority": false
+  }
+}

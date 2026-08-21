@@ -1,0 +1,104 @@
+{
+  "protocol_version": "0.1.0",
+  "candidate_id": "C2",
+  "title": "CANDIDATE_OWNED_CHANGE_LAYER",
+  "status": "PROSPECTIVE_UNIMPLEMENTED",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "trial_role": "PROSPECTIVE_COMPARISON_CANDIDATE",
+  "candidate_local_hypothesis": "A small candidate-owned append record and deterministic replay projection may add observable reconstruction and change-lineage capability beyond the inherited Git history, at a measurable additional cost.",
+  "required_operational_shape": {
+    "candidate_owned_append_record_format": true,
+    "immutable_record_identity": true,
+    "explicit_source_or_predecessor_links": true,
+    "deterministic_replay_or_reducer": true,
+    "projection_rebuild_from_candidate_records": true,
+    "history_deletion_for_current_projection": false,
+    "projection_is_authoritative_over_source_evidence": false
+  },
+  "operational_definition": [
+    "Candidate code owns the semantics of a generic append change record rather than merely writing ordinary current-state files.",
+    "Candidate code can fold or replay an ordered candidate-owned record set to derive a requested projection.",
+    "Deleting the materialized projection and rebuilding from the same frozen record set yields the same byte digest or an explicit deterministic-loss disclosure.",
+    "The candidate-owned record layer remains separately identifiable even if its files are stored as Git blobs or committed in Git.",
+    "Git storage does not convert the candidate-owned record/replay capability into C1; the semantic owner and replay behavior determine the boundary."
+  ],
+  "minimum_boundary_probes": [
+    {
+      "id": "C2-B01",
+      "probe": "Remove the current projection while retaining source evidence and candidate records, then invoke the candidate replay path.",
+      "pass_condition": "A projection is rebuilt through the candidate-owned reducer and its evidence trace names the consumed record identities."
+    },
+    {
+      "id": "C2-B02",
+      "probe": "Append one valid change through the native interface.",
+      "pass_condition": "The prior records remain addressable and the new record receives immutable identity and explicit lineage."
+    },
+    {
+      "id": "C2-B03",
+      "probe": "Repeat replay twice from a clean projection under the same frozen inputs.",
+      "pass_condition": "Native projection digests and ordered consumed-record identities match."
+    }
+  ],
+  "scope_limits": [
+    "NO_BITEMPORAL_DATABASE",
+    "NO_TRUTH_MAINTENANCE_ENGINE",
+    "NO_CRDT",
+    "NO_FIXED_PLANE_ARCHITECTURE",
+    "NO_FIXED_PLANNER_SIGNATURE",
+    "NO_UNDISCLOSED_EXTERNAL_SERVICE",
+    "NO_CASE_SPECIFIC_EXPECTATION_LOGIC"
+  ],
+  "required_inherited_git_disclosure": {
+    "git_is_free_cost": false,
+    "git_binary_version_and_digest": true,
+    "input_repository_object_store_bytes": true,
+    "object_store_delta": true,
+    "git_commands_and_operator_actions": true,
+    "candidate_record_bytes_separate_from_git_overhead": true,
+    "candidate_projection_bytes_separate_from_git_overhead": true
+  },
+  "required_disclosures": [
+    "RECORD_SCHEMA_AND_VERSION",
+    "RECORD_COUNT_AND_BYTES",
+    "REPLAY_ALGORITHM_SOURCE",
+    "PROJECTION_BYTES",
+    "REBUILD_STEPS_AND_TIME",
+    "FAILURE_RECOVERY_ACTIONS",
+    "ALL_CAPABILITIES_SUPPLIED_BY_GIT_ADAPTER_OR_HARNESS"
+  ],
+  "must_not": [
+    "PROMOTE_DERIVED_PROJECTION_ABOVE_PINNED_SOURCE_EVIDENCE",
+    "OVERWRITE_OR_DELETE_PRIOR_RECORDS_TO_SIMULATE_CURRENT_STATE",
+    "RELABEL_LOSSY_RECONSTRUCTION_AS_EXACT",
+    "READ_SIBLING_CANDIDATE_OR_RESULT_ARTIFACTS",
+    "ENCODE_PUBLIC_OR_HOLDOUT_EXPECTATIONS",
+    "CLAIM_THAT_THE_LOCAL_RECORD_FORMAT_IS_A_BYUL_ONTOLOGY"
+  ],
+  "budget_refs": {
+    "build": "BUILD_BUDGET.yaml",
+    "execution": "EXECUTION_BUDGET.yaml"
+  },
+  "required_gates_before_build": [
+    "F3_CORRECTION_10_FIXTURE_FREEZE_PASS",
+    "F4_HOLDOUT_COMMITMENT_PASS",
+    "V1_PRE_CANDIDATE_TREATMENT_FREEZE_PASS",
+    "F5_DUMMY_TRANSPORT_ACCEPT",
+    "F5_CANDIDATE_TRIAL_ACCEPT",
+    "F6_HARNESS_AUDIT_PASS"
+  ],
+  "required_gates_before_real_stimulus": [
+    "COMPLETE_UNDER_BUDGET",
+    "CHARTER_AUDIT_PASS",
+    "ADAPTER_AUDIT_PASS",
+    "ISOLATION_RECEIPT_PASS",
+    "GLOBAL_REF_FREEZE_PASS"
+  ],
+  "missing_required_change_layer_route": {
+    "run_state": "INCOMPLETE",
+    "reason_code": "INCOMPLETE_UNDER_BUDGET"
+  },
+  "boundary_failure_route": "STOP_BOUNDARY_VIOLATION_RECHARTER_ONLY_IN_SUCCESSOR_SPEC",
+  "promotion_effect": "NONE"
+}

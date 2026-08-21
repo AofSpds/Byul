@@ -1,0 +1,89 @@
+{
+  "protocol_version": "0.1.0",
+  "candidate_id": "C3",
+  "title": "SUCCESSOR_EXPERIMENT_TRIGGER_ONLY",
+  "current_trial_membership": false,
+  "implementation_status": "NOT_AUTHORIZED",
+  "execution_status": "NOT_AUTHORIZED",
+  "budget_allocation": 0,
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "trigger_effect": "ELIGIBILITY_TO_PROPOSE_A_SEPARATELY_AUTHORIZED_SUCCESSOR_EXPERIMENT_ONLY",
+  "eligible_failure_families": [
+    "AUTHORITY_CONFLICT",
+    "PRESERVATION_LOSS",
+    "LIFECYCLE_IDENTITY",
+    "RECONSTRUCTION_INVALIDATION"
+  ],
+  "structural_trigger_path": {
+    "minimum_distinct_families_meeting_threshold": 2,
+    "minimum_independently_adjudicated_holdout_failures_per_qualifying_family": 2,
+    "minimum_total_distinct_failing_cases": 4,
+    "expectation_pair_duplicate_serializations_count_as_distinct_cases": false,
+    "cases_sharing_one_corrupt_source_fixture_count_as_distinct_cases": false,
+    "repeatability_required": true,
+    "repeatability_repetitions_per_failure": 3,
+    "same_frozen_candidate_and_adapter_refs": true,
+    "same_unexposed_holdout_bundle": true,
+    "post_exposure_repair_before_trigger": false
+  },
+  "catastrophic_trigger_path": {
+    "minimum_events": 1,
+    "required_reproductions": 3,
+    "fault_injection_required": true,
+    "fault_class_and_injection_frozen_before_candidate_build": true,
+    "eligible_catastrophic_classes": [
+      "IRREVERSIBLE_SOURCE_OR_EVIDENCE_LOSS",
+      "SILENT_CONFLICT_DELETION",
+      "FALSE_EXACT_RECONSTRUCTION_CERTIFICATION",
+      "UNRECOVERABLE_LINEAGE_CORRUPTION"
+    ],
+    "catastrophic_event_definition": "A predeclared eligible catastrophic class occurs under a pre-frozen fault: pinned source/evidence or conflict/lineage information becomes irreversibly missing, silently deleted, corrupted, or falsely certified exact, and native plus independent storage evidence proves the event.",
+    "byte_digest_evidence_required": true,
+    "same_frozen_candidate_and_adapter_refs": true
+  },
+  "blind_triage_exclusions": [
+    "ADAPTER_DEFECT",
+    "HARNESS_DEFECT",
+    "RESOURCE_EXHAUSTION",
+    "INCOMPLETE_IMPLEMENTATION",
+    "SCENARIO_OR_ORACLE_AMBIGUITY",
+    "CONTAMINATION",
+    "NONDETERMINISTIC_EXTERNAL_SERVICE",
+    "FIXTURE_CORRUPTION_OUTSIDE_DECLARED_FAULT"
+  ],
+  "all_trigger_evidence_requirements": [
+    "HOLDOUT_WAS_EXTERNALLY_SEALED_BEFORE_CANDIDATE_BUILD",
+    "C1_AND_C2_REFS_PASSED_RESULT_BLIND_CHARTER_COMPLETENESS_ADAPTER_AND_ISOLATION_AUDITS",
+    "FAILURES_WERE_FROZEN_BEFORE_IDENTITY_DISCLOSURE",
+    "AT_LEAST_TWO_BLIND_GRADERS_AGREED_OR_DISAGREEMENT_WAS_PRESERVED_AS_NO_TRIGGER",
+    "C1_COULD_NOT_SATISFY_THE_SAME_OBLIGATION_WITHIN_ITS_FROZEN_CAPABILITY_BOUNDARY",
+    "NO_EXPOSED_CASE_WAS_REUSED_AFTER_CODE_OR_ADAPTER_REPAIR",
+    "THE_CURRENT_TRIAL_REMAINS_CLOSED_WITHOUT_RETROACTIVE_RELABELLING"
+  ],
+  "successor_requirements_if_triggered": [
+    "SEPARATE_OWNER_RESEARCH_AUTHORIZATION",
+    "EXACT_FEATURE_TO_FAILURE_CHARTER",
+    "NEW_SYMMETRIC_BUILD_AND_EXECUTION_BUDGET",
+    "FRESH_EXTERNALLY_SEALED_HOLDOUT_WITH_NO_CASE_REUSE",
+    "FROZEN_OR_EQUIVALENTLY_REBUILT_SIMPLER_COMPARATORS",
+    "NEW_ISOLATED_CANDIDATE_AND_ADAPTER_REFS",
+    "FEATURE_LEVEL_ABLATIONS",
+    "NEW_ADVERSARIAL_GATE_REVIEW"
+  ],
+  "non_trigger_evidence": [
+    "PUBLIC_CASE_FAILURE",
+    "C0_ARCHIVAL_FAILURE",
+    "ONE_UNREPEATED_HOLDOUT_FAILURE",
+    "FAILURE_FIXED_AFTER_HOLDOUT_EXPOSURE",
+    "PROSE_CONSENSUS",
+    "GREATER_CONCEPT_COUNT",
+    "LOWER_READABILITY",
+    "POST_HOC_FAILURE_FAMILY_REDEFINITION"
+  ],
+  "fresh_holdout_required": true,
+  "current_holdout_reuse_in_successor": false,
+  "gate_failure_route": "C3_REMAINS_NOT_AUTHORIZED",
+  "promotion_effect": "NONE"
+}

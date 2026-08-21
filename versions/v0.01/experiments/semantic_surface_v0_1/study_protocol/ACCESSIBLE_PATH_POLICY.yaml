@@ -1,0 +1,170 @@
+schema_version: "1.0.0"
+policy_id: "BYUL-VISIBILITY-ACCESS-v0.1"
+status: "DRAFT_PROTOCOL_ONLY"
+baseline_repository: "AofSpds/Byul"
+baseline_commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+enforcement:
+  bundle_form: "READ_ONLY_EXPORTED_GIT_TREE_WITHOUT_DOT_GIT"
+  path_root: "/study_bundle"
+  path_normalization: "POSIX_RELATIVE_NFC_NO_DOT_SEGMENTS"
+  symlinks_allowed: false
+  deny_precedes_allow: true
+  undeclared_path_action: "DENY"
+  network_allowed: false
+  write_allowed: false
+  reader_shell_allowed: true
+  allowed_read_commands:
+    - "find"
+    - "rg"
+    - "sed"
+    - "head"
+    - "tail"
+    - "wc"
+    - "sha256sum"
+  prohibited_commands:
+    - "git"
+    - "curl"
+    - "wget"
+    - "python"
+    - "node"
+  access_logging_required: true
+  access_log_fields:
+    - "reader_instance_id"
+    - "opaque_arm_id"
+    - "opened_at_utc"
+    - "normalized_relative_path"
+    - "operation"
+    - "result"
+global_reader_inaccessible_material:
+  delivery_mode: "EXTERNAL_GRADER_ONLY"
+  categories:
+    - "rubric"
+    - "answer_key"
+    - "prior_reader_responses"
+    - "prior_scores"
+    - "grader_notes"
+    - "randomization_seed"
+    - "arm_mapping"
+    - "holdout_input"
+    - "holdout_oracle"
+    - "holdout_salt"
+    - "candidate_code"
+    - "adapter_code"
+    - "candidate_results"
+  repository_deny_globs:
+    - "versions/v0.01/experiments/semantic_surface_v0/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/**/rubric/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/**/keys/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/**/oracles/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/**/results/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/**/candidates/**"
+    - "versions/v0.01/experiments/semantic_surface_v0_1/**/adapters/**"
+    - ".git/**"
+reader_instrument:
+  questionnaire_delivery: "EXTERNAL_AT_SESSION_START"
+  questionnaire_version: "FROZEN_DIGEST_REQUIRED"
+  questionnaire_digest_sha256: null
+  rubric_delivery_to_reader: false
+  answer_key_delivery_to_reader: false
+  prior_result_delivery_to_reader: false
+surface_freeze:
+  must_precede_candidate_build: true
+  exact_freeze_commit: null
+  bundle_manifest_digest_sha256: null
+  candidate_artifact_scan_required: true
+  entry_state_when_unassigned: "BLOCKED_SURFACE_NOT_PINNED"
+arms:
+  - arm_code: "B"
+    public_label: "OPAQUE_RANDOM_LABEL_REQUIRED"
+    intervention: "BASELINE"
+    bundle_mode: "EXACT_GIT_TREE_EXPORT"
+    source_commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+    include_globs:
+      - "**"
+    replace_with_baseline_paths: []
+    add_paths: []
+    required_bundle_digest_sha256: null
+  - arm_code: "L"
+    public_label: "OPAQUE_RANDOM_LABEL_REQUIRED"
+    intervention: "LOCATOR_ONLY"
+    bundle_mode: "EXPORTED_COMPOSITE"
+    source_commit: null
+    baseline_base_commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+    include_globs:
+      - "**"
+    replace_with_baseline_paths: []
+    add_paths: []
+    allowed_changed_paths:
+      - "README.md"
+      - "versions/v0.01/CURRENT_STATUS.md"
+      - "versions/v0.1/README.md"
+    forbidden_changed_paths:
+      - "BYUL_RESEARCH_STATE.yaml"
+    required_bundle_digest_sha256: null
+  - arm_code: "M"
+    public_label: "OPAQUE_RANDOM_LABEL_REQUIRED"
+    intervention: "STATE_MAP_ONLY"
+    bundle_mode: "EXPORTED_COMPOSITE"
+    source_commit: null
+    baseline_base_commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+    include_globs:
+      - "**"
+    replace_with_baseline_paths:
+      - "README.md"
+      - "versions/v0.01/CURRENT_STATUS.md"
+      - "versions/v0.1/README.md"
+    add_paths:
+      - "BYUL_RESEARCH_STATE.yaml"
+    allowed_changed_paths:
+      - "BYUL_RESEARCH_STATE.yaml"
+    required_bundle_digest_sha256: null
+  - arm_code: "LM"
+    public_label: "OPAQUE_RANDOM_LABEL_REQUIRED"
+    intervention: "LOCATOR_PLUS_STATE_MAP"
+    bundle_mode: "EXPORTED_COMPOSITE"
+    source_commit: null
+    baseline_base_commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+    include_globs:
+      - "**"
+    replace_with_baseline_paths: []
+    add_paths:
+      - "BYUL_RESEARCH_STATE.yaml"
+    allowed_changed_paths:
+      - "README.md"
+      - "versions/v0.01/CURRENT_STATUS.md"
+      - "versions/v0.1/README.md"
+      - "BYUL_RESEARCH_STATE.yaml"
+    required_bundle_digest_sha256: null
+arm_execution_rules:
+  minimum_valid_readers_per_arm: 4
+  minimum_distinct_model_lineages_per_arm: 2
+  minimum_human_readers_per_arm: 2
+  cross_arm_reader_reuse_allowed: false
+  model_session_context_reuse_allowed: false
+  arm_identity_visible_to_reader: false
+  arm_identity_visible_to_semantic_grader: false
+  missing_required_arm_route: "VISIBILITY_INSUFFICIENT_EVIDENCE"
+factorial_requirement:
+  preferred_arms:
+    - "B"
+    - "L"
+    - "M"
+    - "LM"
+  minimum_attributable_design:
+    - "B"
+    - "L"
+    - "M"
+  if_state_map_only_bundle_cannot_be_constructed: "STATE_MAP_EFFECT_NOT_IDENTIFIABLE"
+  if_only_baseline_and_combined_are_run: "DESCRIPTIVE_ONLY_NO_COMPONENT_ATTRIBUTION"
+pre_run_audit:
+  required_checks:
+    - "EVERY_INCLUDED_FILE_HAS_SHA256"
+    - "ALL_CHANGED_PATHS_MATCH_ARM_POLICY"
+    - "GLOBAL_DENY_PATHS_ABSENT"
+    - "NO_DOT_GIT"
+    - "NO_SYMLINKS"
+    - "NO_CANDIDATE_OR_RESULT_ARTIFACTS"
+    - "QUESTIONNAIRE_DIGEST_PINNED_EXTERNALLY"
+    - "OPAQUE_ARM_LABELS_FROZEN"
+  failure_route: "BLOCKED_ACCESS_POLICY"

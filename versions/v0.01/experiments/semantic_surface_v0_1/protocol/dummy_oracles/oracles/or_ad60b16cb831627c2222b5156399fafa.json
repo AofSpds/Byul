@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1", "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_ad60b16cb831627c2222b5156399fafa", "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_5317211bf31e2121a627390e70718ceb",
+  "stimulus_ref": { "ref_id": "RF_2cf68191ed62e94b8396a01e7270536f", "locator": "dummy_oracles/stimuli/st_5317211bf31e2121a627390e70718ceb.json", "sha256": "4e59cc6678e3b3cbc26b7c99f269e8141ab387cb48d1a535628c2bee71b38a51", "byte_length": 780, "media_type": "application/json", "immutability": "CONTENT_ADDRESS" },
+  "axis_applicability": { "resolution": true, "decision": false, "recoverability": false, "plan_status": false },
+  "allowed_outcome_tuples": [{ "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }],
+  "required_claims": [{ "claim_id": "RQ_003619624924af90971fb5ad2679137b", "target_json_pointer": "/semantic_claims", "predicate": { "operator": "NONEMPTY", "expected_value": true }, "evidence_standard": "NATIVE_POINTER", "allowed_mapping_origins": ["NATIVE", "MECHANICALLY_MAPPED"] }],
+  "forbidden_behaviors": [{ "behavior_id": "FB_a0ed8698cbc8ac0b04ad7de8cea94738", "rule_code": "MALFORMED_BECOMES_VALID", "description": "Malformed native JSON must not be repaired into a semantic result." }],
+  "derivation_records": [{ "derivation_id": "DR_59a8a9081ba5c94a559149b635b58bec", "basis_class": "EXPERIMENTAL_CONVENTION", "statement": "This is a pre-code malformed-native harness vector.", "evidence_refs": [] }],
+  "scoreability_rule": { "scoreable_run_states": ["OBSERVED"], "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"] },
+  "dummy_fixture": {
+    "profile": "MALFORMED_NATIVE",
+    "native_emission": { "media_type": "application/json", "content_encoding": "UTF-8", "content_base64": "eyJvdXRjb21lIjo=", "byte_length": 11, "actual_sha256": "c498f9b9e0ce6e84929eadbf946c68e9080a3743657e6365ab9b14b952260670", "capture_declared_sha256": "c498f9b9e0ce6e84929eadbf946c68e9080a3743657e6365ab9b14b952260670", "exit_code": 0 },
+    "adapter_projection": null, "forced_run_state": "INVALID", "expected_mechanical_disposition": "REJECT", "expected_semantic_disposition": "NOT_EVALUATED", "expected_scoreability": "NON_SCOREABLE", "expected_reason_codes": ["NATIVE_PARSE_FAILURE"]
+  },
+  "authority_boundary": { "validation_claim": "NONE", "selection_authority": "NONE", "promotion_authority": "NONE", "main_merge_authority": false, "production_authority": false }
+}

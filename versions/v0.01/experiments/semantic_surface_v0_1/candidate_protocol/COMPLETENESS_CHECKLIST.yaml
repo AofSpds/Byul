@@ -1,0 +1,131 @@
+{
+  "protocol_version": "0.1.0",
+  "checklist_id": "SEMANTIC_SURFACE_V0_1_RESULT_BLIND_COMPLETENESS",
+  "applies_to": ["C1", "C2"],
+  "evaluation_timing": "AFTER_BUILD_FREEZE_AND_BEFORE_ANY_PUBLIC_OR_HOLDOUT_STIMULUS",
+  "result_blind": true,
+  "dummy_scope": "TRANSPORT_COMPLETENESS_AND_BOUNDARY_ONLY_NOT_CORRECTION_10_SEMANTIC_FIXTURES",
+  "permitted_evidence": [
+    "FROZEN_SOURCE_AND_REF_MANIFESTS",
+    "BUILD_AND_USAGE_LOGS",
+    "STATIC_ANALYSIS",
+    "SYNTHETIC_DUMMY_ONLY_INVOCATIONS",
+    "DEPENDENCY_AND_FILE_INVENTORIES",
+    "ISOLATION_ACCESS_LOGS",
+    "CANDIDATE_NATIVE_HELP_VERSION_AND_CAPABILITY_OUTPUT"
+  ],
+  "forbidden_evidence": [
+    "PUBLIC_SCENARIO_OUTPUT",
+    "HOLDOUT_INPUT_OR_OUTPUT",
+    "GRADER_ORACLE",
+    "SIBLING_CANDIDATE_SOURCE_OR_OUTPUT",
+    "C0_REAL_CASE_OUTPUT"
+  ],
+  "allowed_item_statuses": ["PASS", "FAIL", "BLOCKED", "NOT_EVALUATED"],
+  "items": [
+    {
+      "id": "COMP-01",
+      "criterion": "Candidate source, adapter source, tests, schemas, and documentation are frozen at exact refs and every file has a byte digest.",
+      "required_evidence": ["REF_FREEZE_RECEIPT", "COMPLETE_FILE_DIGEST_MANIFEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-02",
+      "criterion": "The build used one clean non-inherited context, the pinned model/tool policy, and no sibling, oracle, public-result, or holdout access.",
+      "required_evidence": ["ISOLATION_RECEIPT", "ACCESS_LOG", "MODEL_USAGE_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-03",
+      "criterion": "Every build, model, context, wall, worker, tool-call, SLOC, file, dependency, and repair cap is within BUILD_BUDGET.yaml.",
+      "required_evidence": ["BUDGET_COUNTER_RECEIPT", "SLOC_AND_FILE_INVENTORY", "DEPENDENCY_LOCK"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-04",
+      "criterion": "The candidate starts from a clean environment, reports its native version/ref, and terminates deterministically on a dummy no-op request.",
+      "required_evidence": ["DUMMY_STARTUP_TRANSCRIPT", "NATIVE_VERSION_BYTES_DIGEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-05",
+      "criterion": "For every frozen input-only dispatch contract, the native candidate returns native bytes or an explicit native UNSUPPORTED state without consulting an oracle; only the frozen adapter may report UNMAPPABLE for well-formed native bytes.",
+      "required_evidence": ["DUMMY_OPERATION_MATRIX", "ORACLE_NON_ACCESS_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-06",
+      "criterion": "Native output is captured as bytes with media type, encoding, byte length, digest, immutable locator, exit status, and invocation receipt.",
+      "required_evidence": ["DUMMY_NATIVE_CAPTURE_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-07",
+      "criterion": "The adapter is separately frozen, stays within its SLOC/file/dependency budget, and passes every item in ADAPTER_AUDIT_CHECKLIST.yaml.",
+      "required_evidence": ["ADAPTER_REF", "ADAPTER_AUDIT_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-08",
+      "criterion": "The implementation passes the result-blind operational boundary audit for its declared charter.",
+      "required_evidence": ["CHARTER_AUDIT_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-09",
+      "criterion": "All candidate-owned persisted locations are declared; derived, source, adapter, fixture, Git, and temporary bytes are distinguishable.",
+      "required_evidence": ["STORAGE_MAP", "WRITE_SCOPE_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-10",
+      "criterion": "A clean dummy rebuild or reconstruction route can be invoked, or the candidate explicitly declares that native capability UNSUPPORTED; the adapter does not supply it.",
+      "required_evidence": ["DUMMY_REBUILD_TRANSCRIPT", "NATIVE_CAPABILITY_DECLARATION"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-11",
+      "criterion": "Malformed dummy input, interrupted dummy execution, and resource-stop dummy controls produce explicit non-scoreable native/run states without silent retry.",
+      "required_evidence": ["DUMMY_FAILURE_TRANSCRIPTS", "NO_SILENT_RETRY_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-12",
+      "criterion": "Build, fixture, operation, human, adapter, inherited-service, and recovery cost fields can represent measured values or explicit UNKNOWN; no missing value is emitted as zero.",
+      "required_evidence": ["DUMMY_COST_ENVELOPE", "UNKNOWN_NOT_ZERO_TEST"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-13",
+      "criterion": "The final isolation receipt validates against ISOLATION_CONTROLLER.schema.json and confirms unique repository, object store, container, branch, write scope, actor, access log, and refs.",
+      "required_evidence": ["VALIDATED_ISOLATION_CONTROLLER_RECEIPT"],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "id": "COMP-14",
+      "criterion": "No real candidate result has been produced or disclosed and the global candidate/adapter freeze barrier is still closed pending all candidates.",
+      "required_evidence": ["CONTROLLER_NO_REAL_RUN_ATTESTATION", "GLOBAL_FREEZE_BARRIER_STATE"],
+      "status": "NOT_EVALUATED"
+    }
+  ],
+  "decision_rule": {
+    "complete_under_budget": "ALL_ITEMS_PASS_AND_NO_BUDGET_OR_ISOLATION_VIOLATION",
+    "incomplete_under_budget": "ANY_ITEM_FAILS_AFTER_ALLOWED_RESULT_BLIND_REPAIRS_OR_BUILD_BUDGET_EXHAUSTS",
+    "blocked": "REQUIRED_EXTERNAL_PIN_OR_AUDIT_EVIDENCE_IS_UNAVAILABLE_BEFORE_BUILD_OR_AUDIT",
+    "contaminated": "FORBIDDEN_RESULT_OR_ORACLE_ACCESS_OCCURRED_OR_CANNOT_BE_EXCLUDED"
+  },
+  "outputs": [
+    "COMPLETE_UNDER_BUDGET",
+    "INCOMPLETE_UNDER_BUDGET",
+    "BLOCKED",
+    "CONTAMINATED"
+  ],
+  "run_state_mapping": {
+    "INCOMPLETE_UNDER_BUDGET": {
+      "run_state": "INCOMPLETE",
+      "reason_code": "INCOMPLETE_UNDER_BUDGET"
+    }
+  },
+  "failure_interpretation": "A NON_COMPLETE RESULT IS NOT A SEMANTIC CASE FAILURE AND IS NOT SCOREABLE.",
+  "waiver_allowed": false
+}

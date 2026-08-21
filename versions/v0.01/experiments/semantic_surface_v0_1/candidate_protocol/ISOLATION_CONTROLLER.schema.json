@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/candidate_protocol/isolation-controller.schema.json",
+  "title": "Semantic Surface v0.1 Final Isolation and Ref-Freeze Receipt",
+  "description": "A controller-finalized receipt created after a build unit freezes and before any real stimulus. Cross-receipt uniqueness and actor/auditor inequality are controller registry invariants.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "receipt_state",
+    "experiment_id",
+    "receipt_id",
+    "unit_kind",
+    "candidate_role_id",
+    "builder_visible_opaque_id",
+    "controller_ref",
+    "repository_isolation",
+    "container_isolation",
+    "branch_isolation",
+    "write_scope",
+    "actor",
+    "access_control",
+    "budget_receipts",
+    "ref_freeze",
+    "uniqueness_registry",
+    "signoff"
+  ],
+  "properties": {
+    "protocol_version": {"const": "0.1.0"},
+    "receipt_state": {"const": "FROZEN"},
+    "experiment_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{7,127}$"},
+    "receipt_id": {"type": "string", "format": "uuid"},
+    "unit_kind": {
+      "enum": ["PROSPECTIVE_CANDIDATE_AND_ADAPTER", "ARCHIVAL_C0_AND_ADAPTER"]
+    },
+    "candidate_role_id": {"enum": ["C0", "C1", "C2"]},
+    "builder_visible_opaque_id": {"type": "string", "pattern": "^K-[A-Z0-9]{12}$"},
+    "controller_ref": {"$ref": "#/$defs/gitPathPin"},
+    "repository_isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "isolated_repository_id",
+        "root_locator",
+        "object_store_id",
+        "source_export_sha256",
+        "shares_object_store_with_other_unit",
+        "sibling_refs_present",
+        "grader_oracle_present",
+        "holdout_plaintext_present"
+      ],
+      "properties": {
+        "isolated_repository_id": {"type": "string", "format": "uuid"},
+        "root_locator": {"type": "string", "minLength": 1},
+        "object_store_id": {"type": "string", "format": "uuid"},
+        "source_export_sha256": {"$ref": "#/$defs/sha256"},
+        "shares_object_store_with_other_unit": {"const": false},
+        "sibling_refs_present": {"const": false},
+        "grader_oracle_present": {"const": false},
+        "holdout_plaintext_present": {"const": false}
+      }
+    },
+    "container_isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "container_id",
+        "image_digest",
+        "network_namespace_id",
+        "external_network_interfaces",
+        "cpu_quota_cores",
+        "memory_limit_mib",
+        "writable_disk_limit_mib",
+        "other_candidate_mounts"
+      ],
+      "properties": {
+        "container_id": {"type": "string", "minLength": 8},
+        "image_digest": {"$ref": "#/$defs/sha256"},
+        "network_namespace_id": {"type": "string", "minLength": 1},
+        "external_network_interfaces": {"const": 0},
+        "cpu_quota_cores": {"const": 2},
+        "memory_limit_mib": {"const": 2048},
+        "writable_disk_limit_mib": {"const": 1024},
+        "other_candidate_mounts": {"type": "array", "maxItems": 0}
+      }
+    },
+    "branch_isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "branch_name",
+        "unique_branch_confirmed",
+        "immutable_base_commit",
+        "immutable_base_tree",
+        "mutable_by_other_actor",
+        "remote_ref_before_global_barrier"
+      ],
+      "properties": {
+        "branch_name": {"type": "string", "pattern": "^isolation/[a-z0-9][a-z0-9._/-]{3,127}$"},
+        "unique_branch_confirmed": {"const": true},
+        "immutable_base_commit": {"$ref": "#/$defs/gitObjectId"},
+        "immutable_base_tree": {"$ref": "#/$defs/gitObjectId"},
+        "mutable_by_other_actor": {"const": false},
+        "remote_ref_before_global_barrier": {"const": false}
+      }
+    },
+    "write_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exclusive_scope_id",
+        "allowed_prefixes",
+        "denied_prefixes",
+        "overlap_with_other_unit",
+        "writes_outside_scope_observed"
+      ],
+      "properties": {
+        "exclusive_scope_id": {"type": "string", "format": "uuid"},
+        "allowed_prefixes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "denied_prefixes": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "overlap_with_other_unit": {"const": false},
+        "writes_outside_scope_observed": {"const": false}
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "actor_kind",
+        "provider",
+        "model_id",
+        "model_snapshot_or_revision",
+        "reasoning_configuration",
+        "tool_policy_sha256",
+        "system_instruction_sha256",
+        "context_id",
+        "inherited_conversation_turns",
+        "worker_count",
+        "started_at",
+        "ended_at"
+      ],
+      "properties": {
+        "actor_id": {"type": "string", "minLength": 1},
+        "actor_kind": {"enum": ["MODEL", "HUMAN", "HYBRID"]},
+        "provider": {"type": "string", "minLength": 1},
+        "model_id": {"type": "string", "minLength": 1},
+        "model_snapshot_or_revision": {"type": "string", "minLength": 1},
+        "reasoning_configuration": {"type": "string", "minLength": 1},
+        "tool_policy_sha256": {"$ref": "#/$defs/sha256"},
+        "system_instruction_sha256": {"$ref": "#/$defs/sha256"},
+        "context_id": {"type": "string", "format": "uuid"},
+        "inherited_conversation_turns": {"const": 0},
+        "worker_count": {"const": 1},
+        "started_at": {"type": "string", "format": "date-time"},
+        "ended_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "access_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "common_build_packet_sha256",
+        "candidate_charter_sha256",
+        "input_allowlist_sha256",
+        "access_log_locator",
+        "access_log_sha256",
+        "oracle_access_attempts",
+        "holdout_access_attempts",
+        "sibling_access_attempts",
+        "result_access_attempts",
+        "forbidden_access_observed",
+        "access_audit_complete"
+      ],
+      "properties": {
+        "common_build_packet_sha256": {"$ref": "#/$defs/sha256"},
+        "candidate_charter_sha256": {"$ref": "#/$defs/sha256"},
+        "input_allowlist_sha256": {"$ref": "#/$defs/sha256"},
+        "access_log_locator": {"type": "string", "minLength": 1},
+        "access_log_sha256": {"$ref": "#/$defs/sha256"},
+        "oracle_access_attempts": {"const": 0},
+        "holdout_access_attempts": {"const": 0},
+        "sibling_access_attempts": {"const": 0},
+        "result_access_attempts": {"const": 0},
+        "forbidden_access_observed": {"const": false},
+        "access_audit_complete": {"const": true}
+      }
+    },
+    "budget_receipts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["build_budget_pin", "execution_budget_pin", "usage_receipt_sha256", "within_build_budget"],
+      "properties": {
+        "build_budget_pin": {"$ref": "#/$defs/gitPathPin"},
+        "execution_budget_pin": {"$ref": "#/$defs/gitPathPin"},
+        "usage_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "within_build_budget": {"const": true}
+      }
+    },
+    "ref_freeze": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_commit",
+        "candidate_tree",
+        "adapter_commit",
+        "adapter_tree",
+        "candidate_file_manifest_sha256",
+        "adapter_file_manifest_sha256",
+        "frozen_before_real_stimulus",
+        "cross_visible_before_global_barrier"
+      ],
+      "properties": {
+        "candidate_commit": {"$ref": "#/$defs/gitObjectId"},
+        "candidate_tree": {"$ref": "#/$defs/gitObjectId"},
+        "adapter_commit": {"$ref": "#/$defs/gitObjectId"},
+        "adapter_tree": {"$ref": "#/$defs/gitObjectId"},
+        "candidate_file_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "adapter_file_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "frozen_before_real_stimulus": {"const": true},
+        "cross_visible_before_global_barrier": {"const": false}
+      }
+    },
+    "uniqueness_registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registry_locator", "registry_sha256", "collision_count", "checked_fields"],
+      "properties": {
+        "registry_locator": {"type": "string", "minLength": 1},
+        "registry_sha256": {"$ref": "#/$defs/sha256"},
+        "collision_count": {"const": 0},
+        "checked_fields": {
+          "type": "array",
+          "const": [
+            "isolated_repository_id",
+            "object_store_id",
+            "container_id",
+            "network_namespace_id",
+            "branch_name",
+            "exclusive_scope_id",
+            "actor_id",
+            "context_id"
+          ]
+        }
+      }
+    },
+    "signoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controller_actor_id", "independent_auditor_actor_id", "auditor_authored_candidate_or_adapter", "result", "signed_at", "receipt_sha256"],
+      "properties": {
+        "controller_actor_id": {"type": "string", "minLength": 1},
+        "independent_auditor_actor_id": {"type": "string", "minLength": 1},
+        "auditor_authored_candidate_or_adapter": {"const": false},
+        "result": {"const": "PASS"},
+        "signed_at": {"type": "string", "format": "date-time"},
+        "receipt_sha256": {
+          "allOf": [{"$ref": "#/$defs/sha256"}],
+          "description": "SHA-256 of RFC 8785 canonical receipt bytes after removing the /signoff/receipt_sha256 member."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "gitObjectId": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitPathPin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "path", "blob"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "commit": {"$ref": "#/$defs/gitObjectId"},
+        "path": {"type": "string", "minLength": 1},
+        "blob": {"$ref": "#/$defs/gitObjectId"}
+      }
+    }
+  },
+  "x-controller-invariants": [
+    "Every uniqueness checked field is distinct across all build-unit receipts except immutable_base_commit and immutable_base_tree, which may intentionally share the frozen export base.",
+    "controller_actor_id and independent_auditor_actor_id are different actors.",
+    "allowed write prefixes do not overlap across receipts.",
+    "No candidate or adapter ref becomes reachable by a sibling builder before the global freeze barrier.",
+    "A schema-valid receipt is necessary but not sufficient; the controller verifies external registry and access-log evidence."
+  ]
+}

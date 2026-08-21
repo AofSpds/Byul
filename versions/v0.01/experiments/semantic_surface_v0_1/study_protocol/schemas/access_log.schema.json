@@ -1,0 +1,385 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aofspds.example/schemas/byul/holdout_access_log.v1.json",
+  "title": "Byul Holdout Access Log v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "log_id",
+    "experiment_id",
+    "canonicalization",
+    "hash_algorithm",
+    "digest_preimage_contract",
+    "created_at",
+    "events",
+    "genesis_event_digest_sha256",
+    "head_event_digest_sha256",
+    "chain_audit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "log_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{7,127}$"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "canonicalization": {
+      "const": "RFC8785_JCS_UTF8"
+    },
+    "hash_algorithm": {
+      "const": "SHA-256"
+    },
+    "digest_preimage_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_prefix_utf8",
+        "nul_separator_hex",
+        "event_projection_fields",
+        "formula"
+      ],
+      "properties": {
+        "context_prefix_utf8": { "const": "BYUL-ACCESS-EVENT-v0.1" },
+        "nul_separator_hex": { "const": "00" },
+        "event_projection_fields": {
+          "const": [
+            "event_id",
+            "sequence",
+            "occurred_at",
+            "actor_role",
+            "actor_role_id",
+            "actor_pseudonym",
+            "action",
+            "object_class",
+            "object_commitment_sha256",
+            "decision",
+            "authorization_ref",
+            "reason",
+            "previous_event_digest_sha256"
+          ]
+        },
+        "formula": {
+          "const": "SHA256(UTF8(context_prefix_utf8)||0x00||RFC8785_JCS_UTF8(PROJECT(event,event_projection_fields)))"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "prefixItems": [
+        {
+          "allOf": [
+            { "$ref": "#/$defs/event" },
+            {
+              "properties": {
+                "sequence": { "const": 0 },
+                "previous_event_digest_sha256": { "type": "null" }
+              }
+            }
+          ]
+        }
+      ],
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "genesis_event_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "head_event_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "chain_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "auditor_role_id",
+        "audited_at",
+        "event_count",
+        "audited_events_canonical_sha256",
+        "audited_genesis_event_digest_sha256",
+        "audited_head_event_digest_sha256",
+        "checked_rule_ids",
+        "findings",
+        "audit_receipt_digest_sha256"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_YET_AUDITED",
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "auditor_role_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "audited_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "event_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "audited_events_canonical_sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "audited_genesis_event_digest_sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "audited_head_event_digest_sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "checked_rule_ids": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "SEQUENCE_CONTIGUOUS_FROM_ZERO" },
+            { "const": "GENESIS_PREVIOUS_IS_NULL" },
+            { "const": "EVENT_DIGESTS_RECOMPUTED" },
+            { "const": "PREVIOUS_LINK_CONTINUITY" },
+            { "const": "GENESIS_FIELD_MATCHES_FIRST" },
+            { "const": "HEAD_FIELD_MATCHES_LAST" },
+            { "const": "TIMESTAMPS_NONDECREASING" },
+            { "const": "ROLE_AND_ACL_CONFORMANT" },
+            { "const": "MANIFEST_AND_COMMITMENT_BOUND" },
+            { "const": "NO_FORBIDDEN_ACCESS" }
+          ],
+          "items": false
+        },
+        "findings": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 1000 }
+        },
+        "audit_receipt_digest_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "PASS" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "auditor_role_id": { "type": "string", "minLength": 8 },
+              "audited_at": { "type": "string", "format": "date-time" },
+              "event_count": { "minimum": 1 },
+              "audited_events_canonical_sha256": { "$ref": "#/$defs/sha256" },
+              "audited_genesis_event_digest_sha256": { "$ref": "#/$defs/sha256" },
+              "audited_head_event_digest_sha256": { "$ref": "#/$defs/sha256" },
+              "checked_rule_ids": { "minItems": 10, "maxItems": 10 },
+              "findings": { "maxItems": 0 },
+              "audit_receipt_digest_sha256": { "$ref": "#/$defs/sha256" }
+            }
+          },
+          "else": {
+            "if": {
+              "properties": { "status": { "const": "NOT_YET_AUDITED" } },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "auditor_role_id": { "type": "null" },
+                "audited_at": { "type": "null" },
+                "audited_events_canonical_sha256": { "type": "null" },
+                "audited_genesis_event_digest_sha256": { "type": "null" },
+                "audited_head_event_digest_sha256": { "type": "null" },
+                "checked_rule_ids": { "maxItems": 0 },
+                "audit_receipt_digest_sha256": { "type": "null" }
+              }
+            },
+            "else": {
+              "properties": {
+                "auditor_role_id": { "type": "string", "minLength": 8 },
+                "audited_at": { "type": "string", "format": "date-time" },
+                "event_count": { "minimum": 1 },
+                "audited_events_canonical_sha256": { "$ref": "#/$defs/sha256" },
+                "audited_genesis_event_digest_sha256": { "$ref": "#/$defs/sha256" },
+                "audited_head_event_digest_sha256": { "$ref": "#/$defs/sha256" },
+                "checked_rule_ids": { "minItems": 10, "maxItems": 10 },
+                "findings": { "minItems": 1 },
+                "audit_receipt_digest_sha256": { "$ref": "#/$defs/sha256" }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "sequence",
+        "occurred_at",
+        "actor_role",
+        "actor_role_id",
+        "actor_pseudonym",
+        "action",
+        "object_class",
+        "object_commitment_sha256",
+        "decision",
+        "authorization_ref",
+        "reason",
+        "previous_event_digest_sha256",
+        "event_digest_sha256"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "pattern": "^AE-[A-F0-9]{16,64}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor_role": {
+          "enum": [
+            "SELECTOR",
+            "CUSTODIAN",
+            "ORACLE_AUTHOR",
+            "ORACLE_REVIEWER",
+            "RUNNER",
+            "GRADER_A",
+            "GRADER_B",
+            "TIE_ADJUDICATOR",
+            "RELINK_CONTROLLER",
+            "ACCESS_AUDITOR",
+            "CANDIDATE_BUILDER",
+            "ADAPTER_BUILDER",
+            "SYSTEM"
+          ]
+        },
+        "actor_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "actor_pseudonym": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 160
+        },
+        "action": {
+          "enum": [
+            "CREATE",
+            "LIST",
+            "READ",
+            "WRITE",
+            "VERSION_FREEZE",
+            "COMMIT",
+            "DECRYPT",
+            "KEY_USE",
+            "EXPORT_INPUT",
+            "EXPORT_ORACLE",
+            "RELEASE_TO_RUNNER",
+            "RELEASE_TO_GRADER",
+            "RELINK",
+            "DISCLOSE",
+            "ACL_GRANT",
+            "ACL_REVOKE",
+            "ACCESS_DENIED",
+            "AUDIT"
+          ]
+        },
+        "object_class": {
+          "enum": [
+            "PRIVATE_MANIFEST",
+            "PRIMARY_INPUT",
+            "RESERVE_INPUT",
+            "PRIMARY_ORACLE",
+            "RESERVE_ORACLE",
+            "SALT",
+            "ENCRYPTION_KEY",
+            "RELINK_TABLE",
+            "NATIVE_OUTPUT",
+            "SANITIZED_PACKET",
+            "GRADE_RECORD",
+            "ACCESS_LOG",
+            "PUBLIC_COMMITMENT",
+            "ACL_POLICY"
+          ]
+        },
+        "object_commitment_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "decision": {
+          "enum": [
+            "ALLOW",
+            "DENY"
+          ]
+        },
+        "authorization_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "previous_event_digest_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "event_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

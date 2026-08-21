@@ -1,0 +1,126 @@
+{
+  "protocol_version": "0.1.0",
+  "budget_id": "SEMANTIC_SURFACE_V0_1_PROSPECTIVE_BUILD_BUDGET",
+  "covered_candidates": ["C1", "C2"],
+  "parity_rule": "EVERY_NUMERIC_CAP_IS_IDENTICAL_AND_NON_TRANSFERABLE",
+  "candidate_specific_overrides": [],
+  "budget_unit": "PER_CANDIDATE_INCLUDING_ITS_ADAPTER",
+  "model_identity_rule": {
+    "same_provider": true,
+    "same_model_id": true,
+    "same_model_snapshot_or_revision": true,
+    "same_reasoning_configuration": true,
+    "same_tool_policy_digest": true,
+    "same_system_instruction_digest": true,
+    "pin_location": "ISOLATION_CONTROLLER_RECEIPT",
+    "current_pin_state": "BLOCKING_UNPINNED_EXTERNAL_REQUIREMENT"
+  },
+  "model_and_context_caps": {
+    "builder_sessions": 1,
+    "builder_model_invocations": 24,
+    "maximum_context_window_tokens_per_invocation": 128000,
+    "maximum_common_initial_packet_tokens": 50000,
+    "maximum_candidate_local_charter_tokens": 8000,
+    "maximum_total_model_input_tokens": 500000,
+    "maximum_total_model_output_tokens": 120000,
+    "inherited_conversation_turns": 0,
+    "sibling_candidate_context_tokens": 0,
+    "public_or_holdout_result_tokens": 0,
+    "grader_oracle_tokens": 0,
+    "token_counter": "PROVIDER_CANONICAL_TOKENIZER_AND_USAGE_RECEIPT",
+    "missing_token_telemetry_route": "BLOCKED_ACCOUNTING_BEFORE_BUILD"
+  },
+  "effort_caps": {
+    "wall_clock_minutes": 180,
+    "active_worker_minutes": 180,
+    "worker_count": 1,
+    "concurrent_worker_count": 1,
+    "tool_calls": 240,
+    "initial_build_rounds": 1,
+    "result_blind_repair_rounds": 2,
+    "maximum_minutes_per_repair_round": 30,
+    "maximum_tool_calls_per_repair_round": 50,
+    "maximum_model_output_tokens_per_repair_round": 20000
+  },
+  "sloc_caps": {
+    "candidate_runtime_source": 700,
+    "candidate_specific_schema_and_configuration": 300,
+    "adapter_runtime_source": 180,
+    "candidate_and_adapter_tests": 650,
+    "total_counted_sloc": 1830,
+    "documentation_nonblank_lines": 600,
+    "counting_rule_ref": "COST_MEASUREMENT_MANUAL.md"
+  },
+  "file_caps": {
+    "candidate_runtime_source_files": 8,
+    "candidate_specific_schema_and_configuration_files": 4,
+    "adapter_runtime_source_files": 3,
+    "candidate_and_adapter_test_files": 10,
+    "candidate_local_documentation_files": 2,
+    "total_candidate_owned_files": 27
+  },
+  "dependency_caps": {
+    "third_party_runtime_packages": 0,
+    "third_party_build_or_test_packages": 0,
+    "direct_standard_library_modules": 20,
+    "inherited_external_executables": 2,
+    "permitted_inherited_external_executables": [
+      "PINNED_PYTHON_INTERPRETER",
+      "PINNED_GIT_EXECUTABLE"
+    ],
+    "network_fetched_dependencies": 0,
+    "vendored_dependencies": 0,
+    "candidate_owned_services": 0
+  },
+  "feedback_policy": {
+    "permitted_feedback": [
+      "STATIC_PARSE_OR_COMPILE_ERRORS",
+      "RESULT_BLIND_COMPLETENESS_CHECKS",
+      "DUMMY_ONLY_HARNESS_CONFORMANCE_FAILURES",
+      "ADAPTER_PURITY_MUTATION_TESTS_WITH_SYNTHETIC_NATIVE_BYTES",
+      "CHARTER_BOUNDARY_AUDIT_FINDINGS"
+    ],
+    "forbidden_feedback": [
+      "PUBLIC_CASE_RESULT",
+      "HOLDOUT_CASE_RESULT",
+      "SIBLING_CANDIDATE_RESULT_OR_SOURCE",
+      "GRADER_ORACLE",
+      "C0_REAL_CASE_CALIBRATION_RESULT"
+    ],
+    "repair_budget_is_included_in_total_caps": true,
+    "repair_after_real_stimulus_exposure": false
+  },
+  "common_packet_parity": {
+    "common_core_digest_must_match": true,
+    "common_prompt_template_digest_must_match": true,
+    "only_permitted_candidate_difference": "THE_CANDIDATE_LOCAL_CHARTER_AND_OPAQUE_IDENTIFIER",
+    "packet_file_count_must_match": true,
+    "candidate_local_charter_position_must_match": true,
+    "actual_bytes_and_tokens_must_be_recorded": true
+  },
+  "budget_exhausted_behavior": {
+    "immediate_action": "STOP_ALL_MUTATION_FOR_THE_EXHAUSTED_BUILD_UNIT",
+    "preserve": [
+      "PARTIAL_SOURCE",
+      "CURRENT_GIT_REF",
+      "BUILD_LOG",
+      "USAGE_RECEIPT",
+      "FAILED_COMPLETENESS_ITEMS",
+      "ACCESS_LOG"
+    ],
+    "run_state": "BUDGET_EXHAUSTED",
+    "completeness_state_if_not_already_complete": "INCOMPLETE_UNDER_BUDGET",
+    "semantic_failure_claim": false,
+    "scoreable": false,
+    "borrow_unused_sibling_budget": false,
+    "post_result_extension": false,
+    "permitted_future_route": "RESULT_BLIND_SYMMETRIC_REBUDGET_ONLY_IN_A_NEWLY_FROZEN_SUCCESSOR_BEFORE_ANY_REAL_STIMULUS"
+  },
+  "cap_rationale": {
+    "prototype_scale": "Small Python-standard-library candidates with one mechanical adapter, tests, and no owned service.",
+    "wall_and_token_reason": "Three hours, 24 model invocations, and 620000 total model tokens allow design, implementation, two result-blind repairs, and evidence capture without open-ended effort.",
+    "sloc_reason": "700 runtime SLOC plus 300 schema/config SLOC is sufficient for a small Git-native control or append/replay layer while preventing framework-scale implementations; adapter and tests are separately capped so they cannot be hidden.",
+    "dependency_reason": "Both charters can be exercised with pinned Python, its standard library, and inherited Git; third-party packages or candidate services would introduce asymmetric affordances and supply-chain variance.",
+    "repair_reason": "Two repairs allow ordinary build defects to be corrected using dummy-only feedback while preventing indefinite optimization."
+  }
+}

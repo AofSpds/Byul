@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.1",
+  "protocol_id": "BYUL-ADJUDICATION-v0.1",
+  "status": "WORKING_NON_NORMATIVE_PRE_IMPLEMENTATION",
+  "core_registry_path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/MECHANICAL_CHECK_REGISTRY.json",
+  "adjudication_schema_path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/schemas/adjudication.schema.json",
+  "coverage_rule": "EVERY_CORE_REGISTRY_CHECK_ID_APPEARS_IN_AT_LEAST_ONE_MANDATORY_ADJUDICATION_CHECK",
+  "ordered_bindings": [
+    {"check_id": "REFS_AND_DIGESTS", "core_check_ids": ["XF_REF_001", "XF_BIND_001"], "study_rule_ids": []},
+    {"check_id": "RUN_STATE_SCOREABLE", "core_check_ids": ["XF_SCORE_001"], "study_rule_ids": ["ST_RUN_STATE_001"]},
+    {"check_id": "SIMULTANEOUS_FREEZE", "core_check_ids": ["XF_BIND_001"], "study_rule_ids": ["ST_FREEZE_001"]},
+    {"check_id": "INPUT_ORACLE_SEPARATION", "core_check_ids": ["XF_HOLDOUT_001"], "study_rule_ids": ["ST_VISIBILITY_001"]},
+    {"check_id": "NATIVE_BYTES_CAPTURE", "core_check_ids": ["XF_BIND_001", "XF_TRUNC_001"], "study_rule_ids": []},
+    {"check_id": "ADAPTER_MAPPING_LINEAGE", "core_check_ids": ["XF_MAP_001", "XF_MAP_002", "XF_MAP_003"], "study_rule_ids": []},
+    {"check_id": "SCHEMA_AND_UNIQUENESS", "core_check_ids": ["XF_ID_001"], "study_rule_ids": ["ST_SCHEMA_001"]},
+    {"check_id": "REQUIRED_EVIDENCE", "core_check_ids": ["XF_REF_001", "XF_MAP_003", "XF_TUPLE_001"], "study_rule_ids": []},
+    {"check_id": "CROSS_FIELD_INVARIANTS", "core_check_ids": ["XF_TUPLE_001", "XF_AUTH_001"], "study_rule_ids": ["ST_ADJUDICATION_001"]},
+    {"check_id": "RESOURCE_BUDGET", "core_check_ids": [], "study_rule_ids": ["ST_BUDGET_001"]},
+    {"check_id": "HOLDOUT_ACCESS_AUDIT", "core_check_ids": ["XF_HOLDOUT_001"], "study_rule_ids": ["ST_ACCESS_001", "ST_COMMITMENT_001"]},
+    {"check_id": "NO_SILENT_RETRY_OR_REF_CHANGE", "core_check_ids": ["XF_BIND_001", "XF_SCORE_001"], "study_rule_ids": ["ST_RETRY_001"]}
+  ],
+  "validation_claim": "NONE",
+  "selection_authority": "NONE"
+}

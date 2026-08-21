@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.1",
+  "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "status": "WORKING_NON_NORMATIVE_PRE_IMPLEMENTATION",
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "registry_purpose": "Machine-readable inventory of mandatory checks that span schema-valid artifacts; this is not an implementation or a pass receipt.",
+  "declaration_and_reference_rule": {
+    "declaration": "An entity-creating field in the owning artifact or record.",
+    "reference": "A foreign-key field that must repeat and resolve one declared ID.",
+    "duplicate_declaration": "INVALID",
+    "repeated_bound_reference": "REQUIRED_OR_ALLOWED_AS_LISTED",
+    "repeated_embedded_object_same_id": "MUST_BE_CANONICAL_BYTE_IDENTICAL"
+  },
+  "id_roles": [
+    {
+      "namespace": "ST",
+      "declaration_paths": ["stimulus:/stimulus_id"],
+      "reference_paths": ["oracle:/stimulus_id"]
+    },
+    {
+      "namespace": "OR",
+      "declaration_paths": ["oracle:/oracle_id"],
+      "reference_paths": []
+    },
+    {
+      "namespace": "TR",
+      "declaration_paths": ["run_manifest:/trial_id"],
+      "reference_paths": []
+    },
+    {
+      "namespace": "RN",
+      "declaration_paths": ["run_manifest:/run_id"],
+      "reference_paths": [
+        "run_state:/run_id",
+        "native_capture:/run_id",
+        "mapping_receipt:/run_id",
+        "observation:/run_id"
+      ]
+    },
+    {
+      "namespace": "AT",
+      "declaration_paths": ["run_manifest:/attempt_id"],
+      "reference_paths": [
+        "run_state:/attempt_id",
+        "native_capture:/attempt_id",
+        "mapping_receipt:/attempt_id",
+        "observation:/attempt_id"
+      ]
+    },
+    {
+      "namespace": "RS",
+      "declaration_paths": ["run_state:/state_id"],
+      "reference_paths": []
+    },
+    {
+      "namespace": "NC",
+      "declaration_paths": ["native_capture:/capture_id"],
+      "reference_paths": [
+        "mapping_receipt:/native_capture_id",
+        "observation:/native_capture_id"
+      ]
+    },
+    {
+      "namespace": "NA",
+      "declaration_paths": ["native_capture:/artifacts/*/artifact_id"],
+      "reference_paths": [
+        "mapping_receipt:/mappings/*/native_sources/*/capture_artifact_id",
+        "observation:/native_payload_digests/*/artifact_id"
+      ]
+    },
+    {
+      "namespace": "MR",
+      "declaration_paths": ["mapping_receipt:/receipt_id"],
+      "reference_paths": ["observation:/mapping_receipt_refs/*/receipt_id"]
+    },
+    {
+      "namespace": "MP",
+      "declaration_paths": ["mapping_receipt:/mappings/*/mapping_id"],
+      "reference_paths": []
+    },
+    {
+      "namespace": "OB",
+      "declaration_paths": ["observation:/observation_id"],
+      "reference_paths": ["mapping_receipt:/observation_id"]
+    },
+    {
+      "namespace": "SEMANTIC_RECORD",
+      "declaration_paths": [
+        "observation:/semantic_claims/*/claim_id",
+        "observation:/conflicts/*/conflict_id",
+        "observation:/unknowns/*/unknown_id",
+        "observation:/losses/*/loss_id"
+      ],
+      "reference_paths": ["mapping_receipt:/mappings/*/loss_disclosure_ids/*"]
+    },
+    {
+      "namespace": "EV",
+      "declaration_paths": ["first canonical embedded evidence entity occurrence"],
+      "reference_paths": ["later canonical-byte-identical embedded occurrences with the same evidence_id"]
+    },
+    {
+      "namespace": "RF",
+      "declaration_paths": ["first canonical immutable artifact ref occurrence"],
+      "reference_paths": ["later canonical-byte-identical immutable ref occurrences with the same ref_id"]
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "XF_REF_001",
+      "mandatory": true,
+      "enforcement": "CROSS_FILE_CHECKER",
+      "rule": "Every immutable ref resolves exact bytes, SHA-256, length, media type, and immutability claim."
+    },
+    {
+      "check_id": "XF_ID_001",
+      "mandatory": true,
+      "enforcement": "CROSS_FILE_CHECKER",
+      "rule": "Declaration IDs are unique in namespace; required repeated references resolve the one declaration; same-ID embedded objects are byte-identical."
+    },
+    {
+      "check_id": "XF_BIND_001",
+      "mandatory": true,
+      "enforcement": "CROSS_FILE_CHECKER",
+      "rule": "Run, attempt, manifest, stimulus, candidate, adapter, harness, runner, environment, dependency-lock, resource, capture, receipt, observation, and oracle bindings agree exactly."
+    },
+    {
+      "check_id": "XF_MAP_001",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
+      "rule": "Receipt mapping keys are the exact unique terminal-value JSON Pointer inventory of the sealed observation, excluding only /mapping_receipt_refs."
+    },
+    {
+      "check_id": "XF_MAP_002",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
+      "rule": "HARNESS_SUPPLIED targets only schema-listed metadata roots; grader annotations never occur in mapping receipts."
+    },
+    {
+      "check_id": "XF_MAP_003",
+      "mandatory": true,
+      "enforcement": "CROSS_FILE_CHECKER",
+      "rule": "Mapped value digests and every native pointer/range resolve exact values inside complete captured bytes without semantic strengthening."
+    },
+    {
+      "check_id": "XF_TUPLE_001",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
+      "rule": "Action posture and plan status agree with the tuple; complete tuple membership, oracle applicability, exact-loss scope, and reconstruction-boundary evidence are checked across files."
+    },
+    {
+      "check_id": "XF_TRUNC_001",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
+      "rule": "Truncated artifacts retain mandatory evidence, have PARTIAL capture, and cannot produce an OBSERVED scoreable attempt."
+    },
+    {
+      "check_id": "XF_AUTH_001",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
+      "rule": "AUTHORIZED trial execution has a resolvable immutable authority ref; other execution authority states have null refs."
+    },
+    {
+      "check_id": "XF_HOLDOUT_001",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_EXTERNAL_AUDIT",
+      "rule": "SEALED_HOLDOUT has mutually consistent public/private-manifest commitments, access-log head/audit, custodian release, external ACL evidence, and CASE_KEY oracle refs frozen before execution."
+    },
+    {
+      "check_id": "XF_SCORE_001",
+      "mandatory": true,
+      "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
+      "rule": "Only OBSERVED may be eligible pending gates; all terminal exceptions remain named, preserved, and non-scoreable."
+    }
+  ]
+}

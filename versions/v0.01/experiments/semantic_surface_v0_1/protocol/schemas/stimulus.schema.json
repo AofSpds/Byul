@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/stimulus.schema.json",
+  "title": "Semantic Surface v0.1 candidate-visible opaque stimulus",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "stimulus_id",
+    "input_blobs",
+    "invocation"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "stimulus_id": { "type": "string", "pattern": "^ST_[0-9a-f]{32}$" },
+    "input_blobs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/inputBlob" }
+    },
+    "invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dispatch_token", "transport", "ordered_input_ids"],
+      "properties": {
+        "dispatch_token": { "type": "string", "pattern": "^OP_[0-9a-f]{32}$" },
+        "transport": {
+          "enum": [
+            "STDIN",
+            "ARGUMENT",
+            "FILE_BUNDLE",
+            "DECLARED_NATIVE_ENTRYPOINT",
+            "CANDIDATE_DEFINED"
+          ]
+        },
+        "ordered_input_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^IN_[0-9a-f]{32}$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "locator",
+        "sha256",
+        "byte_length",
+        "media_type",
+        "immutability"
+      ],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": {
+          "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"]
+        }
+      }
+    },
+    "inputBlob": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_id",
+        "media_type",
+        "content_encoding",
+        "transfer_encoding",
+        "sha256",
+        "byte_length",
+        "source"
+      ],
+      "properties": {
+        "input_id": { "type": "string", "pattern": "^IN_[0-9a-f]{32}$" },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "content_encoding": {
+          "enum": ["BINARY", "UTF-8", "US-ASCII", "UTF-16LE", "UTF-16BE", "OTHER"]
+        },
+        "transfer_encoding": { "const": "BASE64" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "source": { "enum": ["INLINE", "EXTERNAL"] },
+        "content_base64": {
+          "type": ["string", "null"],
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "artifact_ref": {
+          "oneOf": [
+            { "$ref": "#/$defs/immutableArtifactRef" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "source": { "const": "INLINE" } }, "required": ["source"] },
+          "then": {
+            "required": ["content_base64", "artifact_ref"],
+            "properties": {
+              "content_base64": { "type": "string", "minLength": 1 },
+              "artifact_ref": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "source": { "const": "EXTERNAL" } }, "required": ["source"] },
+          "then": {
+            "required": ["content_base64", "artifact_ref"],
+            "properties": {
+              "content_base64": { "type": "null" },
+              "artifact_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

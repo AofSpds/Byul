@@ -1,0 +1,93 @@
+{
+  "protocol_version": "0.1.0",
+  "candidate_id": "C1",
+  "title": "GIT_NATIVE_CONTROL",
+  "status": "PROSPECTIVE_UNIMPLEMENTED",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "trial_role": "PROSPECTIVE_COMPARISON_CANDIDATE",
+  "candidate_local_hypothesis": "The Git object database and commit graph already supplied by the trial environment, plus ordinary source and current control manifests, may expose the required observations without a candidate-owned generic change layer.",
+  "historical_store_boundary": {
+    "only_permitted_historical_substrate": "INHERITED_GIT_OBJECT_DATABASE_AND_COMMIT_GRAPH",
+    "trial_commits_in_controller_assigned_branch": true,
+    "ordinary_versioned_source_files": true,
+    "materialized_current_control_manifest": true,
+    "rebuildable_non_authoritative_indexes": true,
+    "candidate_owned_generic_append_change_journal": false,
+    "candidate_owned_event_sequence_or_cursor": false,
+    "candidate_owned_replay_or_reducer": false,
+    "candidate_owned_second_object_database": false
+  },
+  "operational_definition": [
+    "Historical reconstruction selects a Git commit/tree/blob and reads or recomputes from that tree; it does not replay candidate-owned change records.",
+    "A trial mutation may create ordinary file changes and a Git commit in the controller-assigned branch because Git is the inherited historical service.",
+    "A current manifest or index may be replaced or rebuilt from a pinned Git tree, but it may not accumulate into an ordered generic event history.",
+    "Candidate-specific records may describe a present conflict, unknown, loss, or authorization state, but a generic ordered series consumed by apply/reduce/replay logic crosses the C2 boundary.",
+    "Using Git commit messages, notes, tags, or blobs as a disguised candidate-owned generic event journal crosses the C2 boundary if candidate code interprets them through generic change-record replay semantics."
+  ],
+  "permitted_native_operations": [
+    "READ_PINNED_GIT_OBJECT",
+    "READ_TREE_AT_COMMIT",
+    "DIFF_COMMITS",
+    "CREATE_ORDINARY_TRIAL_COMMIT",
+    "MATERIALIZE_CURRENT_MANIFEST",
+    "REBUILD_INDEX_FROM_GIT_TREE",
+    "RETURN_EXPLICIT_NATIVE_UNSUPPORTED_STATUS"
+  ],
+  "boundary_probes": [
+    {
+      "id": "C1-B01",
+      "probe": "Delete every rebuildable working-tree index and current manifest, then reconstruct only from a selected Git tree.",
+      "pass_condition": "No candidate-owned ordered record stream is read."
+    },
+    {
+      "id": "C1-B02",
+      "probe": "Search candidate source, configuration, and persisted files for generic append, sequence, parent-event, cursor, reduce, apply-event, and replay mechanisms.",
+      "pass_condition": "No mechanism collectively implements a candidate-owned generic change journal and replay projection."
+    },
+    {
+      "id": "C1-B03",
+      "probe": "Trace reconstruction of an older state.",
+      "pass_condition": "The trace begins at a Git ref/tree/blob and does not fold candidate-owned change records."
+    }
+  ],
+  "required_disclosures": [
+    "GIT_BINARY_VERSION_AND_DIGEST",
+    "INPUT_REPOSITORY_OBJECT_STORE_BYTES",
+    "OBJECT_STORE_DELTA_PER_OPERATION",
+    "GIT_COMMANDS_AND_OPERATOR_ACTIONS",
+    "ALL_CANDIDATE_SPECIFIC_PERSISTED_FILES",
+    "ALL_DERIVED_INDEX_REBUILD_STEPS",
+    "EVERY_CAPABILITY_SUPPLIED_BY_GIT_OR_THE_HARNESS"
+  ],
+  "must_not": [
+    "CREATE_A_CANDIDATE_OWNED_GENERIC_APPEND_JOURNAL",
+    "DERIVE_ARBITRARY_CURRENT_STATE_BY_REPLAYING_CANDIDATE_OWNED_CHANGE_RECORDS",
+    "HIDE_LEDGER_BEHAVIOR_BEHIND_GIT_NATIVE_NAMING",
+    "COPY_SOURCE_INTO_AN_UNDISCLOSED_SECOND_SEMANTIC_AUTHORITY",
+    "ENCODE_PUBLIC_OR_HOLDOUT_EXPECTATIONS",
+    "READ_SIBLING_CANDIDATE_OR_RESULT_ARTIFACTS"
+  ],
+  "budget_refs": {
+    "build": "BUILD_BUDGET.yaml",
+    "execution": "EXECUTION_BUDGET.yaml"
+  },
+  "required_gates_before_build": [
+    "F3_CORRECTION_10_FIXTURE_FREEZE_PASS",
+    "F4_HOLDOUT_COMMITMENT_PASS",
+    "V1_PRE_CANDIDATE_TREATMENT_FREEZE_PASS",
+    "F5_DUMMY_TRANSPORT_ACCEPT",
+    "F5_CANDIDATE_TRIAL_ACCEPT",
+    "F6_HARNESS_AUDIT_PASS"
+  ],
+  "required_gates_before_real_stimulus": [
+    "COMPLETE_UNDER_BUDGET",
+    "CHARTER_AUDIT_PASS",
+    "ADAPTER_AUDIT_PASS",
+    "ISOLATION_RECEIPT_PASS",
+    "GLOBAL_REF_FREEZE_PASS"
+  ],
+  "boundary_failure_route": "STOP_BOUNDARY_VIOLATION_RECHARTER_ONLY_IN_SUCCESSOR_SPEC",
+  "promotion_effect": "NONE"
+}

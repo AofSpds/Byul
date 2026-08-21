@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1", "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_8a7779ae95d2924ddce9e5442894e248", "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_37d808b304597b5bd9b4cc9214e21a79",
+  "stimulus_ref": { "ref_id": "RF_057eabbdfddef9081becde94c2b9fe3f", "locator": "dummy_oracles/stimuli/st_37d808b304597b5bd9b4cc9214e21a79.json", "sha256": "7fe2110b697e10646e2883b2cc9ccdb291da06debe53b423a27d5251755b32d0", "byte_length": 780, "media_type": "application/json", "immutability": "CONTENT_ADDRESS" },
+  "axis_applicability": { "resolution": true, "decision": false, "recoverability": false, "plan_status": false },
+  "allowed_outcome_tuples": [{ "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }],
+  "required_claims": [{ "claim_id": "RQ_8e9732c03648bfc9d39c4c93e1af3e48", "target_json_pointer": "/semantic_claims", "predicate": { "operator": "NONEMPTY", "expected_value": true }, "evidence_standard": "NATIVE_POINTER", "allowed_mapping_origins": ["NATIVE", "MECHANICALLY_MAPPED"] }],
+  "forbidden_behaviors": [{ "behavior_id": "FB_9c2388713976bbd8d258a3d56d6e8d2f", "rule_code": "MISSING_CLAIM_ACCEPTED", "description": "A schema-shaped outcome without the required evidenced claim is incomplete." }],
+  "derivation_records": [{ "derivation_id": "DR_7a3f42f3e86759cb291890f4075b40b0", "basis_class": "EXPERIMENTAL_CONVENTION", "statement": "This vector separates semantic completeness from JSON shape.", "evidence_refs": [] }],
+  "scoreability_rule": { "scoreable_run_states": ["OBSERVED"], "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"] },
+  "dummy_fixture": {
+    "profile": "SEMANTICALLY_INCOMPLETE",
+    "native_emission": { "media_type": "application/json", "content_encoding": "UTF-8", "content_base64": "eyJvdXRjb21lIjp7InJlc29sdXRpb24iOiJSRVNPTFZFRCIsImRlY2lzaW9uIjoiTk9UX0FQUExJQ0FCTEUiLCJyZWNvdmVyYWJpbGl0eSI6Ik5PVF9BUFBMSUNBQkxFIiwicGxhbl9zdGF0dXMiOiJOT1RfUkVRVUVTVEVEIn19", "byte_length": 129, "actual_sha256": "63e824aede7449db03afc522ea0d754d7b1243b7c84fe947c90cdb731bfc8fe4", "capture_declared_sha256": "63e824aede7449db03afc522ea0d754d7b1243b7c84fe947c90cdb731bfc8fe4", "exit_code": 0 },
+    "adapter_projection": { "outcome": { "resolution": "RESOLVED", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }, "claim_ids": [], "conflict_ids": [], "unknown_ids": [], "loss_ids": [], "native_digest_seen": "63e824aede7449db03afc522ea0d754d7b1243b7c84fe947c90cdb731bfc8fe4", "ref_tokens": { "spec": "TK_84f155c8eb305dfc02c109f2d7334c18", "harness": "TK_3370c5dcebd8140d214513103f9672f8", "candidate": "TK_34490be14352b8668fe377215a05a61a", "adapter": "TK_d7b07dc333dd615abc391edea8651a8e", "environment": "TK_e595bef23138c174edc1a0c39ee18913", "resource": "TK_5cf8d730eafafce607b36b695c7a263c", "stimulus": "TK_de68c9f010078f898e6bab418357d14a", "oracle": "TK_71aac4e56fcd81b3f5e3d68d9d4e0d8e" } },
+    "forced_run_state": "INCOMPLETE", "expected_mechanical_disposition": "REJECT", "expected_semantic_disposition": "NOT_EVALUATED", "expected_scoreability": "NON_SCOREABLE", "expected_reason_codes": ["REQUIRED_CLAIM_MISSING"]
+  },
+  "authority_boundary": { "validation_claim": "NONE", "selection_authority": "NONE", "promotion_authority": "NONE", "main_merge_authority": false, "production_authority": false }
+}

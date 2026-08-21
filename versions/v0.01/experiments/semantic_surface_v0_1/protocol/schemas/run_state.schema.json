@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/run_state.schema.json",
+  "title": "Semantic Surface v0.1 terminal run state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "state_id",
+    "run_id",
+    "attempt_id",
+    "attempt_number",
+    "run_manifest_ref",
+    "status",
+    "terminal",
+    "scoreability",
+    "recorded_at",
+    "reason_codes",
+    "reason_detail",
+    "evidence_refs",
+    "partial_artifact_refs",
+    "prior_terminal_state_ref",
+    "retry_policy",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "state_id": { "type": "string", "pattern": "^RS_[0-9a-f]{32}$" },
+    "run_id": { "type": "string", "pattern": "^RN_[0-9a-f]{32}$" },
+    "attempt_id": { "type": "string", "pattern": "^AT_[0-9a-f]{32}$" },
+    "attempt_number": { "type": "integer", "minimum": 1 },
+    "run_manifest_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "status": {
+      "enum": [
+        "OBSERVED",
+        "BLOCKED",
+        "STOPPED",
+        "CONTAMINATED",
+        "INVALID",
+        "INCOMPLETE",
+        "BUDGET_EXHAUSTED"
+      ]
+    },
+    "terminal": { "const": true },
+    "scoreability": { "enum": ["ELIGIBLE_PENDING_GATES", "NON_SCOREABLE"] },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "reason_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" }
+    },
+    "reason_detail": { "type": ["string", "null"] },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/immutableArtifactRef" }
+    },
+    "partial_artifact_refs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/immutableArtifactRef" }
+    },
+    "prior_terminal_state_ref": {
+      "oneOf": [
+        { "$ref": "#/$defs/immutableArtifactRef" },
+        { "type": "null" }
+      ]
+    },
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["silent_rerun_allowed", "retry_requires_new_run_id", "preserve_current_attempt"],
+      "properties": {
+        "silent_rerun_allowed": { "const": false },
+        "retry_requires_new_run_id": { "const": true },
+        "preserve_current_attempt": { "const": true }
+      }
+    },
+    "authority_boundary": { "$ref": "#/$defs/authorityBoundary" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "OBSERVED" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "scoreability": { "const": "ELIGIBLE_PENDING_GATES" },
+          "reason_codes": { "maxItems": 0 }
+        }
+      },
+      "else": {
+        "properties": {
+          "scoreability": { "const": "NON_SCOREABLE" },
+          "reason_codes": { "minItems": 1 },
+          "reason_detail": { "type": "string", "minLength": 1 },
+          "evidence_refs": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "attempt_number": { "minimum": 2 } }, "required": ["attempt_number"] },
+      "then": { "properties": { "prior_terminal_state_ref": { "$ref": "#/$defs/immutableArtifactRef" } } },
+      "else": { "properties": { "prior_terminal_state_ref": { "type": "null" } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "locator",
+        "sha256",
+        "byte_length",
+        "media_type",
+        "immutability"
+      ],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": {
+          "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"]
+        }
+      }
+    },
+    "authorityBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_claim",
+        "selection_authority",
+        "promotion_authority",
+        "main_merge_authority",
+        "production_authority"
+      ],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "promotion_authority": { "const": "NONE" },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false }
+      }
+    }
+  }
+}

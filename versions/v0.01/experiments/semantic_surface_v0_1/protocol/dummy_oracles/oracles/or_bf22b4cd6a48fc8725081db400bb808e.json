@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1", "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_bf22b4cd6a48fc8725081db400bb808e", "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_58ab78767a4ab10e094598e6dcf8d4a3",
+  "stimulus_ref": { "ref_id": "RF_34094474e0895747a1c258e4a7496f94", "locator": "dummy_oracles/stimuli/st_58ab78767a4ab10e094598e6dcf8d4a3.json", "sha256": "76fdddadca51d8021b7df013ef04c93c14c48d742e84985b3d45fdddf79cf27a", "byte_length": 893, "media_type": "application/json", "immutability": "CONTENT_ADDRESS" },
+  "axis_applicability": { "resolution": true, "decision": false, "recoverability": false, "plan_status": false },
+  "allowed_outcome_tuples": [{ "resolution": "CONFLICT", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }],
+  "required_claims": [{ "claim_id": "RQ_c0e234a56e85416b9d363914fea5af3d", "target_json_pointer": "/conflicts", "predicate": { "operator": "RETAINS_NATIVE_RECORD", "expected_value": "conf_b8" }, "evidence_standard": "NATIVE_POINTER", "allowed_mapping_origins": ["NATIVE", "MECHANICALLY_MAPPED"] }],
+  "forbidden_behaviors": [{ "behavior_id": "FB_a51c1f67f499cb606b969651c21a2132", "rule_code": "ADAPTER_ERASED_CONFLICT", "description": "A native conflict record cannot disappear from the observation." }],
+  "derivation_records": [{ "derivation_id": "DR_88dd0f495249e13c206dbe52fb0fe38d", "basis_class": "EXPERIMENTAL_CONVENTION", "statement": "This vector tests mapping monotonicity for an explicit native conflict.", "evidence_refs": [] }],
+  "scoreability_rule": { "scoreable_run_states": ["OBSERVED"], "non_scoreable_run_states": ["BLOCKED", "STOPPED", "CONTAMINATED", "INVALID", "INCOMPLETE", "BUDGET_EXHAUSTED"] },
+  "dummy_fixture": {
+    "profile": "ERASED_CONFLICT",
+    "native_emission": { "media_type": "application/json", "content_encoding": "UTF-8", "content_base64": "eyJjb25mbGljdHMiOlt7ImlkIjoiY29uZl9iOCIsImNsYWltcyI6WyJyZWNfeDIiLCJyZWNfeTkiXX1dLCJvdXRjb21lIjp7InJlc29sdXRpb24iOiJDT05GTElDVCIsImRlY2lzaW9uIjoiTk9UX0FQUExJQ0FCTEUiLCJyZWNvdmVyYWJpbGl0eSI6Ik5PVF9BUFBMSUNBQkxFIiwicGxhbl9zdGF0dXMiOiJOT1RfUkVRVUVTVEVEIn19", "byte_length": 189, "actual_sha256": "cb04bd7fbfd5033e76fbb14225ee53191cf299d21f32af35f2d8426e4aa166f3", "capture_declared_sha256": "cb04bd7fbfd5033e76fbb14225ee53191cf299d21f32af35f2d8426e4aa166f3", "exit_code": 0 },
+    "adapter_projection": { "outcome": { "resolution": "CONFLICT", "decision": "NOT_APPLICABLE", "recoverability": "NOT_APPLICABLE", "plan_status": "NOT_REQUESTED" }, "claim_ids": [], "conflict_ids": [], "unknown_ids": [], "loss_ids": [], "native_digest_seen": "cb04bd7fbfd5033e76fbb14225ee53191cf299d21f32af35f2d8426e4aa166f3", "ref_tokens": { "spec": "TK_84f155c8eb305dfc02c109f2d7334c18", "harness": "TK_3370c5dcebd8140d214513103f9672f8", "candidate": "TK_34490be14352b8668fe377215a05a61a", "adapter": "TK_d7b07dc333dd615abc391edea8651a8e", "environment": "TK_e595bef23138c174edc1a0c39ee18913", "resource": "TK_5cf8d730eafafce607b36b695c7a263c", "stimulus": "TK_de68c9f010078f898e6bab418357d14a", "oracle": "TK_71aac4e56fcd81b3f5e3d68d9d4e0d8e" } },
+    "forced_run_state": "INVALID", "expected_mechanical_disposition": "REJECT", "expected_semantic_disposition": "NOT_EVALUATED", "expected_scoreability": "NON_SCOREABLE", "expected_reason_codes": ["ADAPTER_ERASED_CONFLICT"]
+  },
+  "authority_boundary": { "validation_claim": "NONE", "selection_authority": "NONE", "promotion_authority": "NONE", "main_merge_authority": false, "production_authority": false }
+}

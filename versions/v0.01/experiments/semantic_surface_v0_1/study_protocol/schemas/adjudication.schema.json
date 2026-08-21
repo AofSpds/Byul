@@ -1,0 +1,1329 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aofspds.example/schemas/byul/adjudication.v1.json",
+  "title": "Byul Mechanical and Blind Semantic Adjudication v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adjudication_id",
+    "experiment_id",
+    "opaque_case_id",
+    "opaque_run_id",
+    "spec_ref",
+    "mechanical_contract_refs",
+    "input_digest_sha256",
+    "oracle_digest_sha256",
+    "candidate_identity_commitment_sha256",
+    "run_state",
+    "run_state_record_digest_sha256",
+    "run_state_reason_codes",
+    "mechanical",
+    "sanitized_packet",
+    "semantic",
+    "common_exclusion",
+    "relink",
+    "final_state"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "adjudication_id": {
+      "type": "string",
+      "pattern": "^ADJ-[A-F0-9]{16,64}$"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "opaque_case_id": {
+      "type": "string",
+      "pattern": "^HC-[A-F0-9]{16,64}$"
+    },
+    "opaque_run_id": {
+      "type": "string",
+      "pattern": "^OR-[A-F0-9]{16,64}$"
+    },
+    "spec_ref": {
+      "$ref": "#/$defs/exactRef"
+    },
+    "mechanical_contract_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_registry_path",
+        "core_registry_sha256",
+        "study_bindings_path",
+        "study_bindings_sha256"
+      ],
+      "properties": {
+        "core_registry_path": {
+          "const": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/MECHANICAL_CHECK_REGISTRY.json"
+        },
+        "core_registry_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "study_bindings_path": {
+          "const": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/MECHANICAL_CHECK_BINDINGS.json"
+        },
+        "study_bindings_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "input_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "oracle_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "candidate_identity_commitment_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "run_state": {
+      "enum": [
+        "OBSERVED",
+        "BLOCKED",
+        "STOPPED",
+        "CONTAMINATED",
+        "INVALID",
+        "INCOMPLETE_UNDER_BUDGET",
+        "BUDGET_EXHAUSTED"
+      ]
+    },
+    "run_state_record_digest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "run_state_reason_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" }
+    },
+    "mechanical": {
+      "$ref": "#/$defs/mechanical"
+    },
+    "sanitized_packet": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/sanitizedPacket"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "semantic": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/semantic"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "common_exclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "excluded",
+        "reason_code",
+        "applies_to_all_candidates",
+        "replacement_case_id",
+        "decision_digest_sha256"
+      ],
+      "properties": {
+        "excluded": {
+          "type": "boolean"
+        },
+        "reason_code": {
+          "enum": [
+            "NONE",
+            "COMMON_CORRUPT_INPUT",
+            "COMMON_ORACLE_AMBIGUITY",
+            "COMMON_RUNNER_FAILURE",
+            "COMMON_CONTAMINATION"
+          ]
+        },
+        "applies_to_all_candidates": {
+          "type": "boolean"
+        },
+        "replacement_case_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^HC-[A-F0-9]{16,64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "relink": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/relink"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "final_state": {
+      "enum": [
+        "MECHANICAL_INVALID",
+        "CONFORMING",
+        "NONCONFORMING",
+        "UNSUPPORTED",
+        "UNMAPPABLE",
+        "DISAGREEMENT",
+        "SEMANTIC_AMBIGUOUS",
+        "UNSCORABLE",
+        "COMMON_EXCLUDED",
+        "BLOCKED",
+        "STOPPED",
+        "CONTAMINATED",
+        "INVALID",
+        "INCOMPLETE_UNDER_BUDGET",
+        "BUDGET_EXHAUSTED",
+        "INSUFFICIENT_EVIDENCE"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "allOf": [
+          {
+            "properties": { "run_state": { "const": "OBSERVED" } },
+            "required": ["run_state"]
+          },
+          {
+            "properties": {
+              "mechanical": {
+                "properties": {
+                  "checks": {
+                    "not": {
+                      "contains": {
+                        "properties": { "status": { "const": "FAIL" } },
+                        "required": ["status"]
+                      }
+                    }
+                  }
+                },
+                "required": ["checks"]
+              }
+            },
+            "required": ["mechanical"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "run_state_reason_codes": { "maxItems": 0 },
+          "mechanical": {
+            "properties": {
+              "eligible_for_semantic": { "const": true },
+              "failure_codes": { "maxItems": 0 }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "run_state_reason_codes": { "minItems": 1 },
+          "mechanical": {
+            "properties": {
+              "eligible_for_semantic": { "const": false },
+              "failure_codes": { "minItems": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mechanical": {
+            "properties": {
+              "eligible_for_semantic": {
+                "const": false
+              }
+            },
+            "required": [
+              "eligible_for_semantic"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sanitized_packet": {
+            "type": "null"
+          },
+          "semantic": {
+            "type": "null"
+          },
+          "relink": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "sanitized_packet": {
+            "$ref": "#/$defs/sanitizedPacket"
+          },
+          "semantic": {
+            "$ref": "#/$defs/semantic"
+          },
+          "relink": {
+            "$ref": "#/$defs/relink"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "common_exclusion": {
+            "properties": { "excluded": { "const": true } },
+            "required": ["excluded"]
+          }
+        },
+        "required": ["common_exclusion"]
+      },
+      "then": {
+        "properties": {
+          "common_exclusion": {
+            "properties": {
+              "reason_code": { "not": { "const": "NONE" } },
+              "applies_to_all_candidates": { "const": true },
+              "replacement_case_id": {
+                "type": "string",
+                "pattern": "^HC-[A-F0-9]{16,64}$"
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "common_exclusion": {
+            "properties": {
+              "reason_code": { "const": "NONE" },
+              "applies_to_all_candidates": { "const": false },
+              "replacement_case_id": { "type": "null" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "OBSERVED" } },
+        "required": ["run_state"]
+      },
+      "then": {
+        "if": {
+          "properties": {
+            "mechanical": {
+              "properties": { "eligible_for_semantic": { "const": false } },
+              "required": ["eligible_for_semantic"]
+            }
+          }
+        },
+        "then": { "properties": { "final_state": { "const": "MECHANICAL_INVALID" } } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "BLOCKED" } },
+        "required": ["run_state"]
+      },
+      "then": { "properties": { "final_state": { "const": "BLOCKED" } } }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "STOPPED" } },
+        "required": ["run_state"]
+      },
+      "then": { "properties": { "final_state": { "const": "STOPPED" } } }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "CONTAMINATED" } },
+        "required": ["run_state"]
+      },
+      "then": { "properties": { "final_state": { "const": "CONTAMINATED" } } }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "INVALID" } },
+        "required": ["run_state"]
+      },
+      "then": { "properties": { "final_state": { "const": "INVALID" } } }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "INCOMPLETE_UNDER_BUDGET" } },
+        "required": ["run_state"]
+      },
+      "then": { "properties": { "final_state": { "const": "INCOMPLETE_UNDER_BUDGET" } } }
+    },
+    {
+      "if": {
+        "properties": { "run_state": { "const": "BUDGET_EXHAUSTED" } },
+        "required": ["run_state"]
+      },
+      "then": { "properties": { "final_state": { "const": "BUDGET_EXHAUSTED" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "mechanical": {
+            "properties": { "eligible_for_semantic": { "const": true } },
+            "required": ["eligible_for_semantic"]
+          },
+          "common_exclusion": {
+            "properties": { "excluded": { "const": true } },
+            "required": ["excluded"]
+          }
+        },
+        "required": ["mechanical", "common_exclusion"]
+      },
+      "then": { "properties": { "final_state": { "const": "COMMON_EXCLUDED" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "mechanical": {
+            "properties": { "eligible_for_semantic": { "const": true } },
+            "required": ["eligible_for_semantic"]
+          },
+          "common_exclusion": {
+            "properties": { "excluded": { "const": false } },
+            "required": ["excluded"]
+          }
+        },
+        "required": ["mechanical", "common_exclusion"]
+      },
+      "then": {
+        "oneOf": [
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "CONFORMING" } } },
+              "final_state": { "const": "CONFORMING" }
+            }
+          },
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "NONCONFORMING" } } },
+              "final_state": { "const": "NONCONFORMING" }
+            }
+          },
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "UNSUPPORTED" } } },
+              "final_state": { "const": "UNSUPPORTED" }
+            }
+          },
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "UNMAPPABLE" } } },
+              "final_state": { "const": "UNMAPPABLE" }
+            }
+          },
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "DISAGREEMENT" } } },
+              "final_state": { "const": "DISAGREEMENT" }
+            }
+          },
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "AMBIGUOUS" } } },
+              "final_state": { "const": "SEMANTIC_AMBIGUOUS" }
+            }
+          },
+          {
+            "properties": {
+              "semantic": { "properties": { "final_judgment": { "const": "UNSCORABLE" } } },
+              "final_state": { "const": "UNSCORABLE" }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "exactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      }
+    },
+    "mechanicalCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "mandatory",
+        "status",
+        "evidence_digest_sha256",
+        "detail"
+      ],
+      "properties": {
+        "check_id": {
+          "enum": [
+            "REFS_AND_DIGESTS",
+            "RUN_STATE_SCOREABLE",
+            "SIMULTANEOUS_FREEZE",
+            "INPUT_ORACLE_SEPARATION",
+            "NATIVE_BYTES_CAPTURE",
+            "ADAPTER_MAPPING_LINEAGE",
+            "SCHEMA_AND_UNIQUENESS",
+            "REQUIRED_EVIDENCE",
+            "CROSS_FIELD_INVARIANTS",
+            "RESOURCE_BUDGET",
+            "HOLDOUT_ACCESS_AUDIT",
+            "NO_SILENT_RETRY_OR_REF_CHANGE"
+          ]
+        },
+        "mandatory": {
+          "const": true
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "evidence_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "mechanical": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checker_role_id",
+        "started_at",
+        "frozen_at",
+        "checks",
+        "eligible_for_semantic",
+        "failure_codes",
+        "record_digest_sha256"
+      ],
+      "properties": {
+        "checker_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12,
+          "prefixItems": [
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "REFS_AND_DIGESTS" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "RUN_STATE_SCOREABLE" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "SIMULTANEOUS_FREEZE" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "INPUT_ORACLE_SEPARATION" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "NATIVE_BYTES_CAPTURE" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "ADAPTER_MAPPING_LINEAGE" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "SCHEMA_AND_UNIQUENESS" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "REQUIRED_EVIDENCE" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "CROSS_FIELD_INVARIANTS" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "RESOURCE_BUDGET" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "HOLDOUT_ACCESS_AUDIT" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/mechanicalCheck" },
+                { "properties": { "check_id": { "const": "NO_SILENT_RETRY_OR_REF_CHANGE" } } }
+              ]
+            }
+          ],
+          "items": false
+        },
+        "eligible_for_semantic": {
+          "type": "boolean"
+        },
+        "failure_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "uniqueItems": true
+        },
+        "record_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "sanitizedPacket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "opaque_packet_id",
+        "created_by_role_id",
+        "reviewed_by_role_id",
+        "created_at",
+        "candidate_visible_input_digest_sha256",
+        "oracle_digest_sha256",
+        "native_claims_digest_sha256",
+        "sanitized_bytes_digest_sha256",
+        "unsanitized_to_sanitized_map_commitment_sha256",
+        "identity_and_cost_fields_removed",
+        "review_status"
+      ],
+      "properties": {
+        "opaque_packet_id": {
+          "type": "string",
+          "pattern": "^SP-[A-F0-9]{16,64}$"
+        },
+        "created_by_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "reviewed_by_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "candidate_visible_input_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "oracle_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "native_claims_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sanitized_bytes_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "unsanitized_to_sanitized_map_commitment_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "identity_and_cost_fields_removed": {
+          "const": true
+        },
+        "review_status": {
+          "const": "PASS"
+        }
+      }
+    },
+    "componentJudgment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome_tuple",
+        "required_conditions",
+        "forbidden_behavior",
+        "evidence_sufficiency",
+        "retention"
+      ],
+      "properties": {
+        "outcome_tuple": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "AMBIGUOUS"
+          ]
+        },
+        "required_conditions": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "AMBIGUOUS"
+          ]
+        },
+        "forbidden_behavior": {
+          "enum": [
+            "ABSENT",
+            "PRESENT",
+            "AMBIGUOUS"
+          ]
+        },
+        "evidence_sufficiency": {
+          "enum": [
+            "SUFFICIENT",
+            "INSUFFICIENT",
+            "AMBIGUOUS"
+          ]
+        },
+        "retention": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_APPLICABLE",
+            "AMBIGUOUS"
+          ]
+        }
+      }
+    },
+    "graderJudgment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grader_slot",
+        "grader_role_id",
+        "packet_label",
+        "components",
+        "final_judgment",
+        "rationale_digest_sha256",
+        "evidence_tokens",
+        "frozen_at",
+        "judgment_digest_sha256"
+      ],
+      "properties": {
+        "grader_slot": {
+          "enum": ["GRADER_A", "GRADER_B"]
+        },
+        "grader_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "packet_label": {
+          "type": "string",
+          "pattern": "^GP-[A-F0-9]{12,64}$"
+        },
+        "components": {
+          "$ref": "#/$defs/componentJudgment"
+        },
+        "final_judgment": {
+          "enum": [
+            "CONFORMING",
+            "NONCONFORMING",
+            "UNSUPPORTED",
+            "UNMAPPABLE",
+            "AMBIGUOUS",
+            "UNSCORABLE"
+          ]
+        },
+        "rationale_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "evidence_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^E[0-9]{1,5}$"
+          },
+          "uniqueItems": true
+        },
+        "frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "judgment_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "final_judgment": { "const": "CONFORMING" } },
+            "required": ["final_judgment"]
+          },
+          "then": {
+            "properties": {
+              "components": {
+                "properties": {
+                  "outcome_tuple": { "const": "PASS" },
+                  "required_conditions": { "const": "PASS" },
+                  "forbidden_behavior": { "const": "ABSENT" },
+                  "evidence_sufficiency": { "const": "SUFFICIENT" },
+                  "retention": { "enum": ["PASS", "NOT_APPLICABLE"] }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "tieResolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adjudicator_role_id",
+        "input_order_randomized",
+        "final_judgment",
+        "rationale_digest_sha256",
+        "frozen_at",
+        "resolution_digest_sha256"
+      ],
+      "properties": {
+        "adjudicator_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "input_order_randomized": {
+          "const": true
+        },
+        "final_judgment": {
+          "enum": [
+            "CONFORMING",
+            "NONCONFORMING",
+            "UNSUPPORTED",
+            "UNMAPPABLE",
+            "AMBIGUOUS",
+            "UNSCORABLE"
+          ]
+        },
+        "rationale_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "resolution_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "semantic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "graders",
+        "originals_preserved",
+        "agreement_state",
+        "agreement_check",
+        "differing_fields",
+        "tie_resolution",
+        "final_judgment",
+        "grade_freeze_digest_sha256",
+        "frozen_at"
+      ],
+      "properties": {
+        "graders": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "allOf": [
+                { "$ref": "#/$defs/graderJudgment" },
+                { "properties": { "grader_slot": { "const": "GRADER_A" } } }
+              ]
+            },
+            {
+              "allOf": [
+                { "$ref": "#/$defs/graderJudgment" },
+                { "properties": { "grader_slot": { "const": "GRADER_B" } } }
+              ]
+            }
+          ],
+          "items": false
+        },
+        "originals_preserved": {
+          "const": true
+        },
+        "agreement_state": {
+          "enum": [
+            "AGREE",
+            "DISAGREE"
+          ]
+        },
+        "agreement_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "canonical_vector_fields",
+            "grader_a_vector_digest_sha256",
+            "grader_b_vector_digest_sha256",
+            "digests_equal",
+            "status",
+            "evidence_digest_sha256"
+          ],
+          "properties": {
+            "canonical_vector_fields": {
+              "const": [
+                "components.outcome_tuple",
+                "components.required_conditions",
+                "components.forbidden_behavior",
+                "components.evidence_sufficiency",
+                "components.retention",
+                "final_judgment"
+              ]
+            },
+            "grader_a_vector_digest_sha256": { "$ref": "#/$defs/sha256" },
+            "grader_b_vector_digest_sha256": { "$ref": "#/$defs/sha256" },
+            "digests_equal": { "type": "boolean" },
+            "status": { "const": "PASS" },
+            "evidence_digest_sha256": { "$ref": "#/$defs/sha256" }
+          }
+        },
+        "differing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "uniqueItems": true
+        },
+        "tie_resolution": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/tieResolution"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "final_judgment": {
+          "enum": [
+            "CONFORMING",
+            "NONCONFORMING",
+            "UNSUPPORTED",
+            "UNMAPPABLE",
+            "DISAGREEMENT",
+            "AMBIGUOUS",
+            "UNSCORABLE"
+          ]
+        },
+        "grade_freeze_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "agreement_state": {
+                "const": "AGREE"
+              }
+            },
+            "required": [
+              "agreement_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "agreement_check": {
+                "properties": { "digests_equal": { "const": true } }
+              },
+              "differing_fields": {
+                "maxItems": 0
+              },
+              "tie_resolution": {
+                "type": "null"
+              }
+            },
+            "allOf": [
+              { "$ref": "#/$defs/sameOutcomeTupleJudgment" },
+              { "$ref": "#/$defs/sameRequiredConditionsJudgment" },
+              { "$ref": "#/$defs/sameForbiddenBehaviorJudgment" },
+              { "$ref": "#/$defs/sameEvidenceSufficiencyJudgment" },
+              { "$ref": "#/$defs/sameRetentionJudgment" },
+              { "$ref": "#/$defs/sameFinalJudgment" }
+            ]
+          },
+          "else": {
+            "properties": {
+              "agreement_check": {
+                "properties": { "digests_equal": { "const": false } }
+              },
+              "differing_fields": {
+                "minItems": 1
+              },
+              "tie_resolution": {
+                "$ref": "#/$defs/tieResolution"
+              },
+              "final_judgment": {
+                "const": "DISAGREEMENT"
+              }
+            },
+            "not": {
+              "allOf": [
+                { "$ref": "#/$defs/sameOutcomeTupleJudgment" },
+                { "$ref": "#/$defs/sameRequiredConditionsJudgment" },
+                { "$ref": "#/$defs/sameForbiddenBehaviorJudgment" },
+                { "$ref": "#/$defs/sameEvidenceSufficiencyJudgment" },
+                { "$ref": "#/$defs/sameRetentionJudgment" },
+                { "$ref": "#/$defs/sameFinalJudgment" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "sameOutcomeTupleJudgment": {
+      "oneOf": [
+        { "$ref": "#/$defs/sameOutcomeTuplePass" },
+        { "$ref": "#/$defs/sameOutcomeTupleFail" },
+        { "$ref": "#/$defs/sameOutcomeTupleAmbiguous" }
+      ]
+    },
+    "sameOutcomeTuplePass": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "outcome_tuple": { "const": "PASS" } } } } },
+        { "properties": { "components": { "properties": { "outcome_tuple": { "const": "PASS" } } } } }
+      ] } }
+    },
+    "sameOutcomeTupleFail": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "outcome_tuple": { "const": "FAIL" } } } } },
+        { "properties": { "components": { "properties": { "outcome_tuple": { "const": "FAIL" } } } } }
+      ] } }
+    },
+    "sameOutcomeTupleAmbiguous": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "outcome_tuple": { "const": "AMBIGUOUS" } } } } },
+        { "properties": { "components": { "properties": { "outcome_tuple": { "const": "AMBIGUOUS" } } } } }
+      ] } }
+    },
+    "sameRequiredConditionsJudgment": {
+      "oneOf": [
+        { "$ref": "#/$defs/sameRequiredConditionsPass" },
+        { "$ref": "#/$defs/sameRequiredConditionsFail" },
+        { "$ref": "#/$defs/sameRequiredConditionsAmbiguous" }
+      ]
+    },
+    "sameRequiredConditionsPass": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "required_conditions": { "const": "PASS" } } } } },
+        { "properties": { "components": { "properties": { "required_conditions": { "const": "PASS" } } } } }
+      ] } }
+    },
+    "sameRequiredConditionsFail": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "required_conditions": { "const": "FAIL" } } } } },
+        { "properties": { "components": { "properties": { "required_conditions": { "const": "FAIL" } } } } }
+      ] } }
+    },
+    "sameRequiredConditionsAmbiguous": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "required_conditions": { "const": "AMBIGUOUS" } } } } },
+        { "properties": { "components": { "properties": { "required_conditions": { "const": "AMBIGUOUS" } } } } }
+      ] } }
+    },
+    "sameForbiddenBehaviorJudgment": {
+      "oneOf": [
+        { "$ref": "#/$defs/sameForbiddenAbsent" },
+        { "$ref": "#/$defs/sameForbiddenPresent" },
+        { "$ref": "#/$defs/sameForbiddenAmbiguous" }
+      ]
+    },
+    "sameForbiddenAbsent": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "forbidden_behavior": { "const": "ABSENT" } } } } },
+        { "properties": { "components": { "properties": { "forbidden_behavior": { "const": "ABSENT" } } } } }
+      ] } }
+    },
+    "sameForbiddenPresent": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "forbidden_behavior": { "const": "PRESENT" } } } } },
+        { "properties": { "components": { "properties": { "forbidden_behavior": { "const": "PRESENT" } } } } }
+      ] } }
+    },
+    "sameForbiddenAmbiguous": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "forbidden_behavior": { "const": "AMBIGUOUS" } } } } },
+        { "properties": { "components": { "properties": { "forbidden_behavior": { "const": "AMBIGUOUS" } } } } }
+      ] } }
+    },
+    "sameEvidenceSufficiencyJudgment": {
+      "oneOf": [
+        { "$ref": "#/$defs/sameEvidenceSufficient" },
+        { "$ref": "#/$defs/sameEvidenceInsufficient" },
+        { "$ref": "#/$defs/sameEvidenceAmbiguous" }
+      ]
+    },
+    "sameEvidenceSufficient": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "evidence_sufficiency": { "const": "SUFFICIENT" } } } } },
+        { "properties": { "components": { "properties": { "evidence_sufficiency": { "const": "SUFFICIENT" } } } } }
+      ] } }
+    },
+    "sameEvidenceInsufficient": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "evidence_sufficiency": { "const": "INSUFFICIENT" } } } } },
+        { "properties": { "components": { "properties": { "evidence_sufficiency": { "const": "INSUFFICIENT" } } } } }
+      ] } }
+    },
+    "sameEvidenceAmbiguous": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "evidence_sufficiency": { "const": "AMBIGUOUS" } } } } },
+        { "properties": { "components": { "properties": { "evidence_sufficiency": { "const": "AMBIGUOUS" } } } } }
+      ] } }
+    },
+    "sameRetentionJudgment": {
+      "oneOf": [
+        { "$ref": "#/$defs/sameRetentionPass" },
+        { "$ref": "#/$defs/sameRetentionFail" },
+        { "$ref": "#/$defs/sameRetentionNotApplicable" },
+        { "$ref": "#/$defs/sameRetentionAmbiguous" }
+      ]
+    },
+    "sameRetentionPass": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "retention": { "const": "PASS" } } } } },
+        { "properties": { "components": { "properties": { "retention": { "const": "PASS" } } } } }
+      ] } }
+    },
+    "sameRetentionFail": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "retention": { "const": "FAIL" } } } } },
+        { "properties": { "components": { "properties": { "retention": { "const": "FAIL" } } } } }
+      ] } }
+    },
+    "sameRetentionNotApplicable": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "retention": { "const": "NOT_APPLICABLE" } } } } },
+        { "properties": { "components": { "properties": { "retention": { "const": "NOT_APPLICABLE" } } } } }
+      ] } }
+    },
+    "sameRetentionAmbiguous": {
+      "properties": { "graders": { "prefixItems": [
+        { "properties": { "components": { "properties": { "retention": { "const": "AMBIGUOUS" } } } } },
+        { "properties": { "components": { "properties": { "retention": { "const": "AMBIGUOUS" } } } } }
+      ] } }
+    },
+    "sameFinalJudgment": {
+      "oneOf": [
+        { "$ref": "#/$defs/sameFinalConforming" },
+        { "$ref": "#/$defs/sameFinalNonconforming" },
+        { "$ref": "#/$defs/sameFinalUnsupported" },
+        { "$ref": "#/$defs/sameFinalUnmappable" },
+        { "$ref": "#/$defs/sameFinalAmbiguous" },
+        { "$ref": "#/$defs/sameFinalUnscorable" }
+      ]
+    },
+    "sameFinalConforming": {
+      "properties": {
+        "graders": { "prefixItems": [
+          { "properties": { "final_judgment": { "const": "CONFORMING" } } },
+          { "properties": { "final_judgment": { "const": "CONFORMING" } } }
+        ] },
+        "final_judgment": { "const": "CONFORMING" }
+      }
+    },
+    "sameFinalNonconforming": {
+      "properties": {
+        "graders": { "prefixItems": [
+          { "properties": { "final_judgment": { "const": "NONCONFORMING" } } },
+          { "properties": { "final_judgment": { "const": "NONCONFORMING" } } }
+        ] },
+        "final_judgment": { "const": "NONCONFORMING" }
+      }
+    },
+    "sameFinalUnsupported": {
+      "properties": {
+        "graders": { "prefixItems": [
+          { "properties": { "final_judgment": { "const": "UNSUPPORTED" } } },
+          { "properties": { "final_judgment": { "const": "UNSUPPORTED" } } }
+        ] },
+        "final_judgment": { "const": "UNSUPPORTED" }
+      }
+    },
+    "sameFinalUnmappable": {
+      "properties": {
+        "graders": { "prefixItems": [
+          { "properties": { "final_judgment": { "const": "UNMAPPABLE" } } },
+          { "properties": { "final_judgment": { "const": "UNMAPPABLE" } } }
+        ] },
+        "final_judgment": { "const": "UNMAPPABLE" }
+      }
+    },
+    "sameFinalAmbiguous": {
+      "properties": {
+        "graders": { "prefixItems": [
+          { "properties": { "final_judgment": { "const": "AMBIGUOUS" } } },
+          { "properties": { "final_judgment": { "const": "AMBIGUOUS" } } }
+        ] },
+        "final_judgment": { "const": "AMBIGUOUS" }
+      }
+    },
+    "sameFinalUnscorable": {
+      "properties": {
+        "graders": { "prefixItems": [
+          { "properties": { "final_judgment": { "const": "UNSCORABLE" } } },
+          { "properties": { "final_judgment": { "const": "UNSCORABLE" } } }
+        ] },
+        "final_judgment": { "const": "UNSCORABLE" }
+      }
+    },
+    "relink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controller_role_id",
+        "candidate_id",
+        "candidate_ref",
+        "adapter_ref",
+        "mapping_digest_sha256",
+        "pre_relink_grade_freeze_digest_sha256",
+        "grade_freeze_frozen_at",
+        "relinked_at",
+        "ordering_check",
+        "judgment_mutated"
+      ],
+      "properties": {
+        "controller_role_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160
+        },
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "candidate_ref": {
+          "$ref": "#/$defs/exactRef"
+        },
+        "adapter_ref": {
+          "$ref": "#/$defs/exactRef"
+        },
+        "mapping_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "pre_relink_grade_freeze_digest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "grade_freeze_frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "relinked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ordering_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "check_id",
+            "grade_freeze_digest_matches",
+            "grade_freeze_precedes_relink",
+            "status",
+            "evidence_digest_sha256"
+          ],
+          "properties": {
+            "check_id": { "const": "RELINK_AFTER_GRADE_FREEZE" },
+            "grade_freeze_digest_matches": { "const": true },
+            "grade_freeze_precedes_relink": { "const": true },
+            "status": { "const": "PASS" },
+            "evidence_digest_sha256": { "$ref": "#/$defs/sha256" }
+          }
+        },
+        "judgment_mutated": {
+          "const": false
+        }
+      }
+    }
+  }
+}
