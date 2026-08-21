@@ -4,20 +4,36 @@
 
 ## Current Research Snapshot
 
-- `versions/v0.00/`
-- 상태: `WORKING_SNAPSHOT / NON_NORMATIVE / NOT_VALIDATED`
-- 성격: 현재까지의 대화 흐름, Owner 가설, 선행 formalism 학습, 모델 라우팅·수명주기·시뮬레이션 아이디어를 재현 가능한 형태로 보존
+- ACTIVE: `versions/v0.01/`
+- PREDECESSOR / RECOVERY: `versions/v0.00/`
+- 상태: `ACTIVE_WORKING_RESEARCH_SNAPSHOT / NON_NORMATIVE / NOT_VALIDATED`
 
-## Versioning Rule
+## Version Boundary
 
-- `v0.00`은 최초 분리 스냅샷입니다.
-- 이후 의미가 크게 바뀌면 기존 내용을 덮어쓰기보다 `v0.01`, `v0.02` 같은 successor snapshot을 우선합니다.
-- 현재 작업 중인 스냅샷은 수정될 수 있으나, MI 초기화·위원회 시험 등 외부 실험의 exact target으로 사용된 뒤에는 그 target을 보존하는 것을 원칙 후보로 둡니다.
-- AAA의 canonical Requirement / Design / Shared Contract / Validation state를 이 저장소가 대체하지 않습니다.
-- 특히 `P-series`의 정확한 원문·번호는 Byul에서 새로 만들지 않고 canonical source를 참조합니다.
+- `v0.00`: 최초 분리 연구 스냅샷 + 상세 context recovery backup.
+- `v0.01 ~ v0.0x`: 연구·메모·MI 초기화·상황별 모델 라우팅·lifecycle validation·위원회 simulation scenario 설계.
+- `v0.1+`: 실제 모델 실구현 시작.
+
+`v0.1` 이전에는 model/router/transformation engine/reference implementation을 만들지 않습니다.
+
+## Succession Rule
+
+AAA-ASA-ME 채널 승계 시 반드시 `versions/v0.01/README.md`와 `versions/v0.01/memory/00~10`을 읽습니다.
+
+긴 대화흐름 또는 context 손실 복구가 필요하면:
+
+`versions/v0.00/context/AAA-ASA-ME_CONTEXT_BACKUP_2026-08-22.md`
+
+를 추가로 읽습니다.
+
+## Governance Note
+
+- 이 저장소는 AAA canonical Requirement / Design / Shared Contract / Validation state를 대체하지 않습니다.
+- `P-series` exact 원문/번호를 Byul에서 새로 만들거나 재정의하지 않습니다.
+- P-series를 보존하는 범위에서 implementation formalism은 열어두는 것이 현재 연구 방향입니다.
 
 ## Entry Point
 
-`versions/v0.00/README.md`부터 읽습니다.
+`versions/v0.01/README.md`
 
 작성시각: 2026-08-22 02:37 KST
