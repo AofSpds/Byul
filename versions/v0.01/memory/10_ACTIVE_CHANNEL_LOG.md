@@ -182,4 +182,29 @@ Situation Fingerprint 내부 구성은 향후 simulation/committee scenario를 �
 
 본 항목은 research candidate이며 Requirement/Design 확정이 아니다.
 
-작성시각: 2026-08-22 02:56 KST
+## v0.1 Implementation Start / Data Correction — 2026-08-22 02:58 KST
+
+Owner가 v0.1을 현재 모델 구조로 실제 구성해보는 것을 요청했고, 이어서 **v0.1의 DATA는 외부 toy data가 아니라 지금까지 Byul에 메모한 연구내용 자체**라고 명시적으로 correction했다.
+
+이에 따라 v0.1 first executable target을 다음처럼 정리했다.
+
+- Primary DATA: `versions/v0.01/memory/*.md`
+- Exact source baseline commit: `b43c47aea56f39374b9817f6a5bff27dd6a0066d`
+- raw memo text/provenance가 ground representation.
+- current/history/open/model-family/lifecycle 등은 derived index/view.
+- `R(S,M,L)`을 실제 data structure와 route-plan 반환 함수로 구현.
+- P-series exact canonical rules는 Byul에 없으므로 임의 생성하지 않고 `EXTERNAL_NOT_LOADED` / external gate로만 구현.
+- virtual mutation으로 content digest change / affected view / invalidation radius를 계측하는 lifecycle seed 구현.
+- raw snapshot export/import content digest preservation test 포함.
+- chronology를 history-order index로 사용하되 전체 메모의 causality라고 과잉해석하지 않음.
+
+생성된 v0.1 files:
+- `versions/v0.1/README.md`
+- `versions/v0.1/MODEL_CONTRACT.md`
+- `versions/v0.1/data/SOURCE_MANIFEST.md`
+- `versions/v0.1/src/byul_v01.py`
+- `versions/v0.1/tests/test_byul_v01.py`
+
+상태는 `EXPERIMENTAL_IMPLEMENTATION / NON_NORMATIVE / NOT_VALIDATED`이며 scientific/model validation PASS를 의미하지 않는다.
+
+작성시각: 2026-08-22 02:58 KST
