@@ -28,12 +28,13 @@ AAA-ASA-ME 채널을 승계할 때는 반드시 이 버전을 기준으로 복�
 1. `README.md`
 2. `memory/00_CHANNEL_AND_METHOD.md`
 3. `memory/01_OWNER_WORLDVIEW_CURRENT.md`
-4. `memory/02_CAUSAL_SET_LEARNING.md`
-5. `memory/03_MODEL_FAMILY_AND_COMPLEMENTARITY.md`
-6. `memory/04_ROUTING_AND_LIFECYCLE.md`
-7. `memory/06_MI1_INITIALIZATION_TARGET.md`
-8. `memory/07_OPEN_QUESTIONS_AND_NEXT_JOBS.md`
-9. `memory/10_ACTIVE_CHANNEL_LOG.md`
+4. `memory/11_CORE_PRINCIPLES.md`
+5. `memory/02_CAUSAL_SET_LEARNING.md`
+6. `memory/03_MODEL_FAMILY_AND_COMPLEMENTARITY.md`
+7. `memory/04_ROUTING_AND_LIFECYCLE.md`
+8. `memory/06_MI1_INITIALIZATION_TARGET.md`
+9. `memory/07_OPEN_QUESTIONS_AND_NEXT_JOBS.md`
+10. `memory/10_ACTIVE_CHANNEL_LOG.md`
 
 맥락 손실·충돌이 의심되면 predecessor의 상세 백업도 읽는다:
 
@@ -43,7 +44,8 @@ AAA-ASA-ME 채널을 승계할 때는 반드시 이 버전을 기준으로 복�
 
 - 고해상도 Owner worldview: `무수한 국소 사상들의 합성망`.
 - high-resolution worldview와 implementation abstraction을 분리.
-- P-series를 보존하는 범위에서 implementation은 열어둠.
+- Byul Core Principles: 변화 가능성, 비고정 실체성, 합성·발현성, 조건·관계 의존성을 현재 원칙으로 채택하며 원칙 개수는 고정하지 않음.
+- 위 원칙을 해치지 않는 범위에서 implementation formalism은 열어둠.
 - 후보 formalism은 하나의 승자보다 호환성·보완성이 높은 family로 연구.
 - `R(S,M,L)` = Situation / Current Model State / Lifecycle Context 기반 model routing 후보.
 - model lifecycle simulation과 committee-generated stress scenario 확보 필요.
@@ -63,4 +65,4 @@ AAA-ASA-ME 채널을 승계할 때는 반드시 이 버전을 기준으로 복�
 
 실제 model/router/transformation engine/reference implementation 코드는 `v0.1+` exact implementation target에서 시작한다.
 
-작성시각: 2026-08-22 02:37 KST
+작성시각: 2026-08-22 03:08 KST
