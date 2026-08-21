@@ -68,10 +68,6 @@ Primary DATA:
 
 `versions/v0.01/memory/*.md`
 
-Exact source baseline commit:
-
-`2a4529b69bc237125a1f012835d7a9b78ce3fec9`
-
 Implemented experimental slice:
 
 - raw memo ingestion + provenance
@@ -97,88 +93,72 @@ Current implementation state:
 
 ## Parallel Proposal & Evaluation Direction
 
-Round-1 research design locator:
+Research design:
 
 `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
 
-v0.1의 다음 실험은 하나의 정답을 강제하지 않는다.
+Execution packet:
 
-동일한 exact baseline / DATA / BYUL CORE-A / 연구 목표를 여러 독립 인스턴스에 주고, 각 인스턴스는 다음 중 어느 것이든 제안할 수 있다.
+`experiments/round1/ROUND1_LAUNCH_PACKET.md`
 
-- 현재 v0.1 구조를 유지하고 개선
-- 일부 표현/라우팅/수명주기 구조를 교체
-- 현재 후보 formalism family 밖의 prior-art 제안
-- 복수 formalism 조합 또는 다른 representation strategy 제안
-- 현재 문제정의 자체에 대한 반론 및 대체 formulation 제안
-- 충분한 근거가 없으면 UNKNOWN / REVIEW_REQUIRED 유지
+Owner + ASA evaluation packet:
 
-핵심 조건:
+`experiments/round1/ROUND1_EVALUATION_PACKET.md`
 
-- 서로의 결과를 보기 전 독립적으로 작업.
-- 현재 Petri/Event/Causal/LTS 후보를 정답처럼 전제하지 않음.
-- PRIOR-ART-FIRST를 유지하되 실제 gap이 있으면 확장안을 제시할 수 있음.
-- run ID는 version이 아니라 독립 실행 식별자: `v0.1-R01`, `v0.1-R02`, ...
-- 공통 결과 schema로 반환해 Owner + ASA가 비교·평가.
-- 평가자는 결과 작성과 분리하여, 어떤 run도 자기 결과에 PASS를 부여하지 않음.
+Round-1 exact proposal baseline:
 
-권장 2단 구조:
+`891e4bd4b999eacc99431ed0db05062901a68dd9`
 
-1. `Neutral Blind Cohort`: 동일한 중립 prompt로 여러 독립 제안 생성. 자연스러운 분산/수렴을 관찰.
-2. `Alternative Search Cohort`: 현재 구조 밖의 prior-art, 최소표현, lifecycle, composition, adversarial failure 등 서로 다른 탐색각을 부여해 coverage를 확대.
+Recommended allocation:
 
-평가 관점 후보:
+- `R01–R06`: Neutral Blind — same exact prompt, no solution pressure.
+- `R07`: outside-current-family prior-art search.
+- `R08`: adversarial reframe / falsification.
+- `R09`: minimal-information / minimal-representation search.
+- `R10`: lifecycle / composition / reversibility pressure.
 
-- memory/state reconstruction fidelity
-- fact/hypothesis/unknown/non-conclusion preservation
-- BYUL CORE-A alignment/conflict
-- representation/model choice quality
-- semantic loss / invented semantics
-- routing rationale
-- lifecycle robustness
-- explanatory coherence
-- novelty without unsupported commitment
-- implementation/testability
-- migration/reversibility cost
+Important anti-anchoring design:
 
-Round-1에서는 numeric weight를 먼저 고정하지 않고 fail gates + blind pairwise comparison + qualitative notes를 우선한다.
+1. Phase 1 reads the v0.01 research state but **does not read the existing v0.1 implementation**.
+2. Each run freezes an independent proposal as `PHASE1_FROZEN`.
+3. Only then does Phase 2 inspect current v0.1 and choose KEEP / MODIFY / REPLACE / HYBRID / REFRAME / INSUFFICIENT_EVIDENCE.
+4. Phase-1 proposal may not be rewritten after v0.1 exposure; deltas are recorded separately.
+
+All runs are independent and do not see other run outputs before submission.
+
+Evaluation uses fail/review gates + blind qualitative pairwise comparison before any aggregate numeric score. Consensus is not sufficient for selection; useful minority proposals are preserved.
 
 ## Current Open Work — Byul
 
-1. Round-1 공통 neutral prompt와 alternative-search prompt 확정.
-2. 첫 parallel proposal cohort 실행.
-3. 결과를 run identity를 가리고 Owner + ASA가 비교평가.
-4. finalist 3~4개 + 독특한 minority proposal을 pressure-test 대상으로 보존.
-5. v0.1 실제 test execution 및 첫 결과 수집.
-6. Transformation Preservation Matrix 설계.
-7. Situation Fingerprint 최소 충분 feature 검증.
-8. lifecycle PASS/FAIL acceptance threshold 설계.
-9. 위원회 외주용 `Lifecycle + Routing Simulation Challenge Requirements` 정리.
-10. MI-1 fresh-instance initial-state reconstruction 시험.
+1. Launch Round-1 parallel proposal cohort.
+2. Collect exact `[RETURN PACKET]` outputs from R01–R10.
+3. Blind-normalize returns and run Owner + ASA comparative evaluation.
+4. Preserve finalists 3–4 plus justified minority alternatives.
+5. Design Round-2 pressure tests from observed convergence/divergence.
+6. Run v0.1 executable micro-tests separately.
+7. Derive Transformation Preservation Matrix from proposal/simulation evidence.
+8. Revisit Situation Fingerprint and `R(S,M,L)` from observed routing evidence.
 
 ## Immediate Next Step
 
-`Byul v0.1 Parallel Proposal Round-1` 실행 패킷을 만든다.
+Execute `experiments/round1/ROUND1_LAUNCH_PACKET.md` across independent runs.
 
-권장 첫 규모:
+The first Round is not a vote for the current design. It is a structured search for:
 
-- Neutral Blind: 5~7 independent runs
-- Alternative Search: 3~5 independent runs
-
-모든 run은 같은 DATA와 BYUL CORE-A를 공유하지만 서로의 답을 보지 않는다. 현행 v0.1을 따를 의무는 없으며, 더 좋은 prior-art/model architecture/problem formulation이 있으면 제안할 수 있다.
-
-Round-1 결과는 한 개의 winner를 강제하기보다 다음을 구분한다.
-
-- 반복적으로 수렴하는 공통 구조
-- 상황별 강점이 다른 모델군
-- 현행 후보보다 강한 신규 prior-art
-- 문제정의 자체에 대한 유효한 반례
-- 추가 검증이 필요한 minority proposal
+- independent convergence;
+- meaningful divergence;
+- stronger prior art;
+- valid replacement/reframe proposals;
+- evidence for or against multi-model routing;
+- lifecycle and semantic-preservation failure modes.
 
 ## Detailed History / Recovery
 
 - 상세 진행 로그: `memory/10_ACTIVE_CHANNEL_LOG.md`
 - 핵심 원칙: `memory/11_CORE_PRINCIPLES.md`
 - Round-1 설계: `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+- Round-1 실행: `experiments/round1/ROUND1_LAUNCH_PACKET.md`
+- Round-1 평가: `experiments/round1/ROUND1_EVALUATION_PACKET.md`
 - 구조화 메모: `memory/00~12`
 - 긴 context 복구본: `../v0.00/context/AAA-ASA-ME_CONTEXT_BACKUP_2026-08-22.md`
 
@@ -187,9 +167,10 @@ Round-1 결과는 한 개의 winner를 강제하기보다 다음을 구분한다
 1. `CURRENT_STATUS.md`
 2. `memory/11_CORE_PRINCIPLES.md`
 3. `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
-4. `README.md`
-5. 필요한 구조화 메모
-6. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
-7. context 손실 시 v0.00 recovery backup
+4. `experiments/round1/ROUND1_LAUNCH_PACKET.md`
+5. `README.md`
+6. 필요한 구조화 메모
+7. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
+8. context 손실 시 v0.00 recovery backup
 
-작성시각: 2026-08-22 03:33 KST
+작성시각: 2026-08-22 03:37 KST
