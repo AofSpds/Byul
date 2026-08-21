@@ -1,0 +1,50 @@
+{
+  "charter_version": "0.1",
+  "candidate_id": "C2",
+  "title": "Minimal content-addressed evidence and append-only change-record candidate",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "implementation_authority": "NONE",
+  "implementation_status": "PROPOSED_UNIMPLEMENTED",
+  "implementation_ref": null,
+  "exact_ref_required_before_execution": true,
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md",
+      "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb"
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0"
+    }
+  ],
+  "research_role": "Test whether a small structured substrate adds measurable reconstruction, conflict, and lifecycle capability beyond C1 without importing rich machinery.",
+  "candidate_local_hypothesis": "Content-addressed evidence plus a minimal append-only record of changes and rebuildable projections may provide enough lineage and refusal evidence for current pressure cases at acceptable incremental complexity.",
+  "candidate_local_shape": [
+    "Content-addressed source evidence.",
+    "Append-only candidate-local change records with explicit source links.",
+    "A deterministic way to derive a requested current projection without deleting history.",
+    "Observable preservation/loss, conflict/unknown, authorization, invalidation, and reconstruction evidence."
+  ],
+  "non_requirement_for_other_candidates": "C2's local record shape is not a Byul ontology and is not imposed on C0, C1, C3, or future candidates.",
+  "must_not": [
+    "Add bitemporal, truth-maintenance, CRDT, fixed plane, or fixed planner machinery unless required by the frozen C2 charter and separately disclosed.",
+    "Encode public expected outcomes as case-specific branches.",
+    "Promote derived state above exact source evidence.",
+    "Relabel lossy reconstruction as exact.",
+    "Claim selection from public-case success."
+  ],
+  "comparison_obligations": [
+    "Freeze an exact implementation commit and adapter before execution.",
+    "Report native record count, persisted bytes, rebuild steps, and dependency costs.",
+    "Run identical public and holdout inputs under the common observation schema.",
+    "Publish failures and ablations needed to diagnose whether added structure caused any advantage."
+  ],
+  "promotion_effect": "NONE"
+}

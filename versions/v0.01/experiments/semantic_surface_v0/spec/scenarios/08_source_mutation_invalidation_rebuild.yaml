@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "SOURCE_MUTATION_INVALIDATION_REBUILD",
+  "title": "A source mutation invalidates affected derivations and permits evidence-backed rebuild",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The scenario observes dependency evidence, invalidation precision, and reconstruction provenance without requiring static maps, reducers, ledgers, or a method API.",
+  "incident_class": "DERIVED_LIFECYCLE",
+  "purpose": "Prevent stale derived output from being served after source change while avoiding unsupported blanket invalidation of unrelated output.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.1/src/byul_v01.py",
+      "blob": "467396287fa5a1c699b89485348080efac9f7b0e",
+      "claim_scope": "Current v0.1 computes affected views from hard-coded dependencies and simulates mutation on a copied snapshot."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.1/tests/test_byul_v01.py",
+      "blob": "a39f5d3bdd91e865fdd3c98f17b688d7533df7a1",
+      "claim_scope": "Current test checks digest change and a hard-coded affected view but not persisted stale-state, rebuild proof, or dependency precision."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.1/data/SOURCE_MANIFEST.md",
+      "blob": "bd44b5789bb831f3283f8c2bc5bd33f0f50c9c14",
+      "claim_scope": "Requires source-over-derived provenance, no duplicate semantic source, and exact successor source targets after material change."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "invalidate_affected_rebuild_preserve_unrelated",
+      "control_type": "PAIRED_CONTROL",
+      "given": {
+        "source_before": { "source_id": "S", "content_id": "B0" },
+        "source_after": { "source_id": "S", "content_id": "B1", "successor_of": "B0" },
+        "derived_outputs": [
+          { "derived_id": "D", "depends_on": ["B0"], "state": "CURRENT" },
+          { "derived_id": "U", "depends_on": ["OTHER0"], "state": "CURRENT" }
+        ],
+        "requested_output": "D",
+        "original_source_must_remain_addressable": true
+      },
+      "when": {
+        "operation": "apply_source_successor_and_query_derived",
+        "request": "Serve D after S changes from B0 to B1, and report the state of unrelated U."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["EXECUTE"],
+        "recoverability": ["EXACT", "PARTIAL", "UNKNOWN"],
+        "plan_status": ["SAFE_PLAN"]
+      },
+      "forbidden_behaviors": [
+        "Serve D built from B0 as current after B1 becomes the requested source target.",
+        "Rebuild D without recording its B1 source dependency and transformation evidence.",
+        "Invalidate U without dependency or impact evidence.",
+        "Overwrite B0 or relabel a lossy/partial rebuild as EXACT.",
+        "Create an undisclosed duplicate source and treat it as authoritative."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "affected_derivation_staled",
+          "requirement": "Mark D from B0 non-current before serving the post-mutation query.",
+          "evidence_required": true
+        },
+        {
+          "id": "derived_rebuilt_from_successor",
+          "requirement": "Produce or select D rebuilt from B1 with source and transformation provenance.",
+          "evidence_required": true
+        },
+        {
+          "id": "rebuild_loss_disclosed",
+          "requirement": "Report the supported recoverability class and disclose any loss; claim EXACT only with lossless evidence.",
+          "evidence_required": true
+        },
+        {
+          "id": "unrelated_output_preserved",
+          "requirement": "Keep U current and show that no dependency path from B1/B0 to U was found.",
+          "evidence_required": true
+        },
+        {
+          "id": "predecessor_retained",
+          "requirement": "Keep B0 addressable as predecessor evidence while B1 becomes the requested source target.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}

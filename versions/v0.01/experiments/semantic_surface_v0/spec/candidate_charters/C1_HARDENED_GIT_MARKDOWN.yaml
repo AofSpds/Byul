@@ -1,0 +1,49 @@
+{
+  "charter_version": "0.1",
+  "candidate_id": "C1",
+  "title": "Hardened Git plus Markdown/control-manifest simplicity baseline",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "implementation_authority": "NONE",
+  "implementation_status": "PROPOSED_UNIMPLEMENTED",
+  "implementation_ref": null,
+  "exact_ref_required_before_execution": true,
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md",
+      "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb"
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0"
+    }
+  ],
+  "research_role": "Act as the strongest deliberately simple non-ledger control against structure added by C2 or C3.",
+  "candidate_local_hypothesis": "Exact Git objects, immutable commits, ordinary Markdown, and small explicit control manifests may satisfy the current scenarios more cheaply and legibly than a richer substrate at present scale.",
+  "permitted_design_space": [
+    "Exact commit, tree, path, and blob references.",
+    "Additive Markdown records and small machine-readable control manifests.",
+    "Derived indexes or reports that can be rebuilt from pinned source evidence.",
+    "Explicit conflict, unknown, loss, authorization, and invalidation records in any minimal candidate-local form."
+  ],
+  "must_not": [
+    "Introduce a hidden database or ledger while retaining the C1 label.",
+    "Overwrite historical evidence to simulate current state.",
+    "Copy the source corpus into a second undisclosed semantic authority.",
+    "Hard-code public scenario answers in the adapter.",
+    "Claim that Git plus Markdown is selected or universally sufficient."
+  ],
+  "comparison_obligations": [
+    "Freeze an exact implementation commit and adapter before execution.",
+    "Run identical public and holdout inputs under the common observation schema.",
+    "Expose manual adjudication and operator-step costs.",
+    "Preserve candidate-native records and disclose any capability supplied outside the candidate."
+  ],
+  "promotion_effect": "NONE"
+}

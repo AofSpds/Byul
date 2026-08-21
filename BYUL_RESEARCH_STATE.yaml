@@ -1,0 +1,625 @@
+schema_version: "0.1"
+document_id: "BYUL-RESEARCH-STATE-2026-08-22"
+document_kind: "NON_NORMATIVE_RESEARCH_STATE_INDEX"
+
+normative: false
+selection_authority: "none"
+default_attackable: true
+production_authorized: false
+validation_claim: "NONE"
+
+as_of:
+  repository: "AofSpds/Byul"
+  commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+  checkpoint_path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+  state: "WORKING / NON_NORMATIVE / NOT_VALIDATED / PRODUCTION_NOT_AUTHORIZED"
+
+purpose:
+  statement: >-
+    Expose the current Byul research distinctions to cold readers and tools without
+    converting a research direction, proposal, implementation vocabulary, or
+    same-lineage convergence into a canonical Byul definition.
+  final_identity_selected: false
+  canonical_world_model_selected: false
+  implementation_selected: false
+
+active_experiment:
+  id: "SEMANTIC_SURFACE_V0"
+  branch: "asa-me/research-surface-conformance-v0.1"
+  trial_authorized: true
+  authorization_ref: "versions/v0.01/experiments/semantic_surface_v0/OWNER_TRIAL_AUTHORIZATION.md"
+  schedule_ref: "versions/v0.01/experiments/semantic_surface_v0/EXECUTION_SCHEDULE.md"
+  main_merge_authorized: false
+  production_authorized: false
+  validation_claim: "NONE"
+
+authority_boundary:
+  order:
+    - "exact governed Git evidence"
+    - "newer Byul research checkpoint"
+    - "older status or research note"
+    - "this derived state index"
+  rule: >-
+    This file is a derived locator. If it conflicts with exact newer Git evidence,
+    the exact newer evidence wins and this file must be marked stale or corrected.
+
+uncertainty_policy:
+  accepted_states:
+    - "UNKNOWN"
+    - "OPEN"
+    - "NON_CONCLUSION"
+  forced_resolution_forbidden: true
+  terminology_does_not_promote_status: true
+
+classification_registry:
+  OWNER_DIRECTION: >-
+    An explicit Owner operating or research direction. It does not by itself prove
+    a scientific claim or select an implementation.
+  SURVIVING_CONSTRAINT_CANDIDATE: >-
+    A narrower obligation that survived the current proposal/adversarial round.
+    It remains attackable and is not a validated invariant.
+  WORKING_HYPOTHESIS: >-
+    A research hypothesis retained for testing, not a canonical truth.
+  COMPETITIVE_CANDIDATE: >-
+    A candidate implementation or control that must compete under shared evidence
+    and cost gates.
+  OPEN: >-
+    An unresolved question for which UNKNOWN or NON_CONCLUSION is acceptable.
+  NON_CLAIM: >-
+    A boundary against over-reading current evidence. It is not a positive theory.
+  UNDER_CHALLENGE: >-
+    A previously prominent formulation that remains directly attackable and has
+    not earned canonical status.
+
+research_items:
+  - id: "OD-RESEARCH-DISCIPLINE"
+    statement: >-
+      Keep source-supported statements, Owner directions, working hypotheses,
+      OPEN questions, and non-conclusions explicitly distinguishable.
+    classification: "OWNER_DIRECTION"
+    status: "ACTIVE_RESEARCH_DIRECTION"
+    scope: "research method and state reporting"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "Research Method Discipline and UNKNOWN as a valid result"
+    counterevidence:
+      - "A classification label can still hide ambiguity if source scope and contrary evidence are absent."
+    falsifier:
+      - "Cold readers cannot distinguish evidence, direction, hypothesis, OPEN, and non-conclusion from the surfaced records."
+    promotion_requires:
+      - "No promotion is implied; operational usefulness must be measured through blinded comprehension and audit tests."
+    demotion_rule:
+      - "Mark ineffective or revise if the distinctions do not improve reproducible state reconstruction."
+
+  - id: "OD-NO-IMPLICIT-IMPLEMENTATION"
+    statement: >-
+      Proposal recommendation, generic execution language, and test pass do not
+      authorize shared implementation or production use.
+    classification: "OWNER_DIRECTION"
+    status: "ACTIVE_EXECUTION_BOUNDARY"
+    scope: "implementation and release authority"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/13_ROUND1_ACCIDENTAL_IMPLEMENTATION_INCIDENT.md"
+        supports: "proposal quality and implementation authorization separation"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/14_ROUND1_RERUN_SAFETY_CORRECTION.md"
+        supports: "separate explicit implementation-trial authorization requirement"
+    counterevidence:
+      - "None recorded against the authority boundary; implementation feasibility evidence remains separately useful."
+    falsifier:
+      - "An exact later Owner authorization explicitly grants implementation scope for a named target and branch."
+    promotion_requires:
+      - "Not applicable as a model claim; any implementation requires its own explicit authorization packet."
+    demotion_rule:
+      - "Supersede only for the exact scope covered by newer explicit Owner authority."
+
+  - id: "SC-SOURCE-DERIVED-SEPARATION"
+    statement: >-
+      Source evidence and derived representations should retain visible provenance
+      and should not acquire authority merely by being convenient or current.
+    classification: "SURVIVING_CONSTRAINT_CANDIDATE"
+    status: "STRONGLY_SURVIVING / NOT_VALIDATED"
+    scope: "evidence, projection, reconstruction, and routing"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "exact source evidence, scoped authority, and rebuildable projections"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.1/data/SOURCE_MANIFEST.md"
+        supports: "current experimental source-over-derived authority rule"
+    counterevidence:
+      - "Some domains may legitimately designate a signed, reviewed derivative as authoritative within a narrower scope."
+    falsifier:
+      - "A candidate demonstrates silent authority promotion with no loss of auditability across the pre-registered corpus and adversarial cases."
+    promotion_requires:
+      - "Cross-candidate conformance evidence across conflict, correction, reconstruction, and scoped-authority scenarios."
+      - "Explicit scope rules for any reviewed derivative that gains authority."
+    demotion_rule:
+      - "Narrow or reject if it blocks justified scoped authority transfer or adds no measurable audit value."
+
+  - id: "SC-VISIBLE-LOSS-PROVENANCE"
+    statement: >-
+      Transformations should make material loss and provenance observable; the
+      concrete receipt format remains an implementation choice.
+    classification: "SURVIVING_CONSTRAINT_CANDIDATE"
+    status: "STRONGLY_SURVIVING / NOT_VALIDATED"
+    scope: "transformation and reconstruction"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "visible loss/provenance as a narrower surviving obligation"
+    counterevidence:
+      - "A mandatory typed receipt may be disproportionate for a byte-preserving identity transformation."
+      - "Observability may be satisfied by Git evidence, a manifest, an audit record, or another mechanism."
+    falsifier:
+      - "A candidate can conceal material transformation loss yet still reconstruct and audit every required scenario without ambiguity."
+    promotion_requires:
+      - "Pre-registered loss, round-trip, and reconstruction tests with candidate-neutral observations."
+    demotion_rule:
+      - "Narrow the obligation if a simpler mechanism provides equivalent disclosed-loss and provenance evidence."
+
+  - id: "SC-CONFLICT-UNKNOWN-RETENTION"
+    statement: >-
+      Unresolved conflict and uncertainty should remain observable rather than be
+      silently converted into a single confident current value.
+    classification: "SURVIVING_CONSTRAINT_CANDIDATE"
+    status: "STRONGLY_SURVIVING / NOT_VALIDATED"
+    scope: "epistemic state and decision output"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "conflict preservation and UNKNOWN as a normal state"
+    counterevidence:
+      - "An explicit, scoped, reviewable conflict-resolution policy may validly select an operative value."
+      - "Always returning CONFLICT or UNKNOWN would be a degenerate implementation."
+    falsifier:
+      - "A system resolves conflicting scoped assertions silently and still passes blinded provenance and reconstruction tests."
+    promotion_requires:
+      - "Paired resolvable and non-resolvable conflict scenarios plus positive controls against always-refuse behavior."
+    demotion_rule:
+      - "Revise if it prevents explicit scoped resolution or rewards degenerate always-CONFLICT outputs."
+
+  - id: "SC-SEMANTIC-ADMISSIBILITY-BEFORE-COST"
+    statement: >-
+      A cheaper plan should not be selected when it fails a declared preservation
+      or authority obligation; how admissibility is represented remains open.
+    classification: "SURVIVING_CONSTRAINT_CANDIDATE"
+    status: "STRONGLY_SURVIVING / NOT_VALIDATED"
+    scope: "planning and refusal"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "preservation demand as hard planner constraint before cost/ranking"
+    counterevidence:
+      - "Preservation demand can be underspecified, internally inconsistent, or too costly to verify."
+    falsifier:
+      - "A cost-first candidate repeatedly satisfies the same declared obligations with lower total error and no hidden semantic loss."
+    promotion_requires:
+      - "Candidate-neutral refusal and safe-plan scenarios with calibrated demands and positive controls."
+    demotion_rule:
+      - "Narrow if strict ordering causes needless refusal without improving preservation outcomes."
+
+  - id: "SC-EXPLICIT-LIFECYCLE-LINEAGE"
+    statement: >-
+      Material correction, succession, branch, split, composition, merge,
+      migration, recovery, and retirement should not erase relevant lineage or
+      unresolved conflict.
+    classification: "SURVIVING_CONSTRAINT_CANDIDATE"
+    status: "STRONGLY_SURVIVING / NOT_VALIDATED"
+    scope: "lifecycle behavior"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "explicit lifecycle lineage, conflict, and recovery requirement"
+    counterevidence:
+      - "Not every candidate needs one universal lifecycle state machine."
+      - "Some operations may be represented by native Git or database history rather than dedicated lifecycle objects."
+    falsifier:
+      - "A candidate with no explicit lifecycle evidence reconstructs all required lifecycle cases without lineage ambiguity."
+    promotion_requires:
+      - "Lifecycle torture tests spanning correction, branch, split, merge, migration, recovery, and retirement."
+    demotion_rule:
+      - "Narrow if a simpler native-history mechanism provides equivalent evidence and recovery."
+
+  - id: "WH-LOCAL-EVENT-COMPOSITION"
+    statement: "The high-resolution worldview may be modeled as a network composed of many local events."
+    classification: "WORKING_HYPOTHESIS"
+    status: "ACTIVE / OPEN_TO_REFRAME"
+    scope: "high-resolution worldview"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "current high-resolution worldview hypothesis"
+    counterevidence:
+      - "The primitive/minimal algebra remains OPEN."
+      - "Higher-scale structure may not be reducible to a simple event composition."
+    falsifier:
+      - "A competing prior-art model reconstructs the target phenomena with less structure and better lifecycle or uncertainty behavior."
+    promotion_requires:
+      - "Prior-art comparison, explicit target phenomena, and falsifiable reconstruction experiments."
+    demotion_rule:
+      - "Reframe or retire if local-event composition adds no explanatory or operational value."
+
+  - id: "WH-MULTI-FORMALISM-FAMILY"
+    statement: >-
+      Different formalism families may be useful as purpose-specific views rather
+      than one universal model.
+    classification: "WORKING_HYPOTHESIS"
+    status: "ACTIVE / NOT_SELECTED"
+    scope: "model-family and representation routing"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "Causal, Petri, Event, and LTS as purpose-specific candidates"
+    counterevidence:
+      - "A single simpler representation may cover the actual target scenarios adequately."
+      - "Routing overhead may exceed any semantic benefit."
+    falsifier:
+      - "A single-formalism baseline matches or exceeds the multi-formalism candidates on all pre-registered scenarios and cost gates."
+    promotion_requires:
+      - "Ablation showing that at least two distinct representations provide non-redundant measured benefit."
+    demotion_rule:
+      - "Prefer the simpler single representation if added families do not cross a pre-declared benefit threshold."
+
+  - id: "CC-C0-CURRENT-V01"
+    statement: "Use the current v0.1 memo-driven implementation as the frozen C0 comparison baseline."
+    classification: "COMPETITIVE_CANDIDATE"
+    status: "C0_EXPERIMENTAL_BASELINE / NOT_BYUL_DEFINITION / NOT_SELECTED"
+    scope: "candidate competition control"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.1/README.md"
+        supports: "memo-driven experimental implementation surface"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "known v0.1 strengths and material weaknesses"
+    counterevidence:
+      - "Normalized rather than byte-exact round-trip, static routing, and vocabulary-only lifecycle semantics."
+    falsifier:
+      - "C0 cannot execute or expose observations required by the pre-registered conformance scenarios."
+    promotion_requires:
+      - "Blind superiority under shared semantic, reconstruction, lifecycle, complexity, and cost gates."
+    demotion_rule:
+      - "Retain as historical baseline even if it loses; do not relabel failure as Byul failure."
+
+  - id: "CC-C1-GIT-MARKDOWN"
+    statement: "Test hardened Git + Markdown/control-manifest as the deliberately simpler C1 control."
+    classification: "COMPETITIVE_CANDIDATE"
+    status: "REQUIRED_SIMPLICITY_CONTROL / NOT_SELECTED"
+    scope: "candidate competition control"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "strongest simplicity counter-hypothesis"
+    counterevidence:
+      - "Git + Markdown may require conventions or tooling that become a de facto ledger without typed guarantees."
+    falsifier:
+      - "C1 fails pre-registered reconstruction, conflict, lifecycle, or refusal cases that a more structured candidate passes within the cost gate."
+    promotion_requires:
+      - "Measured adequacy under the same hidden holdouts and total-complexity accounting as richer candidates."
+    demotion_rule:
+      - "Reject as winner if failures cross pre-declared semantic or recovery gates; retain as simplicity control."
+
+  - id: "CC-C2-MINIMAL-LEDGER"
+    statement: >-
+      Test a minimal content-addressed Artifact plus append-only Ledger Entry,
+      reducer/head, rebuildable view manifest, and preservation/loss-aware planner.
+    classification: "COMPETITIVE_CANDIDATE"
+    status: "LEADING_CANDIDATE_FAMILY / NOT_SELECTED / ATTACKABLE"
+    scope: "candidate competition"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "current C2 comparison hypothesis"
+    counterevidence:
+      - "All proposal runs share model lineage and prompt framing."
+      - "C1 may satisfy current-scale requirements with less structure."
+      - "A ledger may encode unnecessary ontology or operational burden."
+    falsifier:
+      - "C2 offers no material conformance benefit over C1 after total complexity and migration cost are included."
+    promotion_requires:
+      - "Blind C0/C1/C2 competition, ablation of every core object, and hidden holdout success."
+    demotion_rule:
+      - "Prefer C1 or a smaller design if C2 does not cross the pre-declared benefit gate."
+
+  - id: "CC-C3-RICH-LEDGER"
+    statement: >-
+      Permit richer typed claims, temporal semantics, TMS/ATMS, CRDT, or formal
+      lifecycle machinery only as an evidence-triggered C3 extension.
+    classification: "COMPETITIVE_CANDIDATE"
+    status: "GATED / NOT_SELECTED"
+    scope: "conditional candidate extension"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "richer ledger only if C2 fails"
+    counterevidence:
+      - "Current evidence does not show that rich machinery is necessary."
+    falsifier:
+      - "C0, C1, or C2 passes all pre-registered cases without the richer machinery."
+    promotion_requires:
+      - "A pre-declared C2 failure that is specifically repaired by the smallest C3 extension."
+      - "Ablation evidence that the extension is necessary rather than ornamental."
+    demotion_rule:
+      - "Cancel or remove any extension not tied to a reproduced C2 failure."
+
+  - id: "OPEN-PRIMITIVE-ALGEBRA"
+    statement: >-
+      The primitive/minimal algebra remains unresolved; Event, Local Mapping,
+      Interaction, Composition, Rewrite, typed morphism, and established alternatives may compete.
+    classification: "OPEN"
+    status: "UNKNOWN / NON_CONCLUSION"
+    scope: "world-model representation"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "primitive/minimal algebra remains OPEN"
+    counterevidence:
+      - "Round-1 convergence narrows implementation hypotheses but does not select a primitive algebra."
+    falsifier:
+      - "A candidate family demonstrates a necessary and sufficient minimal algebra across independently reproduced target scenarios."
+    promotion_requires:
+      - "Prior-art-first comparison, minimality proof or strong ablation, and cross-domain counterexamples."
+    demotion_rule:
+      - "Keep OPEN if evidence supports only scoped usefulness rather than universal necessity."
+
+  - id: "OPEN-IDENTITY-POLICY"
+    statement: "Identity and continuity policy after split, merge, migration, and succession remains unresolved."
+    classification: "OPEN"
+    status: "UNKNOWN / NON_CONCLUSION"
+    scope: "identity, continuity, and lifecycle"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "deterministic identity after split/merge must not be canonized"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/11_CORE_PRINCIPLES.md"
+        supports: "continuity may use succession/history/lineage rather than same-as"
+    counterevidence:
+      - "Different domains may validly require different scoped identity policies."
+    falsifier:
+      - "A single policy survives split/merge/succession counterexamples across all declared target domains without hidden ambiguity."
+    promotion_requires:
+      - "Scoped identity scenarios, explicit legal/operational consequences, and minority-case retention."
+    demotion_rule:
+      - "Keep domain-scoped or OPEN when one deterministic policy cannot cover all cases."
+
+  - id: "OPEN-SEMANTIC-EQUIVALENCE"
+    statement: "A general semantic-equivalence verifier has not been selected or validated."
+    classification: "OPEN"
+    status: "UNKNOWN / NOT_IMPLEMENTED_AS_GENERAL_PROOF"
+    scope: "transformation and reconstruction validation"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.1/MODEL_CONTRACT.md"
+        supports: "v0.1 does not claim complete natural-language semantic equivalence"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "test pass is not preservation proof"
+    counterevidence:
+      - "Narrow domain-specific equivalence checks may be feasible."
+    falsifier:
+      - "A verifier demonstrates bounded completeness and soundness for an explicitly scoped representation family."
+    promotion_requires:
+      - "Formal scope, false-positive/false-negative controls, and independent adversarial validation."
+    demotion_rule:
+      - "Keep claims local to the tested scope; never generalize from normalized digest equality."
+
+  - id: "NC-NO-UNIVERSAL-MODEL"
+    statement: "No universal or canonical Byul World Model has been selected."
+    classification: "NON_CLAIM"
+    status: "ACTIVE_BOUNDARY"
+    scope: "research interpretation"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "one universal/canonical model has not been selected"
+    counterevidence:
+      - "Round-1 produced correlated convergence around a narrower candidate family."
+    falsifier:
+      - "An explicit later Owner selection backed by the required candidate competition and validation evidence."
+    promotion_requires:
+      - "Not applicable as a positive model claim."
+    demotion_rule:
+      - "Supersede only with exact later selection authority and evidence; prose consensus is insufficient."
+
+  - id: "NC-V01-NOT-BYUL-DEFINITION"
+    statement: >-
+      v0.1 is an experimental memo-driven scaffold; its code, contract vocabulary,
+      and test pass do not define or validate Byul.
+    classification: "NON_CLAIM"
+    status: "ACTIVE_BOUNDARY"
+    scope: "current implementation interpretation"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "v0.1 position and known material weaknesses"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.1/README.md"
+        supports: "experimental implementation status"
+    counterevidence:
+      - "The scaffold contains useful parser, CLI, view, and test components."
+    falsifier:
+      - "A later explicit selection and validation process promotes a successor or a scoped part of C0."
+    promotion_requires:
+      - "Candidate-neutral evidence and explicit selection; passing scaffold tests alone is insufficient."
+    demotion_rule:
+      - "Retain the historical boundary even if parts of C0 are reused."
+
+  - id: "UC-SEMANTIC-PRESERVATION-IDENTITY"
+    statement: >-
+      Defining Byul completely as a semantic-preservation framework across
+      representations is a proposed cold-read formulation, not a selected identity.
+    classification: "UNDER_CHALLENGE"
+    status: "NOT_SELECTED / TOO_NARROW_PENDING_EVIDENCE"
+    scope: "project identity"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "broader Owner modeling, worldview, memory-state, model-family, lifecycle, and routing scope"
+    counterevidence:
+      - "Semantic preservation is a strong cross-cutting research obligation."
+      - "The phrase does not fully cover Owner modeling, worldview formation, or memory-state reconstruction."
+    falsifier:
+      - "A scoped identity study shows the formulation preserves the full project purpose without excluding material research goals."
+    promotion_requires:
+      - "Explicit Owner identity decision after cold-read, scope, and alternative-framing comparison."
+    demotion_rule:
+      - "Retain only as a scoped capability description if it remains narrower than the project."
+
+  - id: "UC-FIXED-FIVE-PLANE"
+    statement: "A fixed five-plane architecture is not a canonical Byul structure."
+    classification: "UNDER_CHALLENGE"
+    status: "UNVALIDATED / ATTACKABLE"
+    scope: "candidate architecture"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "fixed five-plane architecture must not be prematurely canonized"
+    counterevidence:
+      - "A plane decomposition may improve implementation separation in a scoped candidate."
+    falsifier:
+      - "Ablation demonstrates that exactly five planes are necessary and sufficient across the declared scenarios."
+    promotion_requires:
+      - "Candidate competition and per-plane necessity evidence."
+    demotion_rule:
+      - "Reduce, merge, split, or discard planes when equivalent behavior uses less structure."
+
+  - id: "UC-LEDGER-INEVITABILITY"
+    statement: "A ledger is a competitive candidate, not an inevitable Byul core."
+    classification: "UNDER_CHALLENGE"
+    status: "COMPETITIVE / NOT_SELECTED"
+    scope: "storage and history architecture"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "Git+Markdown counter-hypothesis and C1/C2/C3 comparison set"
+    counterevidence:
+      - "All clean proposal runs retained some append-only evidence structure."
+      - "The shared prompt may have induced that convergence."
+    falsifier:
+      - "A ledger candidate materially outperforms the hardened non-ledger control after full complexity accounting and ablation."
+    promotion_requires:
+      - "Blind C1 versus C2 competition and evidence that ledger-specific structure repairs pre-declared failures."
+    demotion_rule:
+      - "Prefer the non-ledger control if ledger-specific benefits do not cross the evidence gate."
+
+  - id: "UC-R-S-M-L"
+    statement: "R(S,M,L) is a research shorthand or candidate facade, not a canonical planner signature."
+    classification: "UNDER_CHALLENGE"
+    status: "HISTORICAL_WORKING_SHORTHAND / NOT_SELECTED"
+    scope: "routing and planning"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md"
+        supports: "retained mostly as mnemonic/facade and reformulated by proposals"
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.1/MODEL_CONTRACT.md"
+        supports: "current C0 implementation vocabulary"
+    counterevidence:
+      - "The shorthand may remain useful for human explanation."
+      - "Current C0 code accepts the structure but does not establish its necessity."
+    falsifier:
+      - "Ablation shows each S, M, and L component changes safe routing outcomes and no simpler signature matches it."
+    promotion_requires:
+      - "Executable routing evidence, ablation, and comparison with alternative query/preservation/capability formulations."
+    demotion_rule:
+      - "Retain as historical terminology only if a simpler planner surface performs equally well."
+
+  - id: "UC-PRESERVATION-VECTOR"
+    statement: >-
+      No fixed preservation vector or algebra, including P=(F,E,R,D), has been
+      selected as complete or canonical.
+    classification: "UNDER_CHALLENGE"
+    status: "UNVALIDATED / ATTACKABLE"
+    scope: "preservation representation"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "P=(F,E,R,D) must not be treated as a proven preservation algebra"
+    counterevidence:
+      - "A vector may be a useful scoped test representation."
+      - "Current vocabulary lists preservation classes but does not prove completeness."
+    falsifier:
+      - "A candidate vector demonstrates scoped completeness, independence of dimensions, and predictive value on hidden transformations."
+    promotion_requires:
+      - "Formal scope, dimension ablation, counterexample search, and independent validation."
+    demotion_rule:
+      - "Add, split, merge, or discard dimensions when counterexamples show incompleteness or redundancy."
+
+  - id: "UC-PLANNER-API"
+    statement: >-
+      No fixed planner API or signature, including PLAN(Q,K,P,L,B), has been
+      selected as canonical.
+    classification: "UNDER_CHALLENGE"
+    status: "UNVALIDATED / ATTACKABLE"
+    scope: "external contract and candidate comparison"
+    source_refs:
+      - repository: "AofSpds/Byul"
+        commit: "8133e3d79c88b582bea6b8a45bc8a1970b261734"
+        path: "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md"
+        supports: "PLAN(Q,K,P,L,B) must not be prematurely canonized"
+    counterevidence:
+      - "A common adapter surface can make candidate observations comparable."
+      - "Forcing one internal API can encode a hidden ontology and bias candidate competition."
+    falsifier:
+      - "Multiple structurally different candidates can implement one minimal API with no semantic distortion or excluded native behavior."
+    promotion_requires:
+      - "Start with a candidate-neutral observation envelope; promote only the smallest interface supported by cross-candidate evidence."
+    demotion_rule:
+      - "Split or remove methods and axes that constrain candidates without measured conformance benefit."
+
+promotion_guard:
+  prohibited_shortcuts:
+    - "same-model or same-lineage convergence"
+    - "terminology repeated across documents"
+    - "proposal recommendation"
+    - "implementation test pass"
+    - "a machine-readable status label"
+    - "a cold reader finding one formulation easy to summarize"
+  minimum_route:
+    - "pre-registered candidate-neutral scenarios"
+    - "positive and negative controls"
+    - "hidden holdouts"
+    - "simpler-control comparison"
+    - "ablation and complexity/cost accounting"
+    - "explicit Owner selection where required"
+    - "independent validation where claimed"
+
+non_goals:
+  - "Do not duplicate the predecessor memory corpus as a second semantic source."
+  - "Do not move or delete historical memory paths to improve readability."
+  - "Do not infer production authorization from this file."
+  - "Do not force UNKNOWN, OPEN, or NON_CONCLUSION into a selected answer."

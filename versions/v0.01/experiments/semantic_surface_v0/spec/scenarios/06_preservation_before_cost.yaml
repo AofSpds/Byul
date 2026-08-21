@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "PRESERVATION_BEFORE_COST",
+  "title": "Semantic admissibility constrains planning before cost ranking",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The scenario supplies candidate capabilities and observes plan safety without requiring a planner signature, ranking algorithm, or internal ontology.",
+  "incident_class": "PLANNING_ADMISSIBILITY",
+  "purpose": "Test refusal when every affordable option violates required preservation and paired execution when an affordable admissible option exists.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md",
+      "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb",
+      "claim_scope": "Records convergence that preservation demand is a hard constraint before cost/ranking and keeps simpler controls competitive."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0",
+      "claim_scope": "Retains semantic admissibility before cost while leaving the canonical planner signature unselected."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "no_affordable_admissible_plan",
+      "control_type": "NEGATIVE_CONTROL",
+      "given": {
+        "requirements": ["source_trace", "conflict_retention"],
+        "budget": 5,
+        "available_options": [
+          {
+            "option_id": "CHEAP",
+            "cost": 2,
+            "preserves": ["source_trace"],
+            "loses": ["conflict_retention"]
+          },
+          {
+            "option_id": "SEMANTICALLY_VALID_BUT_UNAFFORDABLE",
+            "cost": 10,
+            "preserves": ["source_trace", "conflict_retention"],
+            "loses": []
+          }
+        ]
+      },
+      "when": {
+        "operation": "choose_plan",
+        "request": "Choose an affordable plan satisfying all required preservation."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["REFUSE"],
+        "recoverability": ["NOT_APPLICABLE"],
+        "plan_status": ["NO_SAFE_PLAN"]
+      },
+      "forbidden_behaviors": [
+        "Select CHEAP despite loss of required conflict retention.",
+        "Downgrade a required preservation property without disclosure and authorization.",
+        "Report the unaffordable option as executable within budget.",
+        "Return an empty success result instead of an explicit no-safe-plan reason."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "all_options_evaluated",
+          "requirement": "Expose the preservation and budget reason each option is inadmissible.",
+          "evidence_required": true
+        },
+        {
+          "id": "no_safe_plan_returned",
+          "requirement": "Return NO_SAFE_PLAN and refuse execution without erasing available options.",
+          "evidence_required": true
+        }
+      ]
+    },
+    {
+      "case_id": "affordable_admissible_plan_executes",
+      "control_type": "POSITIVE_CONTROL",
+      "given": {
+        "requirements": ["source_trace", "conflict_retention"],
+        "budget": 5,
+        "available_options": [
+          {
+            "option_id": "CHEAP_INVALID",
+            "cost": 2,
+            "preserves": ["source_trace"],
+            "loses": ["conflict_retention"]
+          },
+          {
+            "option_id": "SAFE",
+            "cost": 4,
+            "preserves": ["source_trace", "conflict_retention"],
+            "loses": []
+          }
+        ]
+      },
+      "when": {
+        "operation": "choose_plan",
+        "request": "Choose an affordable plan satisfying all required preservation."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["EXECUTE"],
+        "recoverability": ["NOT_APPLICABLE"],
+        "plan_status": ["SAFE_PLAN"]
+      },
+      "forbidden_behaviors": [
+        "Return REFUSE or NO_SAFE_PLAN when SAFE is admissible and within budget.",
+        "Select CHEAP_INVALID because it is less expensive.",
+        "Claim SAFE preserves a property without showing the supplied capability evidence.",
+        "Invent additional preservation requirements to force refusal."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "safe_option_selected",
+          "requirement": "Select SAFE and show that it satisfies both preservation requirements within budget.",
+          "evidence_required": true
+        },
+        {
+          "id": "invalid_cheaper_option_rejected",
+          "requirement": "Reject CHEAP_INVALID for semantic inadmissibility before comparing it as the winning cost option.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}

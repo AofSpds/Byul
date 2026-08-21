@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0/scenario.schema.json",
+  "title": "Byul candidate-neutral semantic scenario",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "title",
+    "status",
+    "normative",
+    "validation_claim",
+    "selection_authority",
+    "candidate_neutrality",
+    "incident_class",
+    "purpose",
+    "evidence_refs",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "scenario_id": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9_-]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": { "const": "PROVISIONAL" },
+    "normative": { "const": false },
+    "validation_claim": { "const": "NONE" },
+    "selection_authority": { "const": "NONE" },
+    "candidate_neutrality": { "type": "string", "minLength": 1 },
+    "incident_class": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string", "minLength": 1 },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/case" }
+    }
+  },
+  "$defs": {
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "path", "blob", "claim_scope"],
+      "properties": {
+        "repository": { "const": "AofSpds/Byul" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "path": { "type": "string", "minLength": 1 },
+        "blob": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "claim_scope": { "type": "string", "minLength": 1 }
+      }
+    },
+    "outcomeSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolution", "decision", "recoverability", "plan_status"],
+      "properties": {
+        "resolution": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["RESOLVED", "CONFLICT", "UNKNOWN", "NOT_APPLICABLE"] }
+        },
+        "decision": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["EXECUTE", "REVIEW", "REFUSE", "NOT_APPLICABLE"] }
+        },
+        "recoverability": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["EXACT", "PARTIAL", "NON_RECOVERABLE", "UNKNOWN", "NOT_APPLICABLE"] }
+        },
+        "plan_status": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "NOT_REQUESTED", "UNKNOWN"] }
+        }
+      }
+    },
+    "requiredObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "requirement", "evidence_required"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$" },
+        "requirement": { "type": "string", "minLength": 1 },
+        "evidence_required": { "type": "boolean" }
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "control_type",
+        "given",
+        "when",
+        "allowed_outcomes",
+        "forbidden_behaviors",
+        "unresolved_allowed",
+        "required_observations"
+      ],
+      "properties": {
+        "case_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$" },
+        "control_type": { "enum": ["PRIMARY", "NEGATIVE_CONTROL", "POSITIVE_CONTROL", "PAIRED_CONTROL"] },
+        "given": { "type": "object" },
+        "when": { "type": "object" },
+        "allowed_outcomes": { "$ref": "#/$defs/outcomeSet" },
+        "forbidden_behaviors": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "unresolved_allowed": { "type": "boolean" },
+        "required_observations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/requiredObservation" }
+        }
+      }
+    }
+  }
+}

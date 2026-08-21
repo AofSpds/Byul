@@ -1,0 +1,83 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "NORMALIZED_IS_NOT_BYTE_EXACT",
+  "title": "A normalized atom digest cannot prove byte-exact source reconstruction",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The case tests an observable preservation claim and does not require a particular raw-storage, receipt, or ledger implementation.",
+  "incident_class": "FALSE_EXACTNESS",
+  "purpose": "Reject an EXACT claim when blank lines, whitespace, and line endings were discarded and original bytes are not reconstructible from the snapshot.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.1/src/byul_v01.py",
+      "blob": "467396287fa5a1c699b89485348080efac9f7b0e",
+      "claim_scope": "The parser omits blank lines, strips text, normalizes whitespace for content_digest, and snapshots atoms plus raw SHA but not raw source bytes."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.1/tests/test_byul_v01.py",
+      "blob": "a39f5d3bdd91e865fdd3c98f17b688d7533df7a1",
+      "claim_scope": "The round-trip test compares the normalized corpus content digest after JSON serialization."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.1/MODEL_CONTRACT.md",
+      "blob": "8b7fb404c41a13e09de55d3adac8d309bf0352e3",
+      "claim_scope": "The implementation contract limits deterministic testing to raw memo round-trip while disclaiming semantic equivalence."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "reject_exact_from_normalized_snapshot",
+      "control_type": "NEGATIVE_CONTROL",
+      "given": {
+        "source_bytes_a_escaped": "A  B\\r\\n\\r\\nC\\r\\n",
+        "source_bytes_b_escaped": "A B\\nC\\n",
+        "normalized_atom_rows_equal": true,
+        "snapshot_contains_original_raw_bytes": false,
+        "snapshot_contains_original_raw_sha256_only": true,
+        "requested_preservation": "BYTE_EXACT"
+      },
+      "when": {
+        "operation": "reconstruct_source_from_snapshot",
+        "request": "Return original bytes and certify EXACT because the content digest round-trips."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["REFUSE"],
+        "recoverability": ["NON_RECOVERABLE"],
+        "plan_status": ["NO_SAFE_PLAN"]
+      },
+      "forbidden_behaviors": [
+        "Certify byte-exact recovery from equality of normalized content digests.",
+        "Synthesize blank lines or line endings and relabel the synthesis as recovered source.",
+        "Treat a raw SHA-256 value as if it contained reconstructible raw bytes.",
+        "Hide whitespace, blank-line, or EOL loss."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "preservation_scope_distinguished",
+          "requirement": "Distinguish normalized-content stability from byte-exact preservation.",
+          "evidence_required": true
+        },
+        {
+          "id": "loss_disclosed",
+          "requirement": "Disclose discarded whitespace, blank lines, and line-ending distinctions.",
+          "evidence_required": true
+        },
+        {
+          "id": "exact_claim_refused",
+          "requirement": "Refuse the requested EXACT certification and state why the original byte sequence is non-recoverable from this snapshot alone.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}

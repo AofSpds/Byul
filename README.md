@@ -1,12 +1,17 @@
 # Byul
 
-`Byul`은 `AAA-ASA-ME`에서 진행하는 Owner modeling / World Model / formalism prior-art 연구와 실험 구현을 AAA 본체와 분리해 축적하는 저장소입니다.
+`Byul`은 `AAA-ASA-ME`에서 진행하는 Owner modeling / worldview / memory-state reconstruction / model-family / lifecycle / routing 연구와 실험 구현을 AAA 본체와 분리해 축적하는 저장소입니다.
+
+이 설명은 저장소의 현재 연구범위를 가리키는 locator이며 Byul의 최종 identity, canonical World Model 또는 선택된 구현 아키텍처를 정의하지 않습니다.
 
 ## CURRENT STATUS LOCATOR
 
 README만 열어도 현재 어디를 읽어야 하는지 알 수 있도록 현황파일을 명시합니다.
 
 - **현재 현황파일:** `versions/v0.01/CURRENT_STATUS.md`
+- **기계 판독용 연구상태 지도:** `BYUL_RESEARCH_STATE.yaml`
+- **최신 승계 checkpoint:** `versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+- **Round-1 수렴 checkpoint:** `versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md`
 - **상세 진행 로그:** `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
 - **현재 핵심 원칙:** `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 - **현재 연구 스냅샷 안내:** `versions/v0.01/README.md`
@@ -14,22 +19,25 @@ README만 열어도 현재 어디를 읽어야 하는지 알 수 있도록 현�
 - **현재 구현 계약:** `versions/v0.1/MODEL_CONTRACT.md`
 - **상세 대화/context 복구본:** `versions/v0.00/context/AAA-ASA-ME_CONTEXT_BACKUP_2026-08-22.md`
 
-새 채널이나 후계 인스턴스는 우선 `versions/v0.01/CURRENT_STATUS.md`를 읽습니다.
+새 채널이나 후계 인스턴스는 `BYUL_RESEARCH_STATE.yaml`과 `versions/v0.01/CURRENT_STATUS.md`를 함께 읽고, 최신 의미상태는 위 승계 checkpoint와 exact Git evidence로 확인합니다.
 
 ## Current State
 
 - ACTIVE RESEARCH MEMORY: `versions/v0.01/`
 - CURRENT STATUS FILE: `versions/v0.01/CURRENT_STATUS.md`
+- MACHINE-READABLE RESEARCH STATE: `BYUL_RESEARCH_STATE.yaml`
+- LATEST SUCCESSION CHECKPOINT: `versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
 - CURRENT CORE PRINCIPLES: `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 - PREDECESSOR / RECOVERY: `versions/v0.00/`
-- ACTIVE EXPERIMENTAL IMPLEMENTATION: `versions/v0.1/`
+- EXPERIMENTAL C0 BASELINE: `versions/v0.1/` — `C0_EXPERIMENTAL_BASELINE / NOT_BYUL_DEFINITION`
+- ROUND-1: `CLEAN_RERUN_CONVERGENCE_OBSERVED / NOT_SELECTED`
 - 상태: `NON_NORMATIVE / NOT_VALIDATED / PRODUCTION_NOT_AUTHORIZED`
 
 ## Version Boundary
 
 - `v0.00`: 최초 분리 연구 스냅샷 + 상세 context recovery backup.
 - `v0.01 ~ v0.0x`: 연구·메모·MI 초기화·상황별 모델 라우팅·lifecycle validation·위원회 simulation scenario 설계.
-- `v0.1+`: 실제 모델 실구현.
+- `v0.1+`: 후보 모델·표현·검증방식의 실험 구현. 버전 번호 자체는 Byul 정의, 모델 선택 또는 validation authority를 만들지 않습니다.
 
 ## Core Principles
 
@@ -46,23 +54,32 @@ Byul/AAA-ASA-ME의 현재 상위 원칙은 `versions/v0.01/memory/11_CORE_PRINCI
 
 Byul/AAA-ASA-ME 세계관 원칙에 대한 `P0/P1` 우선순위 표기는 사용하지 않습니다. AAA 전체 governance의 별도 위험등급 체계는 이 문서의 대상이 아닙니다.
 
-## v0.1 Data Rule
+## v0.1 Experimental Data Rule
 
 v0.1의 primary DATA는 외부 toy dataset이 아니라 **현재까지 축적된 Byul `v0.01` memory corpus 자체**입니다.
 
 `versions/v0.01/memory/*.md`
 
-v0.1은 이 memory를 raw ground representation으로 읽고 history/current/open/model-family/lifecycle/core-principles 등의 derived view를 만들며 `R(S,M,L)` routing과 mutation/invalidation micro-test를 수행합니다.
+v0.1 C0 baseline은 이 memory를 raw ground representation으로 읽고 history/current/open/model-family/lifecycle/core-principles 등의 derived view를 만들며 `R(S,M,L)` routing과 mutation/invalidation micro-test를 수행합니다.
+
+이 구현 선택은 Byul 전체의 필수 구조가 아닙니다. 특히 `R(S,M,L)`, 고정 plane 구조, ledger, preservation vector, planner API 및 identity policy는 선택·검증되지 않았습니다.
 
 ## Succession Rule
 
 AAA-ASA-ME 채널 승계 시 최소 순서는 다음과 같습니다.
 
 1. `README.md`
-2. `versions/v0.01/CURRENT_STATUS.md`
-3. `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
-4. `versions/v0.01/README.md`
-5. 필요한 `versions/v0.01/memory/00~11` 구조화 메모
+2. `BYUL_RESEARCH_STATE.yaml`
+3. `versions/v0.01/CURRENT_STATUS.md`
+4. `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
+5. `versions/v0.01/memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+6. `versions/v0.01/memory/13_ROUND1_ACCIDENTAL_IMPLEMENTATION_INCIDENT.md`
+7. `versions/v0.01/memory/14_ROUND1_RERUN_SAFETY_CORRECTION.md`
+8. `versions/v0.01/memory/15_ROUND1_CLEAN_RERUN_EOL_HASH_GATE_CORRECTION.md`
+9. `versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md`
+10. `versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+11. `versions/v0.01/README.md`
+12. 필요한 이전 구조화 메모
 
 긴 대화흐름 또는 context 손실 복구가 필요하면:
 
@@ -81,14 +98,18 @@ v0.1 구현을 이어갈 때는:
 ## Governance Note
 
 - 이 저장소는 AAA canonical Requirement / Design / Shared Contract / Validation state를 대체하지 않습니다.
+- `BYUL_RESEARCH_STATE.yaml`은 비규범적 research-state index이며 selection authority가 없습니다.
 - v0.1의 router/index/view 결과는 source memory보다 높은 authority를 갖지 않습니다.
+- v0.1은 `C0_EXPERIMENTAL_BASELINE / NOT_BYUL_DEFINITION`이며 구현 test pass는 semantic-preservation proof 또는 Owner Acceptance가 아닙니다.
 - Core Principles는 Byul 연구·설계 원칙이며 scientific truth 또는 Independent Validation PASS를 의미하지 않습니다.
 
 ## Entry Points
 
 - **Current status:** `versions/v0.01/CURRENT_STATUS.md`
+- **Machine-readable research state:** `BYUL_RESEARCH_STATE.yaml`
+- **Latest succession checkpoint:** `versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
 - **Core principles:** `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 - Research state: `versions/v0.01/README.md`
-- Experimental implementation: `versions/v0.1/README.md`
+- Experimental C0 baseline: `versions/v0.1/README.md`
 
-작성시각: 2026-08-22 03:08 KST
+작성시각: 2026-08-22 07:34 KST

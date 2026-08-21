@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0/observation.schema.json",
+  "title": "Byul candidate-neutral observation envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "status",
+    "candidate_id",
+    "candidate_ref",
+    "spec_ref",
+    "scenario_id",
+    "case_id",
+    "authority_boundary",
+    "outcome",
+    "observations",
+    "retained_conflicts",
+    "retained_unknowns",
+    "loss_disclosures",
+    "refusal_reason",
+    "produced_artifacts",
+    "reconstruction_evidence",
+    "complexity",
+    "candidate_native_result"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "run_id": { "type": "string", "minLength": 1 },
+    "status": { "const": "OBSERVED" },
+    "candidate_id": { "type": "string", "pattern": "^C[0-9]+(?:[-_][A-Za-z0-9._-]+)?$" },
+    "candidate_ref": { "$ref": "#/$defs/gitRef" },
+    "spec_ref": { "$ref": "#/$defs/gitRef" },
+    "scenario_id": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9_-]+$" },
+    "case_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$" },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["validation_claim", "selection_authority", "implementation_authority"],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "implementation_authority": { "const": "NONE" }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolution", "decision", "recoverability", "plan_status"],
+      "properties": {
+        "resolution": { "enum": ["RESOLVED", "CONFLICT", "UNKNOWN", "NOT_APPLICABLE"] },
+        "decision": { "enum": ["EXECUTE", "REVIEW", "REFUSE", "NOT_APPLICABLE"] },
+        "recoverability": { "enum": ["EXACT", "PARTIAL", "NON_RECOVERABLE", "UNKNOWN", "NOT_APPLICABLE"] },
+        "plan_status": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "NOT_REQUESTED", "UNKNOWN"] }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observation_id", "observed", "detail", "evidence_refs"],
+        "properties": {
+          "observation_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$" },
+          "observed": { "type": "boolean" },
+          "detail": { "type": "string" },
+          "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/runtimeEvidence" } }
+        }
+      }
+    },
+    "retained_conflicts": { "type": "array", "items": { "type": "object" } },
+    "retained_unknowns": { "type": "array", "items": { "type": "object" } },
+    "loss_disclosures": { "type": "array", "items": { "type": "object" } },
+    "refusal_reason": { "type": ["string", "null"] },
+    "produced_artifacts": { "type": "array", "items": { "$ref": "#/$defs/runtimeEvidence" } },
+    "reconstruction_evidence": { "type": "array", "items": { "$ref": "#/$defs/runtimeEvidence" } },
+    "complexity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementation_files", "implementation_sloc", "adapter_sloc", "runtime_dependencies", "persisted_bytes", "elapsed_ms", "manual_adjudications"],
+      "properties": {
+        "implementation_files": { "type": ["integer", "null"], "minimum": 0 },
+        "implementation_sloc": { "type": ["integer", "null"], "minimum": 0 },
+        "adapter_sloc": { "type": ["integer", "null"], "minimum": 0 },
+        "runtime_dependencies": { "type": "array", "items": { "type": "string" } },
+        "persisted_bytes": { "type": ["integer", "null"], "minimum": 0 },
+        "elapsed_ms": { "type": ["number", "null"], "minimum": 0 },
+        "manual_adjudications": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "candidate_native_result": {
+      "type": ["object", "array", "string", "number", "boolean", "null"]
+    }
+  },
+  "$defs": {
+    "gitRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit"],
+      "properties": {
+        "repository": { "type": "string", "minLength": 1 },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "runtimeEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "locator", "digest", "description"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "minLength": 1 },
+        "digest": { "type": ["string", "null"] },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

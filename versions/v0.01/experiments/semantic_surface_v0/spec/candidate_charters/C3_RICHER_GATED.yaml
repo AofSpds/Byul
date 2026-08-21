@@ -1,0 +1,63 @@
+{
+  "charter_version": "0.1",
+  "candidate_id": "C3",
+  "title": "Richer epistemic, temporal, conflict, and lifecycle candidate",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "implementation_authority": "NONE",
+  "implementation_status": "NOT_AUTHORIZED_GATE_CLOSED",
+  "implementation_ref": null,
+  "exact_ref_required_before_execution": true,
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md",
+      "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb"
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0"
+    }
+  ],
+  "research_role": "Remain a deferred extension hypothesis and activate only when simpler candidates exhibit evidenced structural insufficiency.",
+  "candidate_local_hypothesis": "Additional typed epistemic, temporal, conflict, or lifecycle structure may be justified only for failure classes that C2 cannot repair without recreating such structure indirectly.",
+  "activation_gate": {
+    "initial_state": "CLOSED",
+    "all_conditions_required": [
+      "C0, C1, and C2 exact implementation refs and adapters are frozen and evaluated on all public cases.",
+      "C2 is evaluated on an uncontaminated holdout under the pre-registered rules.",
+      "C2 has failures in at least two distinct categories among reconstruction, conflict, and lifecycle, or one repeatable catastrophic evidence-loss failure.",
+      "The failures persist after fixing ordinary implementation defects without changing the C2 charter.",
+      "An ablation or causal analysis links the failures to missing richer structure rather than adapter defects, resource limits, or scenario ambiguity.",
+      "C1 cannot satisfy the same cases through a materially simpler explicit mechanism within the declared constraints.",
+      "A separate research authorization records the exact C3 extension scope, complexity budget, stop rule, and implementation isolation."
+    ],
+    "gate_failure_route": "Keep C3 unimplemented and report GATE_NOT_MET; do not treat richness as evidence.",
+    "gate_open_effect": "Research eligibility only; no selection, validation, merge, or production authority."
+  },
+  "permitted_design_space_if_opened": [
+    "Only structures directly tied to the evidenced C2 failure classes.",
+    "Typed epistemic or justification relations where untyped records demonstrably fail.",
+    "Temporal, conflict, or lifecycle machinery scoped to pre-registered cases.",
+    "Explicit ablations that remove each richer feature independently."
+  ],
+  "must_not": [
+    "Implement or execute while the activation gate is closed.",
+    "Treat a fixed five-plane structure, seven-object kernel, preservation vector, or planner signature as preselected.",
+    "Add rich machinery without a feature-to-failure trace.",
+    "Use public-case overfitting or prose consensus as the activation reason.",
+    "Claim that C3 is superior because it represents more concepts."
+  ],
+  "comparison_obligations_if_opened": [
+    "Freeze an exact implementation commit and adapter before any new holdout exposure.",
+    "Run the same cases, resource limits, and observation schema as simpler candidates.",
+    "Report feature-level ablations and full complexity/cost deltas against C2.",
+    "Preserve candidate-native output and all failed gate/stop evidence."
+  ],
+  "promotion_effect": "NONE"
+}

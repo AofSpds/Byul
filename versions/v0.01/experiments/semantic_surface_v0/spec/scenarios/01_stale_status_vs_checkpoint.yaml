@@ -1,0 +1,81 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "STALE_STATUS_VS_CHECKPOINT",
+  "title": "A stale current-status locator conflicts with later persisted checkpoints",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The case requires temporal/provenance evidence and drift disclosure, not a particular storage model or API.",
+  "incident_class": "LOCATOR_DRIFT",
+  "purpose": "Test recovery of current research state without silently treating a stale file name as stronger than later exact Git evidence.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/CURRENT_STATUS.md",
+      "blob": "20a8dd04702f3537c686a10d4b3c73770c8954d8",
+      "claim_scope": "The locator says Round-1 launch is the immediate next step and test execution is not yet confirmed."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md",
+      "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb",
+      "claim_scope": "Later checkpoint records the clean rerun and a narrowed comparison set."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0",
+      "claim_scope": "Latest succession checkpoint warns that CURRENT_STATUS may lag and records the current research state."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "recover_current_state",
+      "control_type": "PRIMARY",
+      "given": {
+        "repository_commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+        "locator_claim": "Round-1 has not launched and should launch next",
+        "later_checkpoint_claim": "Clean Round-1 has produced convergence evidence and candidate comparison should follow",
+        "records_must_be_retained": true
+      },
+      "when": {
+        "operation": "recover_current_research_state",
+        "request": "Report current task, blockers, and checkpoint with provenance."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["NOT_APPLICABLE"],
+        "recoverability": ["NOT_APPLICABLE"],
+        "plan_status": ["NOT_REQUESTED"]
+      },
+      "forbidden_behaviors": [
+        "Report Round-1 launch as the current next step without disclosing drift.",
+        "Treat CURRENT_STATUS as newest solely because its filename says current.",
+        "Delete, rewrite, or silently suppress the stale historical record.",
+        "Merge incompatible statements into a chronology that never occurred."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "latest_checkpoint_selected",
+          "requirement": "Use memory 17, supported by memory 16, as the latest persisted research-state evidence at the pinned commit.",
+          "evidence_required": true
+        },
+        {
+          "id": "drift_disclosed",
+          "requirement": "Identify CURRENT_STATUS as stale relative to later checkpoint evidence.",
+          "evidence_required": true
+        },
+        {
+          "id": "older_record_retained",
+          "requirement": "Retain the old locator as historical evidence rather than rewriting it into the later state.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}

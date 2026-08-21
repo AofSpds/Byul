@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "CANONICAL_GIT_BLOB_IDENTITY",
+  "title": "Checkout line endings differ while canonical committed Git blobs match",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The scenario requires evidence-backed artifact identity but does not prescribe Git as the universal model or a specific implementation API.",
+  "incident_class": "ARTIFACT_IDENTITY",
+  "purpose": "Distinguish environment-specific working-tree bytes from the canonical committed representation used by a Git persistence gate.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/15_ROUND1_CLEAN_RERUN_EOL_HASH_GATE_CORRECTION.md",
+      "blob": "9c994bc00adea853af8d0543837de55ac871ae34",
+      "claim_scope": "Records the CRLF/LF incident, exact diagnostic hashes, canonical Git-blob rule, and permitted resume conditions."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "verify_remote_freeze_across_eol",
+      "control_type": "PRIMARY",
+      "given": {
+        "worktree_sha256": "f88432ef555c284a950fd5a2650a370465723fa059ce935802e21a633827c68c",
+        "canonical_committed_blob_sha256": "e763f2a7d56691da7e15dbf53d6ed5f664e1fb0ad094119c57fc5fc3c84d717d",
+        "remote_canonical_blob_sha256": "e763f2a7d56691da7e15dbf53d6ed5f664e1fb0ad094119c57fc5fc3c84d717d",
+        "remote_commit_matches": true,
+        "local_committed_blob_matches_remote": true,
+        "difference_explained_by_checkout_eol_normalization": true,
+        "isolated_workspace_confirmed": true,
+        "freeze_artifact_unchanged": true,
+        "primary_worktree_safety_confirmed": true,
+        "phase2_read_before_block": false
+      },
+      "when": {
+        "operation": "verify_frozen_git_artifact",
+        "request": "Decide whether the existing Phase-1 freeze is exact enough to resume under the corrected gate."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["EXECUTE"],
+        "recoverability": ["EXACT"],
+        "plan_status": ["SAFE_PLAN"]
+      },
+      "forbidden_behaviors": [
+        "Fail the freeze solely because working-tree and committed-blob byte hashes differ due to EOL normalization.",
+        "Use working-tree SHA-256 as the authoritative remote equality target.",
+        "Amend or rewrite the frozen commit only to normalize line endings.",
+        "Discard the working-tree hash instead of retaining it as diagnostic provenance."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "canonical_blob_compared",
+          "requirement": "Compare local and remote bytes from the exact committed Git objects and verify the expected remote commit.",
+          "evidence_required": true
+        },
+        {
+          "id": "worktree_digest_scoped",
+          "requirement": "Retain the worktree hash as environment representation evidence, not canonical committed identity.",
+          "evidence_required": true
+        },
+        {
+          "id": "resume_conditions_checked",
+          "requirement": "Confirm the remaining isolation, unchanged-freeze, and no-Phase-2-read conditions before resume.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}

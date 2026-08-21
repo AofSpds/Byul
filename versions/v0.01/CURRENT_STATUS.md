@@ -8,6 +8,12 @@
 - ACTIVE_IMPLEMENTATION_VERSION: `v0.1`
 - STATUS: `WORKING / NON_NORMATIVE / NOT_VALIDATED`
 - PRODUCTION_AUTHORIZED: `FALSE`
+- RESEARCH_STATE_MAP: `../../BYUL_RESEARCH_STATE.yaml`
+- LATEST_CHECKPOINT: `memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+- CHECKPOINT_COMMIT: `8133e3d79c88b582bea6b8a45bc8a1970b261734`
+- ACTIVE_EXPERIMENT: `SEMANTIC_SURFACE_V0 / FEATURE_BRANCH_TRIAL`
+- TRIAL_AUTHORIZATION: `experiments/semantic_surface_v0/OWNER_TRIAL_AUTHORIZATION.md`
+- MAIN_MERGE_AUTHORIZED: `FALSE`
 
 ## Operating Split
 
@@ -42,6 +48,8 @@ Canonical Byul research locator:
 
 현재 상위 원칙군은 `BYUL CORE-A`로 지칭하며, 원칙 개수는 고정하지 않는다.
 
+`BYUL CORE-A`는 Owner가 채택한 현재 연구·설계 지침이다. scientific truth, validated invariant 또는 특정 formalism의 선택 authority가 아니다.
+
 현재 포함 방향:
 
 - 변화 가능성
@@ -59,10 +67,15 @@ Byul/AAA-ASA-ME 세계관 원칙에 대한 `P0/P1` 우선순위 표기는 폐지
 - Behaviour/Rule 후보: Petri / Open Petri / Reconfigurable Petri.
 - Occurrence/Concurrency 후보: Occurrence Net / Event Structure.
 - Purpose-specific view 후보: Causal-order / LTS-Reachability.
-- 현재 routing 후보: `R(S,M,L)` = Situation / Current Model State / Lifecycle Context.
+- 현재 routing 연구 shorthand: `R(S,M,L)` = Situation / Current Model State / Lifecycle Context. canonical planner signature로 선택되지 않았다.
 - Situation Fingerprint에서는 특히 `Preservation Demand`가 핵심 축일 가능성을 검토 중.
+- 하나의 universal/canonical World Model은 선택되지 않았다.
 
-## Current Implementation — v0.1
+## Current Implementation — v0.1 C0 Baseline
+
+Classification:
+
+`C0_EXPERIMENTAL_BASELINE / NOT_BYUL_DEFINITION / NOT_SELECTED / NOT_VALIDATED`
 
 Primary DATA:
 
@@ -89,15 +102,26 @@ Implementation files:
 
 Current implementation state:
 
-`IMPLEMENTED / TESTS_AUTHORED / TEST_EXECUTION_NOT_YET_CONFIRMED / NOT_VALIDATED`
+`IMPLEMENTED_SCAFFOLD / TESTS_AUTHORED / NOT_VALIDATED / NOT_SELECTED`
 
-## Automatic Run Numbering
+Known material limitations:
+
+- filesystem source reading rather than enforced Git-object pinning;
+- normalized text comparison rather than byte-exact round-trip;
+- heuristic marker/tag extraction;
+- static routing in which the declared current model state does not yet determine the route;
+- lifecycle vocabulary without substantive state-transition semantics;
+- hard-coded invalidation dependencies.
+
+Test execution or pass evidence is scaffold evidence only. It is not semantic-preservation proof, model validation, Owner Acceptance or production authorization.
+
+## Run Numbering / Parallel Reservation
 
 Canonical numbering rule:
 
 `../v0.1/runs/RUN_NUMBERING.md`
 
-Execution numbering is global within the current model version.
+Execution numbering is global within the current model version. The original serial numbering locator remains preserved, but `memory/14_ROUND1_RERUN_SAFETY_CORRECTION.md` governs clean parallel work where shared mutable reservation is unsafe.
 
 Examples:
 
@@ -109,8 +133,9 @@ Examples:
 
 Rules:
 
-- a new execution reads the latest reserved `v0.1.*` number and proposes the next integer;
-- it first reserves that number; if another parallel execution already took it, refresh and retry with the next available number;
+- a serial execution may read the latest reserved `v0.1.*` number and propose the next integer;
+- parallel workers must not coordinate through one shared mutable file or worktree;
+- clean parallel reservation must be remotely collision-safe, or canonical IDs must be assigned later by a collector;
 - reserved numbers are never reused or compressed;
 - run numbers are not ranks, generations, or successor versions;
 - increasing run numbers never automatically promotes the model to `v0.2`;
@@ -121,7 +146,7 @@ Canonical run namespace:
 
 `versions/v0.1/runs/<RUN_ID>/`
 
-## Parallel Proposal & Evaluation Direction
+## Parallel Proposal & Evaluation State
 
 Research design:
 
@@ -139,7 +164,7 @@ Round-1 exact proposal baseline:
 
 `891e4bd4b999eacc99431ed0db05062901a68dd9`
 
-Recommended allocation:
+Executed clean-rerun allocation:
 
 - `R01–R06`: Neutral Blind — same exact prompt, no solution pressure.
 - `R07`: outside-current-family prior-art search.
@@ -154,41 +179,56 @@ Important anti-anchoring design:
 3. Only then does Phase 2 inspect current v0.1 and choose KEEP / MODIFY / REPLACE / HYBRID / REFRAME / INSUFFICIENT_EVIDENCE.
 4. Phase-1 proposal may not be rewritten after v0.1 exposure; deltas are recorded separately.
 
-All runs are independent and do not see other run outputs before submission.
+The clean-rerun controller required independent isolated branches/worktrees and no cross-run output exposure before submission.
 
 Evaluation uses fail/review gates + blind qualitative pairwise comparison before any aggregate numeric score. Consensus is not sufficient for selection; useful minority proposals are preserved.
 
+Latest persisted research evidence:
+
+- `memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md`
+- `memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+
+Current Round-1 state:
+
+- R01–R06 and R08–R10 have remotely persisted proposal artifacts according to checkpoint evidence.
+- R07 has a remotely frozen Phase-1 proposal; its EOL/hash-gate defect was corrected by using canonical committed Git-blob bytes. Exact branch evidence must be checked before claiming final Phase-2 completion.
+- strong same-lineage convergence was observed around exact/content-addressed evidence, scoped authority, rebuildable views, visible preservation/loss, lifecycle lineage and preservation-before-cost;
+- this convergence is correlated design evidence, not independent expert replication, final architecture selection or validation;
+- hardened Git + Markdown/control-manifest remains the required simpler counter-hypothesis.
+- no proposal recommendation authorizes implementation.
+
 ## Current Open Work — Byul
 
-1. Launch Round-1 parallel proposal cohort using automatic canonical run numbering.
-2. Collect exact `[RETURN PACKET]` outputs from assigned Round slots.
-3. Blind-normalize returns and run Owner + ASA comparative evaluation.
-4. Preserve finalists 3–4 plus justified minority alternatives.
-5. Design Round-2 pressure tests from observed convergence/divergence.
-6. Run v0.1 executable micro-tests separately.
-7. Derive Transformation Preservation Matrix from proposal/simulation evidence.
-8. Revisit Situation Fingerprint and `R(S,M,L)` from observed routing evidence.
+1. Keep the current exact Git checkpoint as the pre-change cold-read baseline.
+2. Expose surviving-constraint candidate / hypothesis / competitive candidate / OPEN / NON_CLAIM distinctions through the non-normative `../../BYUL_RESEARCH_STATE.yaml` locator.
+3. Pre-register candidate-neutral conformance scenarios, positive/negative controls and hidden holdouts from actual Byul incidents.
+4. Define a common observation envelope without forcing every candidate into one internal API or ontology.
+5. Compare C0 current v0.1, C1 hardened Git+Markdown/control-manifest and C2 minimal content-addressed ledger under the same evidence and complexity gates.
+6. Permit C3 richer ledger machinery only if pre-declared evidence shows C2 insufficient.
+7. Revisit `R(S,M,L)`, preservation representations, planner surfaces and identity policy from observed evidence; do not promote them by terminology or consensus.
+8. Preserve UNKNOWN / OPEN / NON_CONCLUSION when evidence does not support selection.
 
 ## Immediate Next Step
 
-Execute `experiments/round1/ROUND1_LAUNCH_PACKET.md` across independent runs.
+Do not relaunch the already executed clean Round-1 as if it were pending.
 
-Each execution automatically reserves the next canonical `v0.1.*` RUN_ID before substantive work. Round slots only assign cohort/profile behavior.
+The immediate research transition is:
 
-The first Round is not a vote for the current design. It is a structured search for:
+`FROZEN COLD-READ BASELINE → NON-NORMATIVE RESEARCH-STATE SURFACE → PRE-REGISTERED SCENARIOS/CONTROLS → BLIND C0/C1/C2 COMPETITION`
 
-- independent convergence;
-- meaningful divergence;
-- stronger prior art;
-- valid replacement/reframe proposals;
-- evidence for or against multi-model routing;
-- lifecycle and semantic-preservation failure modes.
+The Owner has explicitly authorized the isolated S0–S9 research and implementation trial recorded in `experiments/semantic_surface_v0/OWNER_TRIAL_AUTHORIZATION.md`. This authorization is limited to the feature-branch experiment and draft review surface. It does not authorize a `main` merge, production use, model selection, validation claim or Owner Acceptance.
 
 ## Detailed History / Recovery
 
 - 상세 진행 로그: `memory/10_ACTIVE_CHANNEL_LOG.md`
 - 핵심 원칙: `memory/11_CORE_PRINCIPLES.md`
 - Round-1 설계: `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+- accidental implementation incident: `memory/13_ROUND1_ACCIDENTAL_IMPLEMENTATION_INCIDENT.md`
+- clean-rerun safety correction: `memory/14_ROUND1_RERUN_SAFETY_CORRECTION.md`
+- canonical Git-blob hash correction: `memory/15_ROUND1_CLEAN_RERUN_EOL_HASH_GATE_CORRECTION.md`
+- clean-rerun convergence checkpoint: `memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md`
+- latest succession checkpoint: `memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+- machine-readable research state: `../../BYUL_RESEARCH_STATE.yaml`
 - Round-1 실행: `experiments/round1/ROUND1_LAUNCH_PACKET.md`
 - Round-1 평가: `experiments/round1/ROUND1_EVALUATION_PACKET.md`
 - 실행 채번 규칙: `../v0.1/runs/RUN_NUMBERING.md`
@@ -197,14 +237,19 @@ The first Round is not a vote for the current design. It is a structured search 
 
 ## Read Order for Successor
 
-1. `CURRENT_STATUS.md`
-2. `memory/11_CORE_PRINCIPLES.md`
-3. `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
-4. `experiments/round1/ROUND1_LAUNCH_PACKET.md`
-5. `../v0.1/runs/RUN_NUMBERING.md`
-6. `README.md`
-7. 필요한 구조화 메모
-8. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
-9. context 손실 시 v0.00 recovery backup
+1. `../../README.md`
+2. `../../BYUL_RESEARCH_STATE.yaml`
+3. `CURRENT_STATUS.md`
+4. `memory/11_CORE_PRINCIPLES.md`
+5. `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+6. `memory/13_ROUND1_ACCIDENTAL_IMPLEMENTATION_INCIDENT.md`
+7. `memory/14_ROUND1_RERUN_SAFETY_CORRECTION.md`
+8. `memory/15_ROUND1_CLEAN_RERUN_EOL_HASH_GATE_CORRECTION.md`
+9. `memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md`
+10. `memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+11. `../v0.1/README.md`
+12. `../v0.1/MODEL_CONTRACT.md`
+13. `../v0.1/data/SOURCE_MANIFEST.md`
+14. 필요 시 이전 구조화 메모, `memory/10_ACTIVE_CHANNEL_LOG.md` 및 v0.00 recovery backup
 
-작성시각: 2026-08-22 03:42 KST
+작성시각: 2026-08-22 07:34 KST

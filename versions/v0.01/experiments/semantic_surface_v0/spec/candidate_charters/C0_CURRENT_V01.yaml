@@ -1,0 +1,43 @@
+{
+  "charter_version": "0.1",
+  "candidate_id": "C0",
+  "title": "Current v0.1 experimental memo-driven executable slice",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "implementation_authority": "NONE",
+  "implementation_status": "EXISTING_EXPERIMENTAL_BASELINE",
+  "implementation_ref": {
+    "repository": "AofSpds/Byul",
+    "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "entry_path": "versions/v0.1/src/byul_v01.py",
+    "entry_blob": "467396287fa5a1c699b89485348080efac9f7b0e"
+  },
+  "contract_ref": {
+    "repository": "AofSpds/Byul",
+    "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+    "path": "versions/v0.1/MODEL_CONTRACT.md",
+    "blob": "8b7fb404c41a13e09de55d3adac8d309bf0352e3"
+  },
+  "research_role": "Measure the exact existing scaffold as a baseline, including expected failures; do not upgrade it during the run.",
+  "candidate_local_hypothesis": "The small parser, static views, router, and virtual mutation scaffold may satisfy some visibility and refusal cases at very low complexity even though its known exactness, routing, lifecycle, and invalidation semantics are weak.",
+  "frozen_scope": [
+    "Load the exact v0.01 memory corpus behavior exposed at the implementation ref.",
+    "Use the existing source, tests, and contract without semantic repair.",
+    "Translate native output into the common observation envelope through a frozen adapter."
+  ],
+  "must_not": [
+    "Patch C0 after seeing scenario results.",
+    "Rename normalized digest equality as byte-exact reconstruction.",
+    "Treat current tests as validation or selection evidence.",
+    "Use another candidate's output or implementation."
+  ],
+  "comparison_obligations": [
+    "Run every public case and every authorized holdout case.",
+    "Preserve candidate-native output verbatim.",
+    "Report unsupported observations as UNKNOWN rather than adapter inventions.",
+    "Measure implementation files, SLOC, dependencies, adapter SLOC, persisted bytes, elapsed time, and manual adjudications when available."
+  ],
+  "promotion_effect": "NONE"
+}

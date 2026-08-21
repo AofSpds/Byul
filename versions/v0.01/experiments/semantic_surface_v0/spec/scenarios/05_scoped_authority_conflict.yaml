@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "SCOPED_AUTHORITY_CONFLICT",
+  "title": "Scoped assertions remain conflicting until the query supplies a resolvable scope",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The case constrains observable retention and scope reasoning, not the representation of claims, records, ledgers, or views.",
+  "incident_class": "SCOPED_AUTHORITY",
+  "purpose": "Test conflict retention and a paired resolvable control so neither newest-wins nor always-conflict behavior can pass.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/16_ROUND1_CLEAN_RERUN_CONVERGENCE_CHECKPOINT.md",
+      "blob": "068ea833a2eb8d0e0e9c93ce8b573aae3c35e7eb",
+      "claim_scope": "States that authority is scoped and derived outputs must retain provenance and conflict."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0",
+      "claim_scope": "Names conflict preservation and UNKNOWN as narrower surviving research constraints."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "scope_missing_retains_conflict",
+      "control_type": "NEGATIVE_CONTROL",
+      "given": {
+        "assertions": [
+          {
+            "assertion_id": "A1",
+            "value": "X",
+            "authority_scope": "S1",
+            "observed_sequence": 1
+          },
+          {
+            "assertion_id": "A2",
+            "value": "Y",
+            "authority_scope": "S2",
+            "observed_sequence": 2
+          }
+        ],
+        "query_scope": null,
+        "scope_precedence_policy": null
+      },
+      "when": {
+        "operation": "query_current_value",
+        "request": "Return one current value without a requested scope."
+      },
+      "allowed_outcomes": {
+        "resolution": ["CONFLICT", "UNKNOWN"],
+        "decision": ["REVIEW"],
+        "recoverability": ["NOT_APPLICABLE"],
+        "plan_status": ["NOT_REQUESTED"]
+      },
+      "forbidden_behaviors": [
+        "Select A2 merely because it was observed later.",
+        "Escalate either scoped assertion into global authority.",
+        "Drop, overwrite, or silently merge A1 or A2.",
+        "Invent a scope precedence rule not present in the input."
+      ],
+      "unresolved_allowed": true,
+      "required_observations": [
+        {
+          "id": "both_assertions_retained",
+          "requirement": "Expose A1 and A2 with their original values, scopes, and provenance.",
+          "evidence_required": true
+        },
+        {
+          "id": "missing_scope_exposed",
+          "requirement": "Report the missing query scope or policy as the reason resolution is unavailable.",
+          "evidence_required": true
+        }
+      ]
+    },
+    {
+      "case_id": "explicit_scope_resolves",
+      "control_type": "POSITIVE_CONTROL",
+      "given": {
+        "assertions": [
+          {
+            "assertion_id": "A1",
+            "value": "X",
+            "authority_scope": "S1",
+            "observed_sequence": 1
+          },
+          {
+            "assertion_id": "A2",
+            "value": "Y",
+            "authority_scope": "S2",
+            "observed_sequence": 2
+          }
+        ],
+        "query_scope": "S1",
+        "scope_match_is_unambiguous": true
+      },
+      "when": {
+        "operation": "query_current_value",
+        "request": "Return the value authoritative within S1."
+      },
+      "allowed_outcomes": {
+        "resolution": ["RESOLVED"],
+        "decision": ["NOT_APPLICABLE"],
+        "recoverability": ["NOT_APPLICABLE"],
+        "plan_status": ["NOT_REQUESTED"]
+      },
+      "forbidden_behaviors": [
+        "Return CONFLICT or UNKNOWN when S1 has exactly one matching scoped assertion.",
+        "Return Y from S2.",
+        "Suppress A2 from the retained evidence merely because it is out of query scope.",
+        "Promote A1 into authority outside S1."
+      ],
+      "unresolved_allowed": false,
+      "required_observations": [
+        {
+          "id": "scoped_value_resolved",
+          "requirement": "Resolve the S1 query to A1 value X with scope and provenance evidence.",
+          "evidence_required": true
+        },
+        {
+          "id": "out_of_scope_assertion_preserved",
+          "requirement": "Retain A2 as out-of-scope evidence without treating it as a conflict for this query.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}

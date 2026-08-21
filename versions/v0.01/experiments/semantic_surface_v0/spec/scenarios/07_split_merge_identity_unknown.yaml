@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.1",
+  "scenario_id": "SPLIT_MERGE_IDENTITY_UNKNOWN",
+  "title": "Split and merge lineage does not force one timeless identity answer",
+  "status": "PROVISIONAL",
+  "normative": false,
+  "validation_claim": "NONE",
+  "selection_authority": "NONE",
+  "candidate_neutrality": "The scenario asks for lineage, uncertainty, and non-forcing behavior without choosing an identity ontology or lifecycle representation.",
+  "incident_class": "LIFECYCLE_IDENTITY",
+  "purpose": "Preserve an unresolved identity question after split and merge when no scoped identity policy or equivalence evidence exists.",
+  "evidence_refs": [
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/11_CORE_PRINCIPLES.md",
+      "blob": "9f75ccc1d30499ae1dd0a60ef920c4e48f10f6a0",
+      "claim_scope": "Leaves identity non-substantial and allows continuity to be represented as succession, history, or lineage."
+    },
+    {
+      "repository": "AofSpds/Byul",
+      "commit": "8133e3d79c88b582bea6b8a45bc8a1970b261734",
+      "path": "versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md",
+      "blob": "8e45c0f403f6c2112eb64c136511f79ed263f3f0",
+      "claim_scope": "Explicitly warns against premature deterministic identity after split/merge and preserves UNKNOWN as normal."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "identity_policy_absent",
+      "control_type": "PRIMARY",
+      "given": {
+        "lineage_events": [
+          { "event": "CREATE", "entity": "P" },
+          { "event": "SPLIT", "from": "P", "to": ["A", "B"] },
+          { "event": "DIVERGE", "entities": ["A", "B"] },
+          { "event": "MERGE", "from": ["A", "B"], "to": "M" }
+        ],
+        "identity_policy": null,
+        "equivalence_evidence": [],
+        "stable_handle_claim": null
+      },
+      "when": {
+        "operation": "evaluate_identity",
+        "request": "Decide whether M is the same identity as P."
+      },
+      "allowed_outcomes": {
+        "resolution": ["UNKNOWN"],
+        "decision": ["REVIEW"],
+        "recoverability": ["UNKNOWN"],
+        "plan_status": ["NOT_REQUESTED"]
+      },
+      "forbidden_behaviors": [
+        "Force SAME or DIFFERENT without a declared scoped policy and evidence.",
+        "Treat succession or a stable handle as proof of timeless same-as identity.",
+        "Erase A, B, their divergence, or the split/merge lineage.",
+        "Invent deterministic identity semantics from the lifecycle event names alone."
+      ],
+      "unresolved_allowed": true,
+      "required_observations": [
+        {
+          "id": "full_lineage_retained",
+          "requirement": "Expose P, A, B, M and the ordered split/diverge/merge lineage without collapsing it.",
+          "evidence_required": true
+        },
+        {
+          "id": "identity_unknown_preserved",
+          "requirement": "Return UNKNOWN for same-as identity and identify the missing policy/equivalence evidence.",
+          "evidence_required": true
+        },
+        {
+          "id": "succession_distinguished",
+          "requirement": "Allow lineage/succession to be known while identity equivalence remains unknown.",
+          "evidence_required": true
+        }
+      ]
+    }
+  ]
+}
