@@ -1,35 +1,23 @@
 # Byul
 
-이 저장소는 `AAA-ASA-ME` 채널에서 진행 중인 **Owner modeling / World Model hypothesis excavation / formalism prior-art research**의 작업 메모를 분리 보존하기 위한 연구 저장소입니다.
+`Byul`은 `AAA-ASA-ME`에서 진행하는 Owner modeling / World Model / formalism prior-art 연구를 AAA 본체와 분리해 축적하는 연구 저장소입니다.
 
-## 범위
+## Current Research Snapshot
 
-- PROJECT: `AAA`
-- PRODUCT: `ASSET AGENT ASA`
-- CHANNEL: `AAA-ASA-ME`
-- PARENT_PERSONA: `AAA-ASA`
-- 성격: **NON-NORMATIVE RESEARCH MEMORY / WORKING HYPOTHESES / PRIOR-ART NOTES**
-- 권한: Owner Acceptance / Production / Freeze / Release / Independent Validation 권한 없음
-- 현재 목표: Owner의 고해상도 세계관 가설과 구현 추상화를 분리하고, 기존 formalism을 PRIOR-ART-FIRST로 비교하여 상황별 모델 라우팅·상호보완·모델 수명주기 검증 가능성을 연구
+- `versions/v0.00/`
+- 상태: `WORKING_SNAPSHOT / NON_NORMATIVE / NOT_VALIDATED`
+- 성격: 현재까지의 대화 흐름, Owner 가설, 선행 formalism 학습, 모델 라우팅·수명주기·시뮬레이션 아이디어를 재현 가능한 형태로 보존
 
-## 중요 주의
+## Versioning Rule
 
-이 저장소의 메모는 AAA의 canonical Requirement/Design/Shared Contract를 대체하지 않습니다. 특히 `P-series`의 exact canonical 내용은 이 저장소에서 새로 만들거나 재번호화하지 않으며, 필요 시 권위 있는 원본을 참조해야 합니다.
+- `v0.00`은 최초 분리 스냅샷입니다.
+- 이후 의미가 크게 바뀌면 기존 내용을 덮어쓰기보다 `v0.01`, `v0.02` 같은 successor snapshot을 우선합니다.
+- 현재 작업 중인 스냅샷은 수정될 수 있으나, MI 초기화·위원회 시험 등 외부 실험의 exact target으로 사용된 뒤에는 그 target을 보존하는 것을 원칙 후보로 둡니다.
+- AAA의 canonical Requirement / Design / Shared Contract / Validation state를 이 저장소가 대체하지 않습니다.
+- 특히 `P-series`의 정확한 원문·번호는 Byul에서 새로 만들지 않고 canonical source를 참조합니다.
 
-## 문서 지도
+## Entry Point
 
-- `memory/00_CHANNEL_AND_METHOD.md` — 채널 정체성, 연구 방법, 대화 규율
-- `memory/01_OWNER_WORLDVIEW_CURRENT.md` — Owner의 현행 세계관/자아/시간/관측 가설
-- `memory/02_CAUSAL_SET_LEARNING.md` — Causal Set 학습과 복원 신뢰성까지의 현재 이해
-- `memory/03_MODEL_FAMILY_AND_COMPLEMENTARITY.md` — Petri/Event/Causal/LTS/Reconfigurable 계열과 상호보완성
-- `memory/04_ROUTING_AND_LIFECYCLE.md` — `R(S,M,L)` 상황 라우팅 후보와 모델 lifecycle 검증
-- `memory/05_SIMULATION_AND_COMMITTEE.md` — micro-benchmark, lifecycle simulation, 위원회 시나리오 공모 구상
-- `memory/06_MI1_INITIALIZATION_TARGET.md` — MI-1 v0.1 초기화 재현 시험 목표
-- `memory/07_OPEN_QUESTIONS_AND_NEXT_JOBS.md` — 미결 질문과 다음 작업
-- `memory/08_CHANNEL_CHRONOLOGY.md` — 이 채널에서 가설이 어떻게 수정되었는지 상세 흐름
-
-## 현재 가장 강한 한 줄
-
-> 고해상도 세계관 가설은 `무수한 국소 사상들의 합성망`으로 유지하되, 구현은 하나의 고정 World Model에 잠그지 않고 P-series를 보존하는 범위에서 상황·현재 모델 상태·수명주기 맥락에 따라 상호보완 formalism을 선택·변환·공존시키는 방향을 검증한다.
+`versions/v0.00/README.md`부터 읽습니다.
 
 작성시각: 2026-08-22 02:37 KST
