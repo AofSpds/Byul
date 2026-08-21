@@ -8,12 +8,45 @@
 
 - REPOSITORY: `AofSpds/Byul`
 - ROUND_ID: `BYUL-v0.1-PARALLEL-PROPOSAL-R1`
-- EXACT_BASELINE_COMMIT: `891e4bd4b999eacc99431ed0db05062901a68dd9`
+- EXACT_RESEARCH_BASELINE_COMMIT: `891e4bd4b999eacc99431ed0db05062901a68dd9`
 - RELATION: `INDEPENDENT_PARALLEL_RUN`
 - ORDERING: `NONE`
-- RUN IDs: `v0.1-R01` ... `v0.1-R10`
 
-The run ID is not a model version or rank.
+The research baseline is fixed for comparable Phase-1 proposals.
+Execution-control conventions may be maintained outside that historical research baseline.
+
+## Canonical Run Numbering
+
+Before beginning substantive work, every execution MUST allocate its canonical RUN_ID using:
+
+`versions/v0.1/runs/RUN_NUMBERING.md`
+
+Canonical format:
+
+- `v0.1.01`
+- `v0.1.02`
+- `v0.1.03`
+- ...
+- `v0.1.100`
+
+Allocation rule:
+
+`READ LATEST RESERVED RUN → PROPOSE NEXT → RESERVE → IF CONFLICT, REFRESH AND RETRY`
+
+The canonical RUN_ID is global within model version `v0.1` and is never reused.
+It is NOT a model successor/version rank.
+
+### Round Slot vs Canonical Run ID
+
+Round-local slots are separate from canonical run numbering.
+
+Example:
+
+- `ROUND_SLOT = R03`
+- `RUN_ID = v0.1.17`
+
+`R01~R10` only identify the assigned Round-1 cohort/profile slot.
+They do not determine the permanent run number.
 
 ## Purpose
 
@@ -21,7 +54,7 @@ Use the same Byul research memory and BYUL CORE-A to obtain independent reconstr
 
 ## Common Input — Phase 1 Blind
 
-Read from the exact baseline commit:
+Read from the exact research baseline commit:
 
 1. `versions/v0.01/CURRENT_STATUS.md`
 2. `versions/v0.01/memory/00_CHANNEL_AND_METHOD.md`
@@ -40,7 +73,7 @@ Read from the exact baseline commit:
 
 ### Phase-1 Blindness Rule
 
-Do **not** read `versions/v0.1/` implementation files before freezing the Phase-1 proposal.
+Do **not** read `versions/v0.1/` implementation files before freezing the Phase-1 proposal, except the execution-only numbering convention at `versions/v0.1/runs/RUN_NUMBERING.md`.
 
 The point is to prevent anchoring on the current executable slice.
 
@@ -68,13 +101,13 @@ You are free to reject the current framing if a better formulation is justified.
 
 ## Cohorts
 
-### Neutral Blind — R01 to R06
+### Neutral Blind — Round Slots R01 to R06
 
 All six receive exactly the same instructions. No extra solution pressure is added.
 
 Goal: observe natural convergence/divergence from the same state.
 
-### Alternative Search — R07 to R10
+### Alternative Search — Round Slots R07 to R10
 
 All common instructions remain. Apply only the additional pressure assigned below.
 
@@ -87,22 +120,23 @@ Alternative pressure is not an instruction to reach a predetermined answer.
 
 ## Phase 1 Required Work
 
-1. Reconstruct the current research state in your own words.
-2. Separate:
+1. Reserve canonical RUN_ID automatically.
+2. Reconstruct the current research state in your own words.
+3. Separate:
    - `SOURCE_SUPPORTED`
    - `WORKING_HYPOTHESIS`
    - `OWNER_DIRECTION`
    - `OPEN`
    - `NON_CONCLUSION`
    - `YOUR_INFERENCE`
-3. Identify the minimal problem that an implementation actually needs to solve.
-4. Propose your best architecture/formalism/model family.
-5. Explain why it is preferable to plausible alternatives.
-6. Specify authoritative data vs derived views.
-7. Specify transformation/reconstruction boundaries.
-8. Specify lifecycle behavior.
-9. Specify failure modes and falsification tests.
-10. Freeze the proposal as `PHASE1_FROZEN` before Phase 2.
+4. Identify the minimal problem that an implementation actually needs to solve.
+5. Propose your best architecture/formalism/model family.
+6. Explain why it is preferable to plausible alternatives.
+7. Specify authoritative data vs derived views.
+8. Specify transformation/reconstruction boundaries.
+9. Specify lifecycle behavior.
+10. Specify failure modes and falsification tests.
+11. Freeze the proposal as `PHASE1_FROZEN` before Phase 2.
 
 ## Phase 2 — Current v0.1 Contrast
 
@@ -134,6 +168,7 @@ Return exactly one `[RETURN PACKET]` Markdown fenced code block and no text afte
 The packet must contain:
 
 - `ROUND_ID`
+- `ROUND_SLOT`
 - `RUN_ID`
 - `COHORT`
 - `PROFILE`
@@ -172,12 +207,13 @@ The packet must contain:
 - Filling missing evidence with invented certainty.
 - Conflating an implementation convenience with a worldview truth.
 - Replacing prior-art search with unnecessary theory invention.
+- Reusing or manually compressing an already reserved canonical RUN_ID.
 
 ## Owner/ASA Evaluation Boundary
 
 Run authors do not rank themselves or other runs. Owner + ASA will blind-normalize and evaluate submissions afterward. Minority proposals with unique explanatory value must not be discarded merely for lack of consensus.
 
-## Recommended Run Allocation
+## Recommended Round Slot Allocation
 
 - R01–R06: `NEUTRAL_BLIND`
 - R07: `OUTSIDE_PRIOR_ART_SEARCH`
@@ -185,4 +221,6 @@ Run authors do not rank themselves or other runs. Owner + ASA will blind-normali
 - R09: `MINIMAL_INFORMATION`
 - R10: `LIFECYCLE_COMPOSITION`
 
-작성시각: 2026-08-22 03:37 KST
+Canonical RUN_ID is independently auto-allocated at execution time.
+
+작성시각: 2026-08-22 03:42 KST
