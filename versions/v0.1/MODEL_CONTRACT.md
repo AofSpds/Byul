@@ -4,13 +4,17 @@
 
 `EXPERIMENTAL / NON_NORMATIVE / NOT_VALIDATED`
 
-이 문서는 v0.1 executable slice가 무엇을 데이터로 보고 무엇을 파생 view로 보는지 고정하는 **implementation contract**다. AAA canonical Requirement/Design/P-series를 대체하지 않는다.
+이 문서는 v0.1 executable slice가 무엇을 데이터로 보고 무엇을 파생 view로 보는지 고정하는 **implementation contract**다. AAA canonical Requirement/Design을 대체하지 않는다.
 
 ## 1. DATA
 
 Primary DATA는 다음 경로의 Markdown memory corpus다.
 
 `versions/v0.01/memory/*.md`
+
+Exact source baseline commit:
+
+`2a4529b69bc237125a1f012835d7a9b78ce3fec9`
 
 원문 문서와 각 non-empty line을 provenance와 함께 `MemoryDocument / MemoryAtom`으로 읽는다.
 
@@ -23,7 +27,7 @@ Primary DATA는 다음 경로의 Markdown memory corpus다.
 - exact text
 - explicit marker tags only
 
-v0.1은 자유로운 LLM 추론으로 원문을 FACT/HYPOTHESIS로 재분류하지 않는다. 태그는 `OPEN`, `WORKING_HYPOTHESIS`, `NON_NORMATIVE`, `NOT_VALIDATED`, `P-series`처럼 원문에 명시적으로 존재하는 marker 중심으로만 생성한다.
+v0.1은 자유로운 LLM 추론으로 원문을 FACT/HYPOTHESIS로 재분류하지 않는다. 태그는 `OPEN`, `WORKING_HYPOTHESIS`, `NON_NORMATIVE`, `NOT_VALIDATED`, `UNKNOWN`처럼 원문에 명시적으로 존재하는 marker 중심으로만 생성한다.
 
 ## 2. Derived Representations
 
@@ -46,6 +50,11 @@ Petri/Event/Causal/LTS 및 routing 후보가 집중된 문서 집합 view.
 
 ### LIFECYCLE_VIEW
 routing, simulation, MI initialization, version/lifecycle 관련 문서 집합 view.
+
+### CORE_PRINCIPLES_VIEW
+`11_CORE_PRINCIPLES.md`를 중심으로 현재 Byul 상위 원칙을 조회하는 view.
+
+현행 원칙은 변화 가능성 / 비고정 실체성 / 합성·발현성 / 조건·관계 의존성을 포함하며 개수는 고정하지 않는다.
 
 ## 3. R(S,M,L)
 
@@ -88,19 +97,24 @@ v0.1 최소 입력:
 
 - target views
 - required validation checks
-- P-series gate state
+- Core Principles review state
 - notes / unresolved conditions
 
-## 4. P-series Gate
+## 4. Core Principles Review
 
-v0.1 repository 안에 P-series exact canonical rule set이 제공되어 있지 않다.
+Core Principles source:
 
-따라서 구현은:
+`versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 
-- P-series 내용을 추정/발명하지 않는다.
-- `EXTERNAL_NOT_LOADED` 상태를 명시한다.
-- P-series 검증이 필요한 semantic mutation/execution 판단을 자체 PASS하지 않는다.
-- 향후 canonical adapter를 끼울 interface만 남긴다.
+v0.1은 다음을 지킨다.
+
+- Core Principles를 특정 formalism의 고정 schema로 환원하지 않는다.
+- 원칙의 자연어 의미를 deterministic하게 완전 검증했다고 주장하지 않는다.
+- routing/mutation/reconstruction에서 원칙 검토가 필요한 경우 `CORE_PRINCIPLE_REVIEW`를 validation requirement로 포함한다.
+- 자동 PASS를 생성하지 않는다.
+- `P0/P1` 세계관 우선순위나 `P-series` gate는 사용하지 않는다.
+
+AAA 전체 governance의 P0/P1 위험등급은 별도 체계이며 본 implementation contract의 대상이 아니다.
 
 ## 5. Reconstruction / Preservation Classes
 
@@ -131,13 +145,13 @@ v0.1은 source file을 실제 수정하지 않고 virtual mutation을 만들어 
 
 초기 micro-test 통과 조건 후보:
 
-1. v0.01 memory 문서를 모두 load한다.
+1. exact baseline의 v0.01 memory 문서를 모두 load한다.
 2. raw export/import 후 content digest가 동일하다.
 3. chronology index가 cycle 없이 유지된다.
 4. unknown routing intent는 임의 model commitment 대신 REVIEW_REQUIRED를 반환한다.
-5. P-series canonical rules가 없으면 PASS를 생성하지 않는다.
+5. Core Principles view를 노출하고 자동 원칙 PASS를 생성하지 않는다.
 6. mutation simulation이 영향을 받는 derived view와 invalidation radius를 계산한다.
 
 통과해도 scientific/model validation PASS가 아니다.
 
-작성시각: 2026-08-22 02:58 KST
+작성시각: 2026-08-22 03:08 KST
