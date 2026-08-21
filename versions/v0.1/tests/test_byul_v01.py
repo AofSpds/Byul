@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 
@@ -23,9 +22,15 @@ class ByulV01Tests(unittest.TestCase):
 
     def test_loads_v001_memory_corpus(self):
         state = self.corpus.model_state()
-        self.assertGreaterEqual(state.document_count, 11)
+        self.assertGreaterEqual(state.document_count, 12)
         self.assertGreater(state.atom_count, 100)
         self.assertEqual(len(state.content_digest), 64)
+
+    def test_core_principles_view_exists(self):
+        atoms = self.corpus.view("CORE_PRINCIPLES_VIEW")
+        self.assertGreater(len(atoms), 0)
+        self.assertTrue(any("CHANGE / MUTABILITY" in a.text for a in atoms))
+        self.assertTrue(any("CONDITIONAL RELATIONALITY" in a.text for a in atoms))
 
     def test_raw_snapshot_roundtrip_content_digest(self):
         snapshot = self.corpus.snapshot()
@@ -48,7 +53,17 @@ class ByulV01Tests(unittest.TestCase):
         )
         self.assertEqual(plan.decision_state, "ROUTE_CANDIDATE")
         self.assertIn("HISTORY_ORDER_INDEX", plan.target_views)
-        self.assertEqual(plan.pseries_gate_state, "EXTERNAL_NOT_LOADED")
+        self.assertEqual(plan.principle_gate_state, "REVIEW_REQUIRED")
+        self.assertIn("CORE_PRINCIPLE_REVIEW", plan.required_validations)
+
+    def test_principles_route(self):
+        plan = Router().route(
+            SituationFingerprint(intent="principles"),
+            self.corpus.model_state(),
+            LifecycleContext(phase="operate"),
+        )
+        self.assertIn("CORE_PRINCIPLES_VIEW", plan.target_views)
+        self.assertEqual(plan.principle_gate_state, "REVIEW_REQUIRED")
 
     def test_unknown_intent_fails_to_review_required(self):
         plan = Router().route(
