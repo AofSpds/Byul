@@ -97,6 +97,10 @@ Current implementation state:
 
 ## Parallel Proposal & Evaluation Direction
 
+Round-1 research design locator:
+
+`memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+
 v0.1의 다음 실험은 하나의 정답을 강제하지 않는다.
 
 동일한 exact baseline / DATA / BYUL CORE-A / 연구 목표를 여러 독립 인스턴스에 주고, 각 인스턴스는 다음 중 어느 것이든 제안할 수 있다.
@@ -136,47 +140,56 @@ v0.1의 다음 실험은 하나의 정답을 강제하지 않는다.
 - implementation/testability
 - migration/reversibility cost
 
+Round-1에서는 numeric weight를 먼저 고정하지 않고 fail gates + blind pairwise comparison + qualitative notes를 우선한다.
+
 ## Current Open Work — Byul
 
-1. v0.1 병렬 proposal cohort 설계 및 실행.
-2. v0.1 실제 test execution 및 첫 결과 수집.
-3. 병렬 결과를 Owner + ASA가 비교평가하고 finalist/alternative family를 정리.
-4. Transformation Preservation Matrix 설계.
-5. Situation Fingerprint 최소 충분 feature 검증.
-6. lifecycle PASS/FAIL acceptance threshold 설계.
-7. 위원회 외주용 `Lifecycle + Routing Simulation Challenge Requirements` 정리.
-8. MI-1 fresh-instance initial-state reconstruction 시험.
-9. 후보 모델 간 forward/reverse conversion cost / semantic loss / invalidation radius 시뮬레이션.
+1. Round-1 공통 neutral prompt와 alternative-search prompt 확정.
+2. 첫 parallel proposal cohort 실행.
+3. 결과를 run identity를 가리고 Owner + ASA가 비교평가.
+4. finalist 3~4개 + 독특한 minority proposal을 pressure-test 대상으로 보존.
+5. v0.1 실제 test execution 및 첫 결과 수집.
+6. Transformation Preservation Matrix 설계.
+7. Situation Fingerprint 최소 충분 feature 검증.
+8. lifecycle PASS/FAIL acceptance threshold 설계.
+9. 위원회 외주용 `Lifecycle + Routing Simulation Challenge Requirements` 정리.
+10. MI-1 fresh-instance initial-state reconstruction 시험.
 
 ## Immediate Next Step
 
-`Byul v0.1 Parallel Proposal Round-1`을 설계한다.
+`Byul v0.1 Parallel Proposal Round-1` 실행 패킷을 만든다.
 
-첫 Round는 단순히 현재 구현을 재실행하는 것이 아니라, 동일한 메모 DATA와 BYUL CORE-A를 이해한 독립 인스턴스들이 현재 구조를 평가하고 필요하면 더 좋은 모델/표현/라우팅/수명주기 대안을 제안하도록 한다.
+권장 첫 규모:
 
-Owner + ASA는 결과를 받은 뒤:
+- Neutral Blind: 5~7 independent runs
+- Alternative Search: 3~5 independent runs
 
-- 현행 구조 보존 후보
-- 강한 대안 후보
-- 상호보완 가능한 후보
-- 탈락/반례 후보
-- 추가 검증이 필요한 미결 후보
+모든 run은 같은 DATA와 BYUL CORE-A를 공유하지만 서로의 답을 보지 않는다. 현행 v0.1을 따를 의무는 없으며, 더 좋은 prior-art/model architecture/problem formulation이 있으면 제안할 수 있다.
 
-로 분류하고 다음 simulation 대상을 선택한다.
+Round-1 결과는 한 개의 winner를 강제하기보다 다음을 구분한다.
+
+- 반복적으로 수렴하는 공통 구조
+- 상황별 강점이 다른 모델군
+- 현행 후보보다 강한 신규 prior-art
+- 문제정의 자체에 대한 유효한 반례
+- 추가 검증이 필요한 minority proposal
 
 ## Detailed History / Recovery
 
 - 상세 진행 로그: `memory/10_ACTIVE_CHANNEL_LOG.md`
-- 구조화 메모: `memory/00~11`
+- 핵심 원칙: `memory/11_CORE_PRINCIPLES.md`
+- Round-1 설계: `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+- 구조화 메모: `memory/00~12`
 - 긴 context 복구본: `../v0.00/context/AAA-ASA-ME_CONTEXT_BACKUP_2026-08-22.md`
 
 ## Read Order for Successor
 
 1. `CURRENT_STATUS.md`
 2. `memory/11_CORE_PRINCIPLES.md`
-3. `README.md`
-4. 필요한 구조화 메모
-5. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
-6. context 손실 시 v0.00 recovery backup
+3. `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
+4. `README.md`
+5. 필요한 구조화 메모
+6. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
+7. context 손실 시 v0.00 recovery backup
 
-작성시각: 2026-08-22 03:31 KST
+작성시각: 2026-08-22 03:33 KST
