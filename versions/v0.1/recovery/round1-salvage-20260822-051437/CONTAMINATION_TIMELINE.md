@@ -26,6 +26,9 @@ existence, not when or by whom it was created.
 | 05:12:30 | Fetch fast-forwarded `origin/main` from `ecc3f543...` to `8e21fbdf...` | High | Remote main exactly equals declared last-known-safe commit. |
 | 05:14:37 | Recovery branch created at original HEAD | High | Recovery began without changing mixed file contents. |
 | 05:15–05:16 | Current mixed implementation test suite: 35/35 passed | High | Feasibility evidence only; not proposal selection or validation. |
+| 05:18 | Quarantine branch remotely verified at snapshot commit `b20939bb...` | High | Destructive-restoration gate opened. |
+| 05:19 | Workspace switched to local `main` tracking `origin/main` at `8e21fbdf...` | High | Shared v0.1 matched the safe remote tree; no untracked residue remained. |
+| 05:19 | Restored baseline suite: 11/11 passed | High | Existing v0.1 baseline remained executable without code changes. |
 
 ## Contamination boundary
 
@@ -43,4 +46,3 @@ authorship. Accordingly the implementation is classified `MIXED_TRIAL`,
 No explicit statement containing `concurrent workspace change` or
 `those are not my edits` was recoverable from the repository. That absence does
 not disprove the controller's report that such a statement existed in a Codex UI.
-
