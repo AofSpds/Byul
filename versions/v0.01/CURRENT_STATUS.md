@@ -14,6 +14,7 @@
 - ACTIVE_EXPERIMENT: `SEMANTIC_SURFACE_V0 / FEATURE_BRANCH_TRIAL`
 - TRIAL_AUTHORIZATION: `experiments/semantic_surface_v0/OWNER_TRIAL_AUTHORIZATION.md`
 - MAIN_MERGE_AUTHORIZED: `FALSE`
+- SEMANTIC_SURFACE_V0_GATE: `CLOSED_BEFORE_S5 / SUCCESSOR_SPEC_REQUIRED`
 
 ## Operating Split
 
@@ -217,6 +218,8 @@ The immediate research transition is:
 `FROZEN COLD-READ BASELINE → NON-NORMATIVE RESEARCH-STATE SURFACE → PRE-REGISTERED SCENARIOS/CONTROLS → BLIND C0/C1/C2 COMPETITION`
 
 The Owner has explicitly authorized the isolated S0–S9 research and implementation trial recorded in `experiments/semantic_surface_v0/OWNER_TRIAL_AUTHORIZATION.md`. This authorization is limited to the feature-branch experiment and draft review surface. It does not authorize a `main` merge, production use, model selection, validation claim or Owner Acceptance.
+
+The required S4 adversarial gate closed the current v0 schedule before harness or candidate implementation. The raw and consolidated decisions are under `experiments/semantic_surface_v0/reviews/`. Authorization remains available for corrective research, but the current S5–S7 route may not proceed unless a corrected successor specification passes a new exact-ref gate review.
 
 ## Detailed History / Recovery
 

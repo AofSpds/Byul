@@ -32,6 +32,9 @@ active_experiment:
   main_merge_authorized: false
   production_authorized: false
   validation_claim: "NONE"
+  gate_state: "CLOSED_BEFORE_S5"
+  gate_decision_ref: "versions/v0.01/experiments/semantic_surface_v0/reviews/S4_CONSOLIDATED_GATE_DECISION.md"
+  next_route: "PRESERVE_V0 / DESIGN_SUCCESSOR_SPEC / RE_REVIEW"
 
 authority_boundary:
   order:
