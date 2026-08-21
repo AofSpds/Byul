@@ -91,6 +91,36 @@ Current implementation state:
 
 `IMPLEMENTED / TESTS_AUTHORED / TEST_EXECUTION_NOT_YET_CONFIRMED / NOT_VALIDATED`
 
+## Automatic Run Numbering
+
+Canonical numbering rule:
+
+`../v0.1/runs/RUN_NUMBERING.md`
+
+Execution numbering is global within the current model version.
+
+Examples:
+
+- `v0.1.01`
+- `v0.1.02`
+- `v0.1.03`
+- ...
+- `v0.1.100`
+
+Rules:
+
+- a new execution reads the latest reserved `v0.1.*` number and proposes the next integer;
+- it first reserves that number; if another parallel execution already took it, refresh and retry with the next available number;
+- reserved numbers are never reused or compressed;
+- run numbers are not ranks, generations, or successor versions;
+- increasing run numbers never automatically promotes the model to `v0.2`;
+- `v0.2` is created only by an explicit material successor decision;
+- Round-local slot IDs such as `R01` and canonical run IDs such as `v0.1.17` are separate identifiers.
+
+Canonical run namespace:
+
+`versions/v0.1/runs/<RUN_ID>/`
+
 ## Parallel Proposal & Evaluation Direction
 
 Research design:
@@ -130,8 +160,8 @@ Evaluation uses fail/review gates + blind qualitative pairwise comparison before
 
 ## Current Open Work — Byul
 
-1. Launch Round-1 parallel proposal cohort.
-2. Collect exact `[RETURN PACKET]` outputs from R01–R10.
+1. Launch Round-1 parallel proposal cohort using automatic canonical run numbering.
+2. Collect exact `[RETURN PACKET]` outputs from assigned Round slots.
 3. Blind-normalize returns and run Owner + ASA comparative evaluation.
 4. Preserve finalists 3–4 plus justified minority alternatives.
 5. Design Round-2 pressure tests from observed convergence/divergence.
@@ -142,6 +172,8 @@ Evaluation uses fail/review gates + blind qualitative pairwise comparison before
 ## Immediate Next Step
 
 Execute `experiments/round1/ROUND1_LAUNCH_PACKET.md` across independent runs.
+
+Each execution automatically reserves the next canonical `v0.1.*` RUN_ID before substantive work. Round slots only assign cohort/profile behavior.
 
 The first Round is not a vote for the current design. It is a structured search for:
 
@@ -159,6 +191,7 @@ The first Round is not a vote for the current design. It is a structured search 
 - Round-1 설계: `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
 - Round-1 실행: `experiments/round1/ROUND1_LAUNCH_PACKET.md`
 - Round-1 평가: `experiments/round1/ROUND1_EVALUATION_PACKET.md`
+- 실행 채번 규칙: `../v0.1/runs/RUN_NUMBERING.md`
 - 구조화 메모: `memory/00~12`
 - 긴 context 복구본: `../v0.00/context/AAA-ASA-ME_CONTEXT_BACKUP_2026-08-22.md`
 
@@ -168,9 +201,10 @@ The first Round is not a vote for the current design. It is a structured search 
 2. `memory/11_CORE_PRINCIPLES.md`
 3. `memory/12_PARALLEL_PROPOSAL_ROUND1.md`
 4. `experiments/round1/ROUND1_LAUNCH_PACKET.md`
-5. `README.md`
-6. 필요한 구조화 메모
-7. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
-8. context 손실 시 v0.00 recovery backup
+5. `../v0.1/runs/RUN_NUMBERING.md`
+6. `README.md`
+7. 필요한 구조화 메모
+8. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
+9. context 손실 시 v0.00 recovery backup
 
-작성시각: 2026-08-22 03:37 KST
+작성시각: 2026-08-22 03:42 KST
