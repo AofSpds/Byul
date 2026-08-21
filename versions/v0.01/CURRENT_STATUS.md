@@ -9,13 +9,40 @@
 - STATUS: `WORKING / NON_NORMATIVE / NOT_VALIDATED`
 - PRODUCTION_AUTHORIZED: `FALSE`
 
-## Current Core Principles
+## Operating Split
+
+### AAA Mainline
+
+AAA 본선의 기본구조 작업은 완료된 것으로 보고, 별도 신규 설계 과제로 계속 확장하지 않는다.
+
+현재 기본 루프:
+
+`MODEL RUN → EVALUATION → FAILURE ANALYSIS → SUCCESSOR IF NEEDED`
+
+즉 본선은 필요한 모델을 실행하고 평가하며, 결과가 successor를 요구할 때만 다시 설계 작업을 연다.
+
+### Byul / AAA-ASA-ME
+
+이 채널의 능동 연구 트랙이다.
+
+- 세계관/모델링 원칙
+- memory/state reconstruction
+- 상황별 representation routing
+- model lifecycle / mutation / reconstruction
+- 상호보완 formalism family
+- simulation / committee stress scenarios
+
+AAA 본선 실행을 막지 않는 독립 연구선으로 운영한다.
+
+## Current Core
 
 Canonical Byul research locator:
 
 `memory/11_CORE_PRINCIPLES.md`
 
-현재 원칙은 다음 방향을 포함하며 개수는 고정하지 않는다.
+현재 상위 원칙군은 `BYUL CORE-A`로 지칭하며, 원칙 개수는 고정하지 않는다.
+
+현재 포함 방향:
 
 - 변화 가능성
 - 비고정 실체성
@@ -54,7 +81,7 @@ Implemented experimental slice:
 - exact metric request → external metric source requirement
 - virtual mutation / digest change / invalidation radius
 - snapshot content round-trip check
-- Core Principles review requirement; automatic principle PASS 없음
+- BYUL CORE-A review requirement; automatic principle PASS 없음
 
 Implementation files:
 
@@ -68,15 +95,30 @@ Current implementation state:
 
 `IMPLEMENTED / TESTS_AUTHORED / TEST_EXECUTION_NOT_YET_CONFIRMED / NOT_VALIDATED`
 
-## Current Open Work
+## Current Open Work — Byul
 
 1. v0.1 실제 test execution 및 첫 결과 수집.
-2. Transformation Preservation Matrix 설계.
-3. Situation Fingerprint 최소 충분 feature 검증.
-4. lifecycle PASS/FAIL acceptance threshold 설계.
-5. 위원회 외주용 `Lifecycle + Routing Simulation Challenge Requirements` 정리.
-6. MI-1 fresh-instance initial-state reconstruction 시험.
-7. 후보 모델 간 forward/reverse conversion cost / semantic loss / invalidation radius 시뮬레이션.
+2. 첫 결과를 현재 human reconstruction과 비교해 어떤 정보가 보존/누락/과잉추론되는지 확인.
+3. Transformation Preservation Matrix 설계.
+4. Situation Fingerprint 최소 충분 feature 검증.
+5. lifecycle PASS/FAIL acceptance threshold 설계.
+6. 위원회 외주용 `Lifecycle + Routing Simulation Challenge Requirements` 정리.
+7. MI-1 fresh-instance initial-state reconstruction 시험.
+8. 후보 모델 간 forward/reverse conversion cost / semantic loss / invalidation radius 시뮬레이션.
+
+## Immediate Next Step
+
+Byul v0.1을 현재 v0.01 memory corpus에 실제 적용해 첫 self-application run을 수행한다.
+
+첫 목적은 좋은 World Model을 선언하는 것이 아니라:
+
+- raw memory가 실제로 읽히는가
+- current/history/open/model-family/lifecycle view가 어떤 결과를 만드는가
+- `R(S,M,L)`이 어떤 route plan을 반환하는가
+- virtual mutation 시 invalidation radius가 어떻게 나오는가
+- 결과가 현재 사람이 재구성한 연구상태와 어디서 다른가
+
+를 확인하는 것이다.
 
 ## Detailed History / Recovery
 
@@ -93,4 +135,4 @@ Current implementation state:
 5. 필요 시 `memory/10_ACTIVE_CHANNEL_LOG.md`
 6. context 손실 시 v0.00 recovery backup
 
-작성시각: 2026-08-22 03:08 KST
+작성시각: 2026-08-22 03:28 KST
