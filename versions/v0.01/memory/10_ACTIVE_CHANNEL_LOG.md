@@ -83,4 +83,103 @@
 
 이 재구성은 기존 메모의 working synthesis이며 새로운 normative design 또는 model selection이 아니다.
 
-작성시각: 2026-08-22 02:49 KST
+## Situation Fingerprint v0.01 Research Candidate — 2026-08-22 02:56 KST
+
+목표: `Situation Fingerprint`는 특정 formalism을 직접 지명하는 router rule이 아니라, 현재 상황에서 **무엇을 질의하고 무엇을 잃으면 안 되는지**를 model-agnostic하게 기술하는 입력이어야 한다.
+
+### Core Design Discipline
+- Fingerprint 내부에 `Petri`, `Causal Set`, `Event Structure` 같은 모델명을 넣지 않는다. 그렇지 않으면 routing이 순환논리가 됨.
+- `feature exists`와 `feature must be preserved`를 구분한다.
+- UNKNOWN/UNRESOLVED를 정상값으로 허용한다. 모르는 특성을 억지로 분류하지 않는다.
+- P-series는 Fingerprint 필드가 아니라 routing/mutation 결과가 통과해야 하는 외부 gate로 유지한다.
+- 정확한 schema/enum은 아직 확정하지 않는다. v0.01에서는 최소 분해축의 적합성을 검증한다.
+
+### Candidate Situation Fingerprint Components
+
+1. **Question / Workload Intent**
+   - history/ancestry
+   - possible behaviour
+   - reachability/state transition
+   - concurrency/independence
+   - conflict/exclusion
+   - resource/capacity
+   - composition/interface
+   - model/topology mutation
+   - metric/time/space
+   - reconstruction/materialization
+
+2. **Preservation Demand** — 가장 중요한 후보 축
+   - 반드시 lossless로 보존해야 하는 의미
+   - semantic equivalence까지 허용되는 의미
+   - approximate/statistical reconstruction 허용 의미
+   - 버려도 되는 의미
+   - UNKNOWN/UNRESOLVED 의미
+   - 후보 예: causal history, transformation label, resource constraint, conflict relation, rule lineage, exact timestamp, spatial coordinate, authority/provenance 등
+
+3. **Dynamics / Structural Character**
+   - acyclic / cyclic-pattern
+   - sequential / concurrent
+   - deterministic / branching
+   - conflict-bearing
+   - resource-constrained
+   - compositional/open-boundary
+   - topology/rule mutation
+   - fork/merge
+   - transient/persistent
+
+4. **Scale / Update Shape**
+   - entity/event count
+   - relation density
+   - fan-out/fan-in
+   - update frequency
+   - local vs global mutation
+   - expected growth
+   - history depth
+   - streaming vs batch
+
+5. **Precision / Reconstruction Tolerance**
+   - EXACT required
+   - ANCHORED allowed
+   - SEMANTIC allowed
+   - STATISTICAL allowed
+   - VIEW-DEPENDENT allowed
+   - NON-RECOVERABLE prohibited/acceptable by field
+
+6. **Operational Constraints**
+   - query latency target
+   - mutation latency target
+   - storage budget
+   - conversion budget
+   - rollback/recovery need
+   - audit/explainability need
+   - incremental recomputation requirement
+
+### Current Strong Hypothesis
+Situation routing에서 단순한 `현상 유형`보다 `Preservation Demand`가 더 우선적일 가능성이 높다. 같은 cycle/concurrency 상황이라도 무엇을 반드시 보존해야 하는지에 따라 적합 model set과 transformation path가 달라질 수 있기 때문이다.
+
+예: 두 상황 모두 cycle이 있어도,
+- 실제 발생 history가 핵심이면 occurrence/history 보존이 우선,
+- 가능한 반복 behaviour가 핵심이면 compact behaviour representation이 우선,
+- exact timestamp가 핵심이면 별도 metric/clock anchor가 추가로 필요할 수 있음.
+
+### Routing Boundary
+현재 3인자 후보는 그대로 유지:
+`R(S, M, L)`
+
+- `S`: 위 Situation Fingerprint.
+- `M`: 현재 representation / authoritative source / anchors / loss class / lineage / size-density / invalidation state.
+- `L`: create/operate/mutate/compose/split/merge/migrate/recover 등 lifecycle context.
+
+Situation Fingerprint 내부 구성은 향후 simulation/committee scenario를 통해 feature importance와 최소 충분성을 검증해야 한다.
+
+### Immediate Validation Questions
+- 위 6개 축 중 실제 routing decision에 중복되는 축은 무엇인가?
+- 어떤 축이 빠지면 잘못된 model selection이 반복되는가?
+- Preservation Demand만으로 상당 부분 routing이 가능한가?
+- Situation Fingerprint가 너무 커져 사실상 세계 전체 description이 되는 지점은 어디인가?
+- UNKNOWN이 많아도 safe routing/defer가 가능한가?
+- fingerprint 자체의 생성 비용이 routing 이득보다 커지지 않는가?
+
+본 항목은 research candidate이며 Requirement/Design 확정이 아니다.
+
+작성시각: 2026-08-22 02:56 KST
