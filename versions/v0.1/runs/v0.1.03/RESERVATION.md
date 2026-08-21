@@ -1,0 +1,30 @@
+# Clean Rerun Reservation
+
+ROUND_ID = BYUL-v0.1-PARALLEL-PROPOSAL-R1-CLEAN-RERUN-01
+
+ROUND_SLOT = R01
+
+PROFILE = NEUTRAL_BLIND
+
+RUN_ID = v0.1.03
+
+WORKER_ID = 20260822-053731-3832a293
+
+SLOT_RESERVATION_REF = refs/heads/byul-reservations/r1-clean/R01
+
+SLOT_RESERVATION_COMMIT = 0541be795f7ae7d909d11bca347363d458270f90
+
+SLOT_REMOTE_CONFIRMED = TRUE
+
+RUN_RESERVATION_REF = refs/heads/byul-reservations/run/v0.1.03
+
+RUN_RESERVATION_COMMIT = aa3980131e1e9d1e0e105db20644876bd2c3091b
+
+RUN_ID_CONFIRMED = TRUE
+
+RESERVATION_METHOD = unique commit per ref; collision retry; no force push
+
+REPOSITORY = AofSpds/Byul
+
+RESERVATION_REMOTE = https://github.com/AofSpds/Byul.git
+
