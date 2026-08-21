@@ -58,12 +58,12 @@
 5. **Situation-based routing candidate**
    - 현재 strongest routing candidate: `R(S,M,L) → {Target Model Set, Transformation Path, Preservation Contract, Validation Plan}`.
    - S=Situation Fingerprint, M=Current Model State, L=Lifecycle Context.
-   - P-series exact semantics는 canonical source에 있고 Byul은 새로 정의하지 않으며, 현재 연구에서는 routing/mutation 결과가 통과해야 하는 상위 gate로 해석.
+   - `P-series`라는 명칭은 이후 2026-08-22 03:04 KST correction에서 정식 세트가 아님이 확인되었으므로 본 항목의 기존 표현은 역사적 기록으로만 읽는다.
 
 6. **Lifecycle validation requirement**
    - create→operate→accumulate→adapt→mutate→compose→split/diverge→merge→migrate→degraded→recover→successor/retire 전 과정을 검증해야 함.
    - compute cost뿐 아니라 semantic cost, maintenance cost, reversibility를 분리.
-   - 주요 지표 후보: P-series preservation, cumulative drift, round-trip delta, size blow-up, runtime, peak memory, reverse synthesis, invalidation radius, query gain/latency.
+   - 주요 지표 후보: principle preservation, cumulative drift, round-trip delta, size blow-up, runtime, peak memory, reverse synthesis, invalidation radius, query gain/latency.
 
 7. **Simulation / committee outsourcing**
    - T1~T10 toy/lifecycle scenario와 Petri→LTS→Petri′, Petri→Occurrence→Event→Causal Index 등의 micro-probe 후보 존재.
@@ -91,7 +91,7 @@
 - Fingerprint 내부에 `Petri`, `Causal Set`, `Event Structure` 같은 모델명을 넣지 않는다. 그렇지 않으면 routing이 순환논리가 됨.
 - `feature exists`와 `feature must be preserved`를 구분한다.
 - UNKNOWN/UNRESOLVED를 정상값으로 허용한다. 모르는 특성을 억지로 분류하지 않는다.
-- P-series는 Fingerprint 필드가 아니라 routing/mutation 결과가 통과해야 하는 외부 gate로 유지한다.
+- 상위 원칙/보존조건은 Fingerprint 필드와 분리해 routing/mutation 결과를 검증하는 외부 gate 후보로 유지하되, `P-series`라는 정식명칭은 사용하지 않는다.
 - 정확한 schema/enum은 아직 확정하지 않는다. v0.01에서는 최소 분해축의 적합성을 검증한다.
 
 ### Candidate Situation Fingerprint Components
@@ -193,7 +193,7 @@ Owner가 v0.1을 현재 모델 구조로 실제 구성해보는 것을 요청했
 - raw memo text/provenance가 ground representation.
 - current/history/open/model-family/lifecycle 등은 derived index/view.
 - `R(S,M,L)`을 실제 data structure와 route-plan 반환 함수로 구현.
-- P-series exact canonical rules는 Byul에 없으므로 임의 생성하지 않고 `EXTERNAL_NOT_LOADED` / external gate로만 구현.
+- 당시 `P-series exact canonical rules는 Byul에 없다`고 기록했으나, 이후 correction에서 **정식 P-series 자체가 정의되어 있지 않았음**이 확인됨. 따라서 이 구현부는 placeholder/오류 추상화로 취급하고 successor correction 필요.
 - virtual mutation으로 content digest change / affected view / invalidation radius를 계측하는 lifecycle seed 구현.
 - raw snapshot export/import content digest preservation test 포함.
 - chronology를 history-order index로 사용하되 전체 메모의 causality라고 과잉해석하지 않음.
@@ -207,4 +207,16 @@ Owner가 v0.1을 현재 모델 구조로 실제 구성해보는 것을 요청했
 
 상태는 `EXPERIMENTAL_IMPLEMENTATION / NON_NORMATIVE / NOT_VALIDATED`이며 scientific/model validation PASS를 의미하지 않는다.
 
-작성시각: 2026-08-22 02:58 KST
+## P-series Terminology Correction — 2026-08-22 03:04 KST
+
+Owner 질문: `P SERIES가 뭘까욤`.
+
+재검토 결과:
+- `P-series`라는 정식 명칭·정식 목록·canonical source는 현재 Byul과 확인 가능한 대화흐름에 존재하지 않는다.
+- Owner가 과거 `가변성에 대한 가설이 p0`, `함수 방식은 p0에 물려 있는 가설 후보`처럼 **P0 수준의 근본 가설/우선순위**를 사용한 적은 있으나, 이를 P0/P1/P2...의 정식 `P-series` 체계로 정의한 evidence는 현재 없음.
+- 별도로 AAA governance에는 P0/P1 등의 risk/validation priority classification이 존재하므로, ME/MI의 worldview-priority 의미와 혼동하면 안 된다.
+- `P-series exact semantics는 canonical source에 있다`는 기존 Byul 문구는 근거 없는 과잉 일반화였고 correction 대상이다.
+- 현재 안전한 표현은 `Owner/root principles`, `high-priority worldview hypotheses`, 또는 아직 이름을 고정하지 않은 `preservation constraints` 정도다.
+- v0.1의 `P-series external gate` 구현은 정식 requirement가 아니라 **placeholder introduced from this mistaken abstraction**으로 취급한다. 다음 코드 수정 시 명칭을 제거하거나 `UNRESOLVED_PRINCIPLE_GATE` 정도의 중립 placeholder로 바꾸고, 실제 gate semantics는 별도 정의 전까지 PASS를 생성하지 않는다.
+
+작성시각: 2026-08-22 03:04 KST
