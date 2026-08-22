@@ -9,6 +9,7 @@ README만 열어도 현재 어디를 읽어야 하는지 알 수 있도록 현�
 - **현재 현황파일:** `versions/v0.01/CURRENT_STATUS.md`
 - **상세 진행 로그:** `versions/v0.01/memory/10_ACTIVE_CHANNEL_LOG.md`
 - **현재 핵심 원칙:** `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
+- **Owner 고해상도 1차 인터뷰 기록:** `versions/v0.01/owner_interviews/README.md`
 - **현재 연구 스냅샷 안내:** `versions/v0.01/README.md`
 - **현재 실험 구현 현황:** `versions/v0.1/README.md`
 - **현재 구현 계약:** `versions/v0.1/MODEL_CONTRACT.md`
@@ -16,11 +17,14 @@ README만 열어도 현재 어디를 읽어야 하는지 알 수 있도록 현�
 
 새 채널이나 후계 인스턴스는 우선 `versions/v0.01/CURRENT_STATUS.md`를 읽습니다.
 
+Owner worldview의 미세한 의미, primitive 가설의 변화과정, Owner의 실제 표현 자체가 중요한 경우에는 구조화 memory보다 `versions/v0.01/owner_interviews/`의 고해상도 1차 기록을 먼저 대조합니다.
+
 ## Current State
 
 - ACTIVE RESEARCH MEMORY: `versions/v0.01/`
 - CURRENT STATUS FILE: `versions/v0.01/CURRENT_STATUS.md`
 - CURRENT CORE PRINCIPLES: `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
+- OWNER PRIMARY INTERVIEW EVIDENCE: `versions/v0.01/owner_interviews/`
 - PREDECESSOR / RECOVERY: `versions/v0.00/`
 - ACTIVE EXPERIMENTAL IMPLEMENTATION: `versions/v0.1/`
 - 상태: `NON_NORMATIVE / NOT_VALIDATED / PRODUCTION_NOT_AUTHORIZED`
@@ -54,6 +58,8 @@ v0.1의 primary DATA는 외부 toy dataset이 아니라 **현재까지 축적된
 
 v0.1은 이 memory를 raw ground representation으로 읽고 history/current/open/model-family/lifecycle/core-principles 등의 derived view를 만들며 `R(S,M,L)` routing과 mutation/invalidation micro-test를 수행합니다.
 
+`owner_interviews/`는 일반 `memory/*.md`와 다른 evidence class입니다. Owner 주요 인터뷰 원문을 고해상도로 보존하며, 향후 v0.1 data ingestion에 포함할지는 별도 설계/승인 없이 자동 변경하지 않습니다.
+
 ## Succession Rule
 
 AAA-ASA-ME 채널 승계 시 최소 순서는 다음과 같습니다.
@@ -63,6 +69,12 @@ AAA-ASA-ME 채널 승계 시 최소 순서는 다음과 같습니다.
 3. `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
 4. `versions/v0.01/README.md`
 5. 필요한 `versions/v0.01/memory/00~11` 구조화 메모
+
+Owner 발화 자체나 세계관/primitive의 미세한 자기수정이 중요한 작업이면 추가로:
+
+`versions/v0.01/owner_interviews/README.md`
+
+및 해당 interview set의 `01_OWNER_TURNS_VERBATIM.md`를 먼저 확인합니다.
 
 긴 대화흐름 또는 context 손실 복구가 필요하면:
 
@@ -83,12 +95,14 @@ v0.1 구현을 이어갈 때는:
 - 이 저장소는 AAA canonical Requirement / Design / Shared Contract / Validation state를 대체하지 않습니다.
 - v0.1의 router/index/view 결과는 source memory보다 높은 authority를 갖지 않습니다.
 - Core Principles는 Byul 연구·설계 원칙이며 scientific truth 또는 Independent Validation PASS를 의미하지 않습니다.
+- Owner high-resolution interview archive는 Owner intent/worldview 연구의 primary evidence이지만 그 자체가 normative authority artifact는 아닙니다.
 
 ## Entry Points
 
 - **Current status:** `versions/v0.01/CURRENT_STATUS.md`
 - **Core principles:** `versions/v0.01/memory/11_CORE_PRINCIPLES.md`
+- **Owner high-resolution interviews:** `versions/v0.01/owner_interviews/README.md`
 - Research state: `versions/v0.01/README.md`
 - Experimental implementation: `versions/v0.1/README.md`
 
-작성시각: 2026-08-22 03:08 KST
+작성시각: 2026-08-23 00:19 KST
