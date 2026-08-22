@@ -1,11 +1,11 @@
 # Semantic Surface v0.1 — Successor Experiment Protocol
 
 ```text
-STATUS = WORKING / PRE_FREEZE / PRE_IMPLEMENTATION
+STATUS = WORKING / R2_PRE_FREEZE / PRE_IMPLEMENTATION
 PREDECESSOR = semantic_surface_v0 / PRESERVED_EVIDENCE
 CURRENT_ENGINEERING_GATE = CLOSED
-DUMMY_HARNESS_GATE = CLOSED / PRE_FREEZE / F5-D_NOT_RUN
-CANDIDATE_TRIAL_GATE = CLOSED / F5-C_NOT_ELIGIBLE
+DUMMY_HARNESS_GATE = CLOSED / R1_F5-D_CANCEL / R2_REFREEZE_PENDING
+CANDIDATE_TRIAL_GATE = CLOSED / R1_F5-C_CANCEL
 HOLDOUT_STATUS = NOT_PRESENT
 VALIDATION_CLAIM = NONE
 SELECTION_AUTHORITY = NONE
@@ -39,15 +39,20 @@ schema exists.
 2. `protocol/README.md` — native capture, mapping, tuple, and run-state boundary.
 3. `candidate_protocol/README.md` — C0/C1/C2/C3 roles, budgets, and isolation.
 4. `study_protocol/README.md` — visibility, holdout, schedule, and adjudication.
-5. `SUCCESSOR_FREEZE_MANIFEST.json` — added only after the protocol source is
-   committed; it pins the exact source commit and Git blobs reviewed next.
+5. `SUCCESSOR_FREEZE_MANIFEST.json` — preserved R1 freeze evidence reviewed at
+   commit `865f0892fe668e76c7c21822ff9474809b99520d`.
+6. `reviews/F5_GATE_DECISION_865F0892.md` — R1 cancellation and correction
+   route.
+7. `SUCCESSOR_FREEZE_MANIFEST_R2.json` — added only after the corrected R2
+   protocol source is committed; it pins the exact source commit and Git blobs
+   for the next F5-D review.
 
 ## Gate separation
 
 | Gate | Permitted scope if opened | Cannot establish | Current state |
 | --- | --- | --- | --- |
-| Protocol freeze | Commit exact protocol and blob manifest | Correctness or feasibility | Pending |
-| Dummy harness | Implement and run only public synthetic transport vectors | Candidate semantics, H1/H3, superiority | Closed; F3-D exists, but exact freeze and F5-D review have not run |
+| Protocol freeze | Commit exact protocol and blob manifest | Correctness or feasibility | R1 preserved; corrected R2 pending |
+| Dummy harness | Implement and run only public synthetic transport vectors | Candidate semantics, H1/H3, superiority | Closed; R1 F5-D cancelled, corrected actual-side R2 pack awaits freeze and review |
 | Public rehearsal | Exercise frozen candidates only on disclosed diagnostics | Generalization, narrowing, C3 trigger | Closed; separately named authorization and all engineering controls required |
 | Holdout candidate trial | Execute frozen C1/C2 refs under sealed custody and blind grading | Canonical Byul or production fitness | Closed; external prerequisites absent |
 | C3 successor | Propose a new experiment after numeric trigger | Automatic C3 implementation or selection | Not authorized |
@@ -59,10 +64,17 @@ separately authorized reduced-control rehearsal must preserve
 
 ## Current blockers
 
-The repository currently contains the pre-code F3-D malicious/dummy transport
-pack for schema, adapter, capture, and run-state checks. That pack becomes
-eligible for F5-D review only after an exact source/blob freeze; it does not
-open the harness gate by itself.
+The R1 exact-ref F5-D review cancelled dummy execution because the pack lacked
+a separately frozen actual-side envelope, evidence-bearing control events, one
+truncation route, complete binding baselines, and exact dummy-only authority
+binding. Those findings are preserved under `reviews/`.
+
+The corrected, still-unfrozen R2 source adds 13 actual-side packets separated
+from the 13 grader-only oracles, independent stop/contamination events, a sole
+intentional wrong-ref divergence, an exact byte-limit truncation vector, and
+R2-specific F5-D authority binding. These are protocol bytes, not execution
+evidence. The dummy gate remains closed until a new exact source/blob freeze
+and a fresh F5-D verdict accept those exact refs.
 
 The pack does not contain the expectation-reversing/metamorphic public
 development suite or executable, evidence-complete deterministic

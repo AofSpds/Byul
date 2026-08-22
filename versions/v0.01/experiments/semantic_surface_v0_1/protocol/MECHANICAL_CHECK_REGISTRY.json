@@ -152,13 +152,13 @@
       "check_id": "XF_TRUNC_001",
       "mandatory": true,
       "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
-      "rule": "Truncated artifacts retain mandatory evidence, have PARTIAL capture, and cannot produce an OBSERVED scoreable attempt."
+      "rule": "Every truncated artifact retains immutable prefix and truncation evidence, has PARTIAL capture, and terminates exactly as INCOMPLETE/NON_SCOREABLE with reason NATIVE_CAPTURE_TRUNCATED; digest mismatch or byte alteration remains INVALID."
     },
     {
       "check_id": "XF_AUTH_001",
       "mandatory": true,
       "enforcement": "SCHEMA_AND_CROSS_FILE_CHECKER",
-      "rule": "AUTHORIZED trial execution has a resolvable immutable authority ref; other execution authority states have null refs."
+      "rule": "AUTHORIZED trial execution has a resolvable immutable authority ref; other execution authority states have null refs. F5_DUMMY_TRANSPORT_ACCEPT additionally requires trial_class HARNESS_DUMMY, scope F5_DUMMY_TRANSPORT_ONLY, exact immutable 40-hex successor freeze and source refs, the fixed SUCCESSOR_FREEZE_MANIFEST_R2.json path, and an immutable verdict ref resolving to the same bytes as authority_ref; the freeze manifest must resolve at the pinned freeze ref, name the pinned source ref, and pass every path/blob/digest/length check; every non-dummy class rejects that F5-D kind, scope, verdict, and authorization object."
     },
     {
       "check_id": "XF_HOLDOUT_001",

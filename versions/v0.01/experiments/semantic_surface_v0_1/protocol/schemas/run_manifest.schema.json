@@ -75,13 +75,22 @@
         "trial_execution": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "scope", "authority_ref"],
+          "required": ["status", "authority_kind", "scope", "authority_ref", "f5d_authorization"],
           "properties": {
             "status": { "enum": ["AUTHORIZED", "NOT_AUTHORIZED", "UNKNOWN"] },
+            "authority_kind": {
+              "enum": ["F5_DUMMY_TRANSPORT_ACCEPT", "OTHER_TRIAL_AUTHORITY", "NONE"]
+            },
             "scope": { "type": "string", "minLength": 1 },
             "authority_ref": {
               "oneOf": [
                 { "$ref": "#/$defs/immutableArtifactRef" },
+                { "type": "null" }
+              ]
+            },
+            "f5d_authorization": {
+              "oneOf": [
+                { "$ref": "#/$defs/f5dDummyAuthorization" },
                 { "type": "null" }
               ]
             }
@@ -94,11 +103,17 @@
               },
               "then": {
                 "properties": {
+                  "authority_kind": {
+                    "enum": ["F5_DUMMY_TRANSPORT_ACCEPT", "OTHER_TRIAL_AUTHORITY"]
+                  },
                   "authority_ref": { "$ref": "#/$defs/immutableArtifactRef" }
                 }
               },
               "else": {
-                "properties": { "authority_ref": { "type": "null" } }
+                "properties": {
+                  "authority_kind": { "const": "NONE" },
+                  "authority_ref": { "type": "null" }
+                }
               }
             }
           ]
@@ -185,6 +200,55 @@
   "allOf": [
     {
       "if": {
+        "properties": { "trial_class": { "const": "HARNESS_DUMMY" } },
+        "required": ["trial_class"]
+      },
+      "then": {
+        "properties": {
+          "trial_authority": {
+            "properties": {
+              "trial_execution": {
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": { "status": { "const": "AUTHORIZED" } },
+                      "required": ["status"]
+                    },
+                    "then": {
+                      "properties": {
+                        "authority_kind": { "const": "F5_DUMMY_TRANSPORT_ACCEPT" },
+                        "scope": { "const": "F5_DUMMY_TRANSPORT_ONLY" },
+                        "f5d_authorization": { "$ref": "#/$defs/f5dDummyAuthorization" }
+                      }
+                    },
+                    "else": {
+                      "properties": { "f5d_authorization": { "type": "null" } }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "trial_authority": {
+            "properties": {
+              "trial_execution": {
+                "properties": {
+                  "authority_kind": { "not": { "const": "F5_DUMMY_TRANSPORT_ACCEPT" } },
+                  "scope": { "not": { "const": "F5_DUMMY_TRANSPORT_ONLY" } },
+                  "f5d_authorization": { "type": "null" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
         "properties": { "trial_class": { "const": "SEALED_HOLDOUT" } },
         "required": ["trial_class"]
       },
@@ -209,6 +273,38 @@
     }
   ],
   "$defs": {
+    "f5dDummyAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_kind",
+        "scope",
+        "successor_freeze_ref",
+        "successor_source_ref",
+        "freeze_manifest_path",
+        "verdict_ref"
+      ],
+      "properties": {
+        "authorization_kind": { "const": "F5_DUMMY_TRANSPORT_ACCEPT" },
+        "scope": { "const": "F5_DUMMY_TRANSPORT_ONLY" },
+        "successor_freeze_ref": { "$ref": "#/$defs/exactGitCommitRef" },
+        "successor_source_ref": { "$ref": "#/$defs/exactGitCommitRef" },
+        "freeze_manifest_path": {
+          "const": "versions/v0.01/experiments/semantic_surface_v0_1/SUCCESSOR_FREEZE_MANIFEST_R2.json"
+        },
+        "verdict_ref": { "$ref": "#/$defs/immutableArtifactRef" }
+      }
+    },
+    "exactGitCommitRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "immutability"],
+      "properties": {
+        "repository": { "const": "AofSpds/Byul" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "immutability": { "const": "GIT_COMMIT" }
+      }
+    },
     "sealedHoldoutEvidence": {
       "type": "object",
       "additionalProperties": false,

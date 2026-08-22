@@ -2,10 +2,10 @@
 
 ```text
 SOURCE_GATE = semantic_surface_v0/reviews/S4_CONSOLIDATED_GATE_DECISION.md
-DISPOSITION_BASIS = SUCCESSOR_PROTOCOL_SOURCE / PRE_FREEZE
+DISPOSITION_BASIS = SUCCESSOR_PROTOCOL_SOURCE / R2_PRE_FREEZE
 IMPLEMENTATION_EVIDENCE = NONE
 EXTERNAL_CONTROL_EVIDENCE = NONE
-NEW_ADVERSARIAL_REVIEW = PENDING_EXACT_FREEZE_REF
+NEW_ADVERSARIAL_REVIEW = R1_CANCEL_PRESERVED / R2_PENDING_EXACT_FREEZE_REF
 ```
 
 `SPECIFIED` means the successor contains an operational contract. It does not
@@ -18,9 +18,9 @@ independence or custody evidence by itself.
 | 1. Split stimulus, oracle, and mapping contracts | `protocol/schemas/` | `SPECIFIED` | `NOT_IMPLEMENTED` |
 | 2. Opaque IDs and enforced answer separation | `protocol/CROSS_FILE_INTEGRITY.md`; `study_protocol/VISIBILITY_PROTOCOL.md` | `SPECIFIED` | `NOT_IMPLEMENTED` |
 | 3. Complete allowed tuples and explicit axis referents | `protocol/OUTCOME_SEMANTICS.md`; oracle schema | `SPECIFIED` | `NOT_EXECUTED` |
-| 4. Exact refs for all inputs, code, environment, native bytes, mappings, and state | run/capture/receipt/observation schemas; candidate isolation receipt | `SPECIFIED` | `MISSING_ACTUAL_REFS` |
+| 4. Exact refs for all inputs, code, environment, native bytes, mappings, and state | run/capture/receipt/observation schemas; dummy actual-side packets; candidate isolation receipt | `SPECIFIED` | Dummy actual-side refs are frozen-source candidates; candidate and executed-run refs remain absent |
 | 5. Non-scoreable terminal states | run-state and observation schemas; interpretation rules | `SPECIFIED` | `NOT_EXECUTED` |
-| 6. Pre-code malicious/dummy harness fixtures | `protocol/dummy_oracles/` | `SPECIFIED_PRE_HARNESS / TRANSPORT_ONLY` | `HARNESS_NOT_IMPLEMENTED`; does not satisfy correction 10 |
+| 6. Pre-code malicious/dummy harness fixtures | `protocol/dummy_oracles/` | `R1_CANCEL_PRESERVED / R2_SPECIFIED_PRE_HARNESS / TRANSPORT_ONLY` | 13 separated stimulus/actual/oracle triples await R2 freeze and F5-D; `HARNESS_NOT_IMPLEMENTED`; does not satisfy correction 10 |
 | 7. Mechanical adapter with native lineage | `protocol/ADAPTER_PURITY.md`; mapping-receipt schema; adapter audit | `SPECIFIED` | `ADAPTERS_NOT_IMPLEMENTED` |
 | 8. C0 archival-only and operational C1/C2 boundary | `candidate_protocol/C0_ARCHIVAL_CALIBRATION.yaml`; C1/C2 charters | `SPECIFIED` | `C1_C2_NOT_IMPLEMENTED` |
 | 9. Symmetric numeric budgets and complete cost accounting | build/execution budgets; cost manual | `SPECIFIED` | `EXTERNAL_TELEMETRY_AND_ISOLATION_UNPROVISIONED` |
@@ -30,12 +30,14 @@ independence or custody evidence by itself.
 | 13. C3 only in a fresh successor experiment | C3 candidate trigger and successor holdout rule | `SPECIFIED` | `C3_NOT_AUTHORIZED` |
 | 14. Mandatory unique isolation and simultaneous freeze | isolation-controller schema; execution schedule | `SPECIFIED` | `EXTERNAL_BLOCKED` until allocations/receipts exist |
 | 15. Two-stage mechanical and blind semantic adjudication | `study_protocol/ADJUDICATION_PROTOCOL.md`; adjudication schema | `SPECIFIED` | `EXTERNAL_BLOCKED` for independent graders/controllers |
-| 16. New exact-ref adversarial review | root freeze-manifest procedure | `ROUTED` | `PENDING` |
+| 16. New exact-ref adversarial review | root freeze-manifest procedure; `reviews/` | `R1_COMPLETED_CANCEL / R2_ROUTED` | R1 freeze integrity passed but F5-D and F5-C cancelled; R2 exact review pending |
 
 ## Non-waivable conclusion
 
-The successor protocol removes several ambiguities from the written design but
-has not yet demonstrated that the controls work. The next legitimate local
-action is to freeze the exact F3-D/spec refs and obtain the narrow F5-D
-adversarial verdict. Correction 10 still requires a future F3-C before F5-C can
-be reviewed. Candidate implementation does not begin from this pre-freeze tree.
+The R1 review demonstrated freeze integrity but rejected dummy execution. The
+R2 source corrects the listed actual-side, event, binding, truncation, and
+authority defects without adding harness or candidate code; it has not yet
+demonstrated that those controls work. The next legitimate local action is to
+freeze the exact R2 F3-D/spec refs and obtain a fresh narrow F5-D adversarial
+verdict. Correction 10 still requires a future F3-C before F5-C can be
+reviewed. Candidate implementation does not begin from this pre-freeze tree.

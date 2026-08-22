@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1",
+  "protocol_id": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1",
+  "oracle_id": "OR_57228a27f7d3602e438c9a0361bcd47b",
+  "oracle_kind": "HARNESS_DUMMY_KEY",
+  "stimulus_id": "ST_8dab6646317210c8dc149dd3607bdf97",
+  "stimulus_ref": {
+    "ref_id": "RF_5f69a646eaf10257407df918256e9a50",
+    "locator": "dummy_oracles/stimuli/st_8dab6646317210c8dc149dd3607bdf97.json",
+    "sha256": "75ff08bc2eae9661ef092a7175ed66f231e7d8de601fbf057c79ca407eeb101a",
+    "byte_length": 780,
+    "media_type": "application/json",
+    "immutability": "CONTENT_ADDRESS"
+  },
+  "axis_applicability": {
+    "resolution": false,
+    "decision": false,
+    "recoverability": false,
+    "plan_status": false
+  },
+  "allowed_outcome_tuples": [
+    {
+      "resolution": "NOT_APPLICABLE",
+      "decision": "NOT_APPLICABLE",
+      "recoverability": "NOT_APPLICABLE",
+      "plan_status": "NOT_REQUESTED"
+    }
+  ],
+  "required_claims": [],
+  "forbidden_behaviors": [
+    {
+      "behavior_id": "FB_ee738f7b4b5c74d0fc07b309537d134a",
+      "rule_code": "TRUNCATED_NATIVE_OUTPUT_SCORED",
+      "description": "A byte-limited native capture cannot be scored or sent to semantic grading."
+    }
+  ],
+  "derivation_records": [
+    {
+      "derivation_id": "DR_cdc6f8a67e54c2acb703ddbc8dae176b",
+      "basis_class": "EXPERIMENTAL_CONVENTION",
+      "statement": "This mechanical-only vector freezes complete native bytes, an exact 64-byte captured prefix, and byte-limit evidence; SEMANTICALLY_INCOMPLETE is the existing schema category while capture mode identifies truncation exactly.",
+      "evidence_refs": []
+    }
+  ],
+  "scoreability_rule": {
+    "scoreable_run_states": ["OBSERVED"],
+    "non_scoreable_run_states": [
+      "BLOCKED",
+      "STOPPED",
+      "CONTAMINATED",
+      "INVALID",
+      "INCOMPLETE",
+      "BUDGET_EXHAUSTED"
+    ]
+  },
+  "dummy_fixture": {
+    "profile": "SEMANTICALLY_INCOMPLETE",
+    "native_emission": null,
+    "adapter_projection": null,
+    "forced_run_state": "INCOMPLETE",
+    "expected_mechanical_disposition": "PRESERVE_NON_SCOREABLE",
+    "expected_semantic_disposition": "NOT_EVALUATED",
+    "expected_scoreability": "NON_SCOREABLE",
+    "expected_reason_codes": ["TRUNCATED_NATIVE_OUTPUT"]
+  },
+  "authority_boundary": {
+    "validation_claim": "NONE",
+    "selection_authority": "NONE",
+    "promotion_authority": "NONE",
+    "main_merge_authority": false,
+    "production_authority": false
+  }
+}

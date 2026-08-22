@@ -114,8 +114,8 @@
     },
     {
       "id": "ADP-13",
-      "criterion": "A native-byte digest mismatch, truncated capture, or altered artifact causes INVALID and remains non-scoreable.",
-      "evidence": ["NATIVE_DIGEST_MISMATCH_TEST"],
+      "criterion": "A native-byte digest mismatch or altered artifact causes INVALID. A truncated capture preserves the immutable prefix and truncation evidence, terminates exactly as INCOMPLETE with reason NATIVE_CAPTURE_TRUNCATED, and remains NON_SCOREABLE; truncation is never remapped to INVALID or OBSERVED.",
+      "evidence": ["NATIVE_DIGEST_MISMATCH_TEST", "TRUNCATED_CAPTURE_INCOMPLETE_STATE_TEST"],
       "status": "NOT_EVALUATED"
     },
     {

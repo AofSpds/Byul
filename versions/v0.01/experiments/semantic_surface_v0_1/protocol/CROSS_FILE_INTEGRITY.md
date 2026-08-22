@@ -149,30 +149,50 @@ For every artifact with `truncated = true`:
 4. when an original digest is declared, evidence resolves to the complete
    original bytes rather than a guessed digest;
 5. `capture_completeness` is `PARTIAL`; and
-6. the attempt is non-scoreable (`INCOMPLETE`, `BUDGET_EXHAUSTED`, `STOPPED`, or
-   another accurately preserved terminal state), never `OBSERVED`.
+6. the terminal run state is exactly `INCOMPLETE`, with
+   `scoreability = NON_SCOREABLE` and reason code
+   `NATIVE_CAPTURE_TRUNCATED`; and
+7. the run state's evidence and partial-artifact refs resolve to the immutable
+   native capture, captured prefix bytes, and truncation evidence.
 
 `byte_exact = true` means the stored prefix bytes are exact; it does not claim
 the complete native artifact was captured. Unknown original length/digest stays
-explicitly null.
+explicitly null. Truncation is not `INVALID`, `STOPPED`, or
+`BUDGET_EXHAUSTED`; those states remain available for their own accurately
+recorded causes. A digest mismatch or byte alteration remains `INVALID` and is
+not relabeled as truncation.
 
 ## Trial authority and sealed holdout gates
 
 1. `trial_execution.status = AUTHORIZED` requires a non-null immutable
    `authority_ref`. `NOT_AUTHORIZED` and `UNKNOWN` require null; a generic
    authority string cannot substitute for the ref.
-2. `SEALED_HOLDOUT` is invalid unless `sealed_holdout` supplies resolvable,
+2. An authorized F5-D run is valid only when `trial_class = HARNESS_DUMMY`,
+   `authority_kind = F5_DUMMY_TRANSPORT_ACCEPT`, and
+   `scope = F5_DUMMY_TRANSPORT_ONLY`; its authorization object must pin exact
+   immutable 40-hex successor freeze and source commit refs, the fixed
+   `SUCCESSOR_FREEZE_MANIFEST_R2.json` path, and a resolvable immutable F5-D verdict
+   ref. The manifest at the freeze ref must resolve at that exact path, name the
+   exact source commit, and pass its own path/blob/digest/length freeze checks.
+   The generic `authority_ref` must identify the same verdict bytes. Any other
+   trial class carrying the F5-D kind, scope, verdict, or authorization object
+   is invalid.
+3. The resolved F5-D verdict must itself state
+   `F5_DUMMY_TRANSPORT_ACCEPT` and `F5_DUMMY_TRANSPORT_ONLY`; a path, branch,
+   mutable label, symbolic ref, or verdict for different source/freeze refs
+   cannot authorize execution.
+4. `SEALED_HOLDOUT` is invalid unless `sealed_holdout` supplies resolvable,
    immutable refs for the public commitment, private-manifest commitment,
    access-log head, independent access-log audit, custodian release, and
    external ACL evidence, with `oracle_kind = CASE_KEY`.
-3. The public commitment, private-manifest commitment, access-log head/audit,
+5. The public commitment, private-manifest commitment, access-log head/audit,
    custodian release, ACL evidence, and oracle ref must agree on the same frozen
    experiment/run/case identity through the external study protocol. A public
    digest alone is not a custodian release or ACL proof.
-4. Any absent, unresolved, late, failed, or mutually inconsistent holdout gate
+6. Any absent, unresolved, late, failed, or mutually inconsistent holdout gate
    makes the attempt non-scoreable. It may be rerouted as a named public
    rehearsal only under a new manifest and identity.
-5. `refs.runner` and `refs.dependency_lock` are independent immutable refs; an
+7. `refs.runner` and `refs.dependency_lock` are independent immutable refs; an
    environment image or harness ref does not silently stand in for either.
 
 ## Dummy-pack rule

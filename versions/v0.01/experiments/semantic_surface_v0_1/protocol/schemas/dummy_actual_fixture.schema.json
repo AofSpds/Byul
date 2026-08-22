@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AofSpds/Byul/semantic_surface_v0_1/protocol/dummy_actual_fixture.schema.json",
+  "title": "Semantic Surface v0.1 frozen dummy actual-side fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "actual_fixture_id",
+    "stimulus_id",
+    "stimulus_ref",
+    "visibility_contract",
+    "driver_visible",
+    "controller_only",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "protocol_id": { "const": "SEMANTIC_SURFACE_SUCCESSOR_PROTOCOL_0_1" },
+    "actual_fixture_id": { "type": "string", "pattern": "^AF_[0-9a-f]{32}$" },
+    "stimulus_id": { "type": "string", "pattern": "^ST_[0-9a-f]{32}$" },
+    "stimulus_ref": { "$ref": "#/$defs/immutableArtifactRef" },
+    "visibility_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "driver_may_read",
+        "controller_may_read",
+        "oracle_bytes_may_be_read_before_capture_close",
+        "grader_oracle_data_present",
+        "expected_verdict_data_present"
+      ],
+      "properties": {
+        "driver_may_read": { "const": ["/driver_visible"] },
+        "controller_may_read": {
+          "const": [
+            "/actual_fixture_id",
+            "/stimulus_id",
+            "/stimulus_ref",
+            "/visibility_contract",
+            "/driver_visible",
+            "/controller_only",
+            "/authority_boundary"
+          ]
+        },
+        "oracle_bytes_may_be_read_before_capture_close": { "const": false },
+        "grader_oracle_data_present": { "const": false },
+        "expected_verdict_data_present": { "const": false }
+      }
+    },
+    "driver_visible": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dispatch_token", "native_emission", "adapter_projection"],
+      "properties": {
+        "dispatch_token": { "type": "string", "pattern": "^OP_[0-9a-f]{32}$" },
+        "native_emission": {
+          "oneOf": [
+            { "$ref": "#/$defs/nativeEmission" },
+            { "type": "null" }
+          ]
+        },
+        "adapter_projection": {
+          "oneOf": [
+            { "$ref": "#/$defs/adapterProjection" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "controller_only": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_baseline", "capture_control", "control_events"],
+      "properties": {
+        "binding_baseline": { "$ref": "#/$defs/completeBindingTokens" },
+        "capture_control": { "$ref": "#/$defs/captureControl" },
+        "control_events": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/controlEvent" }
+        }
+      }
+    },
+    "authority_boundary": { "$ref": "#/$defs/authorityBoundary" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "controller_only": {
+            "properties": {
+              "capture_control": {
+                "properties": { "mode": { "const": "NO_CAPTURE" } },
+                "required": ["mode"]
+              }
+            },
+            "required": ["capture_control"]
+          }
+        },
+        "required": ["controller_only"]
+      },
+      "then": {
+        "properties": {
+          "driver_visible": {
+            "properties": {
+              "native_emission": { "type": "null" },
+              "adapter_projection": { "type": "null" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "controller_only": {
+            "properties": {
+              "capture_control": {
+                "properties": { "mode": { "const": "TRUNCATE_AT_BYTE_LIMIT" } },
+                "required": ["mode"]
+              }
+            },
+            "required": ["capture_control"]
+          }
+        },
+        "required": ["controller_only"]
+      },
+      "then": {
+        "properties": {
+          "driver_visible": {
+            "properties": {
+              "native_emission": { "$ref": "#/$defs/nativeEmission" }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "opaqueToken": { "type": "string", "pattern": "^TK_[0-9a-f]{32}$" },
+    "immutableArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref_id", "locator", "sha256", "byte_length", "media_type", "immutability"],
+      "properties": {
+        "ref_id": { "type": "string", "pattern": "^RF_[0-9a-f]{32}$" },
+        "locator": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "immutability": { "enum": ["GIT_BLOB", "CONTENT_ADDRESS", "OCI_DIGEST", "ACL_SEALED_OBJECT"] }
+      }
+    },
+    "nativeEmission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "media_type",
+        "content_encoding",
+        "content_base64",
+        "byte_length",
+        "actual_sha256",
+        "capture_declared_sha256",
+        "exit_code"
+      ],
+      "properties": {
+        "media_type": { "type": "string", "pattern": "^[^\\s/]+/[^\\s/]+$" },
+        "content_encoding": { "enum": ["BINARY", "UTF-8", "US-ASCII", "UTF-16LE", "UTF-16BE", "OTHER"] },
+        "content_base64": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "actual_sha256": { "$ref": "#/$defs/sha256" },
+        "capture_declared_sha256": { "$ref": "#/$defs/sha256" },
+        "exit_code": { "type": "integer" }
+      }
+    },
+    "outcomeTuple": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolution", "decision", "recoverability", "plan_status"],
+      "properties": {
+        "resolution": { "enum": ["RESOLVED", "CONFLICT", "UNKNOWN", "NOT_APPLICABLE"] },
+        "decision": { "enum": ["EXECUTE", "REVIEW", "REFUSE", "NOT_APPLICABLE"] },
+        "recoverability": { "enum": ["EXACT", "PARTIAL", "NON_RECOVERABLE", "UNKNOWN", "NOT_APPLICABLE"] },
+        "plan_status": { "enum": ["SAFE_PLAN", "NO_SAFE_PLAN", "UNKNOWN", "NOT_REQUESTED"] }
+      }
+    },
+    "driverBindingTokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "harness",
+        "runner",
+        "candidate",
+        "adapter",
+        "environment",
+        "dependency_lock",
+        "resource",
+        "stimulus"
+      ],
+      "properties": {
+        "spec": { "$ref": "#/$defs/opaqueToken" },
+        "harness": { "$ref": "#/$defs/opaqueToken" },
+        "runner": { "$ref": "#/$defs/opaqueToken" },
+        "candidate": { "$ref": "#/$defs/opaqueToken" },
+        "adapter": { "$ref": "#/$defs/opaqueToken" },
+        "environment": { "$ref": "#/$defs/opaqueToken" },
+        "dependency_lock": { "$ref": "#/$defs/opaqueToken" },
+        "resource": { "$ref": "#/$defs/opaqueToken" },
+        "stimulus": { "$ref": "#/$defs/opaqueToken" }
+      }
+    },
+    "completeBindingTokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "harness",
+        "runner",
+        "candidate",
+        "adapter",
+        "environment",
+        "dependency_lock",
+        "resource",
+        "stimulus",
+        "oracle"
+      ],
+      "properties": {
+        "spec": { "$ref": "#/$defs/opaqueToken" },
+        "harness": { "$ref": "#/$defs/opaqueToken" },
+        "runner": { "$ref": "#/$defs/opaqueToken" },
+        "candidate": { "$ref": "#/$defs/opaqueToken" },
+        "adapter": { "$ref": "#/$defs/opaqueToken" },
+        "environment": { "$ref": "#/$defs/opaqueToken" },
+        "dependency_lock": { "$ref": "#/$defs/opaqueToken" },
+        "resource": { "$ref": "#/$defs/opaqueToken" },
+        "stimulus": { "$ref": "#/$defs/opaqueToken" },
+        "oracle": { "$ref": "#/$defs/opaqueToken" }
+      }
+    },
+    "adapterProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome",
+        "claim_ids",
+        "conflict_ids",
+        "unknown_ids",
+        "loss_ids",
+        "native_digest_seen",
+        "presented_binding_tokens"
+      ],
+      "properties": {
+        "outcome": { "oneOf": [{ "$ref": "#/$defs/outcomeTuple" }, { "type": "null" }] },
+        "claim_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" } },
+        "conflict_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" } },
+        "unknown_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" } },
+        "loss_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,63}$" } },
+        "native_digest_seen": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "presented_binding_tokens": { "$ref": "#/$defs/driverBindingTokens" }
+      }
+    },
+    "evidencePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["media_type", "content_base64", "byte_length", "sha256"],
+      "properties": {
+        "media_type": { "const": "application/json" },
+        "content_base64": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "byte_length": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "controlEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "event_type", "occurred_at", "evidence_payload"],
+      "properties": {
+        "event_id": { "type": "string", "pattern": "^CE_[0-9a-f]{32}$" },
+        "event_type": { "enum": ["CONTROLLER_STOP", "ORACLE_ACCESS_CANARY_TRIGGERED", "CAPTURE_LIMIT_APPLIED"] },
+        "occurred_at": { "type": "string", "format": "date-time" },
+        "evidence_payload": { "$ref": "#/$defs/evidencePayload" }
+      }
+    },
+    "exactTruncationEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "configured_limit_bytes",
+        "original_byte_length",
+        "original_sha256",
+        "captured_prefix_base64",
+        "captured_prefix_byte_length",
+        "captured_prefix_sha256"
+      ],
+      "properties": {
+        "reason": { "const": "BYTE_LIMIT" },
+        "configured_limit_bytes": { "type": "integer", "minimum": 1 },
+        "original_byte_length": { "type": "integer", "minimum": 2 },
+        "original_sha256": { "$ref": "#/$defs/sha256" },
+        "captured_prefix_base64": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "captured_prefix_byte_length": { "type": "integer", "minimum": 1 },
+        "captured_prefix_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "captureControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "byte_limit", "exact_truncation_evidence"],
+      "properties": {
+        "mode": { "enum": ["COMPLETE", "TRUNCATE_AT_BYTE_LIMIT", "NO_CAPTURE"] },
+        "byte_limit": { "oneOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }] },
+        "exact_truncation_evidence": {
+          "oneOf": [{ "$ref": "#/$defs/exactTruncationEvidence" }, { "type": "null" }]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "TRUNCATE_AT_BYTE_LIMIT" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "byte_limit": { "type": "integer", "minimum": 1 },
+              "exact_truncation_evidence": { "$ref": "#/$defs/exactTruncationEvidence" }
+            }
+          },
+          "else": {
+            "properties": {
+              "byte_limit": { "type": "null" },
+              "exact_truncation_evidence": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "authorityBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["validation_claim", "selection_authority", "promotion_authority", "main_merge_authority", "production_authority"],
+      "properties": {
+        "validation_claim": { "const": "NONE" },
+        "selection_authority": { "const": "NONE" },
+        "promotion_authority": { "const": "NONE" },
+        "main_merge_authority": { "const": false },
+        "production_authority": { "const": false }
+      }
+    }
+  }
+}

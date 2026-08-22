@@ -79,12 +79,22 @@ that names an oracle is controller-private and is not a candidate packet.
 1. Freeze stimulus bytes and a separate oracle under distinct access controls.
 2. Freeze spec, harness, runner, candidate, adapter, environment,
    dependency-lock, resource, input, and oracle refs in a controller-private
-   run manifest. An `AUTHORIZED` trial has an immutable authority ref.
+   run manifest. An `AUTHORIZED` trial has an immutable authority ref. An F5-D
+   authorization is valid only for `trial_class = HARNESS_DUMMY`,
+   `scope = F5_DUMMY_TRANSPORT_ONLY`, exact immutable 40-hex successor freeze
+   and source commit refs, the fixed successor-freeze-manifest path, and an
+   immutable verdict ref. The freeze manifest at the pinned freeze ref must name
+   the pinned source ref and exact reviewed source bytes. No public, holdout,
+   archival, candidate-build, validation, or selection authority can be derived
+   from that verdict.
 3. Expose only stimulus bytes and the authorized execution/resource subset.
 4. Capture candidate-native bytes before any adapter mapping.
 5. Freeze the native capture record.
 6. Produce field-level mapping receipts under `ADAPTER_PURITY.md`.
-7. Seal a terminal run state. Non-`OBSERVED` states are non-scoreable.
+7. Seal a terminal run state. Non-`OBSERVED` states are non-scoreable. Any
+   truncated native capture preserves its partial bytes and truncation evidence,
+   then terminates exactly as `INCOMPLETE` with reason
+   `NATIVE_CAPTURE_TRUNCATED`; it is never `OBSERVED` or scoreable.
 8. Seal the observation and perform cross-file mechanical checks.
 9. Only then expose the oracle to the mechanical checker and blind semantic
    grader under the separate adjudication protocol.
