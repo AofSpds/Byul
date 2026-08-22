@@ -1,0 +1,7 @@
+{
+  "state":"PRE_CUTOVER_REFERENCE",
+  "byul_native_active_persona_pointer":"NONE_EXISTS_YET",
+  "predecessor_current_state_ref":"AofSpds/Byul main@993d6707ecd4deab25a5cb51909056379aefddea",
+  "legacy_current_status_path":"versions/v0.01/CURRENT_STATUS.md",
+  "rollback_rule":"Until WP9 activates a new exact pointer, rollback is KEEP/RESTORE predecessor main/current state; never infer a BYUL-native pointer that did not exist."
+}

@@ -1,0 +1,20 @@
+{
+  "state":"CANDIDATE_NOT_ACTIVE",
+  "project_object":{"object_type":"PROJECT","object_id":"BYUL-PROJECT","name":"BYUL"},
+  "normalization":{"case_sensitive":false,"trim_whitespace":true},
+  "selectors":[
+    {"selector":"BYUL","persona_id":"BYUL-PERSONA-BYUL","object_type":"PERSONA"},
+    {"selector":"BYULV","persona_id":"BYUL-PERSONA-BYULV","object_type":"PERSONA"},
+    {"selector":"PMO","persona_id":"BYUL-PERSONA-PMO","object_type":"PERSONA"},
+    {"selector":"PMOV","persona_id":"BYUL-PERSONA-PMOV","object_type":"PERSONA"},
+    {"selector":"CONTROL","persona_id":"BYUL-PERSONA-CONTROL","object_type":"PERSONA"},
+    {"selector":"CONTROLV","persona_id":"BYUL-PERSONA-CONTROLV","object_type":"PERSONA"},
+    {"selector":"MODEL","persona_id":"BYUL-PERSONA-MODEL","object_type":"PERSONA"},
+    {"selector":"MODELV","persona_id":"BYUL-PERSONA-MODELV","object_type":"PERSONA"},
+    {"selector":"ENG","persona_id":"BYUL-PERSONA-ENG","object_type":"PERSONA"},
+    {"selector":"ENGV","persona_id":"BYUL-PERSONA-ENGV","object_type":"PERSONA"},
+    {"selector":"IVA","persona_id":"BYUL-PERSONA-IVA","object_type":"PERSONA"}
+  ],
+  "no_res_initially":true,
+  "unknown_selector":"REVIEW_REQUIRED"
+}
