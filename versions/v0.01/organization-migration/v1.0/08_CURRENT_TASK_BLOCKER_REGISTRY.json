@@ -1,15 +1,17 @@
 {
   "program":"BYUL-ORG-MIGRATION-v1.0",
-  "state":"EXECUTING_WP0_TO_WP8 / VALIDATION_PENDING",
+  "state":"WP0_TO_WP8_BOOTSTRAP_COMPLETE / POST_BOOTSTRAP_VALIDATION_QUEUED",
   "active_branch":"execution/byul-org-migration-wp0-wp8-20260823",
   "authorized_wps":["WP0","WP1","WP2","WP3","WP4","WP5","WP6","WP7","WP8"],
   "held_wps":["WP9"],
-  "blockers":[
-    {"id":"B1","state":"OPEN","text":"Paired validation receipts not yet produced."},
-    {"id":"B2","state":"OPEN","text":"IVA audit mandatory for WP3 and WP8 not yet performed."},
-    {"id":"B3","state":"OPEN","text":"Fresh-channel T1-T8 executions not yet performed."},
-    {"id":"B4","state":"OPEN","text":"Separate running BYUL execution-dependent cutover questions remain DEFER/REASK."}
+  "bootstrap_policy":"OWNER_FAST_TRACK: validation organization is created first; its independent PASS cannot be a prerequisite to its own existence",
+  "non_blocking_post_bootstrap_validation":[
+    {"id":"V1","state":"QUEUED","text":"Paired validation receipts are to be produced by the newly bootstrapped validators."},
+    {"id":"V2","state":"QUEUED","text":"IVA audit for WP3/WP8 is post-bootstrap verification evidence, not a bootstrap-creation prerequisite."},
+    {"id":"V3","state":"QUEUED","text":"True fresh-channel Persona recovery verification follows bootstrap availability; deterministic structural self-check is already complete."}
   ],
-  "owner_action_now":"NONE until validation/readiness package or new material semantic issue",
+  "cutover_blocker":{"id":"B4","state":"OPEN","text":"Separate running BYUL execution-dependent cutover questions remain DEFER/REASK."},
+  "validation_claim":"NONE",
+  "owner_action_now":"NONE for WP0-WP8; WP9 remains separate Owner-reserved decision",
   "cutover":"HOLD"
 }
