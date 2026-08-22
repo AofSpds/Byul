@@ -1,0 +1,19 @@
+{
+  "project_id":"BYUL-PROJECT",
+  "state":"CANDIDATE_PRE_CUTOVER",
+  "core_ab_grouping":"REMOVED",
+  "research_persona_initially_created":false,
+  "personas":[
+    {"persona_id":"BYUL-PERSONA-BYUL","canonical_name":"BYUL","code":"BYUL","pair":"BYULV","class":"OWNER_FACING_PLANNING_DESIGN"},
+    {"persona_id":"BYUL-PERSONA-BYULV","canonical_name":"BYULV","code":"BYULV","pair":"BYUL","class":"PAIRED_VALIDATOR"},
+    {"persona_id":"BYUL-PERSONA-PMO","canonical_name":"PMO","code":"PMO","pair":"PMOV","class":"EXECUTION_COMMAND"},
+    {"persona_id":"BYUL-PERSONA-PMOV","canonical_name":"PMOV","code":"PMOV","pair":"PMO","class":"PAIRED_VALIDATOR"},
+    {"persona_id":"BYUL-PERSONA-CONTROL","canonical_name":"CONTROL","code":"CONTROL","pair":"CONTROLV","class":"CONTROL_STATE_EVIDENCE_AUTHORITY"},
+    {"persona_id":"BYUL-PERSONA-CONTROLV","canonical_name":"CONTROLV","code":"CONTROLV","pair":"CONTROL","class":"PAIRED_VALIDATOR"},
+    {"persona_id":"BYUL-PERSONA-MODEL","canonical_name":"MODEL","code":"MODEL","pair":"MODELV","class":"WORLD_MODEL_HYPOTHESIS_EVALUATION"},
+    {"persona_id":"BYUL-PERSONA-MODELV","canonical_name":"MODELV","code":"MODELV","pair":"MODEL","class":"PAIRED_VALIDATOR"},
+    {"persona_id":"BYUL-PERSONA-ENG","canonical_name":"ENG","code":"ENG","pair":"ENGV","class":"IMPLEMENTATION_TEST_TOOLING"},
+    {"persona_id":"BYUL-PERSONA-ENGV","canonical_name":"ENGV","code":"ENGV","pair":"ENG","class":"PAIRED_VALIDATOR"},
+    {"persona_id":"BYUL-PERSONA-IVA","canonical_name":"IVA","code":"IVA","pair":null,"class":"ORGANIZATION_EXTERNAL_INDEPENDENT_AUDITOR"}
+  ]
+}

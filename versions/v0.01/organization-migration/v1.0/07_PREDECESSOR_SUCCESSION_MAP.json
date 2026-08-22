@@ -1,0 +1,13 @@
+{
+  "state":"CANDIDATE_PRE_CUTOVER",
+  "mappings":[
+    {"predecessor":"AAA-ASA-MI","predecessor_type":"WORKSTREAM_CONTEXT","successor_persona_id":"BYUL-PERSONA-BYUL","mode":"CURATED_ONE_TO_MANY_CONTEXT_ROUTING","authority_inherited":false},
+    {"predecessor":"AAA-ASA-ME","predecessor_type":"WORKSTREAM_CONTEXT","successor_persona_id":"BYUL-PERSONA-PMO","mode":"CURATED_EXECUTION_CONTEXT_SUCCESSION","authority_inherited":false}
+  ],
+  "secondary_routes":[
+    {"source":"ASA-MI context","targets":["MODEL","CONTROL"],"rule":"exact refs only as needed"},
+    {"source":"ASA-ME context","targets":["CONTROL"],"rule":"execution-control exact refs only"},
+    {"source":"Owner worldview/interviews","targets":["BYUL","MODEL"],"rule":"research evidence; not validator persuasion package"},
+    {"source":"implementation/tests","targets":["ENG","CONTROL"],"rule":"exact evidence refs"}
+  ]
+}

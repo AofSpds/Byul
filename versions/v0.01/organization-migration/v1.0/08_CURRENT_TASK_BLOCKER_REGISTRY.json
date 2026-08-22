@@ -1,0 +1,15 @@
+{
+  "program":"BYUL-ORG-MIGRATION-v1.0",
+  "state":"EXECUTING_WP0_TO_WP8 / VALIDATION_PENDING",
+  "active_branch":"execution/byul-org-migration-wp0-wp8-20260823",
+  "authorized_wps":["WP0","WP1","WP2","WP3","WP4","WP5","WP6","WP7","WP8"],
+  "held_wps":["WP9"],
+  "blockers":[
+    {"id":"B1","state":"OPEN","text":"Paired validation receipts not yet produced."},
+    {"id":"B2","state":"OPEN","text":"IVA audit mandatory for WP3 and WP8 not yet performed."},
+    {"id":"B3","state":"OPEN","text":"Fresh-channel T1-T8 executions not yet performed."},
+    {"id":"B4","state":"OPEN","text":"Separate running BYUL execution-dependent cutover questions remain DEFER/REASK."}
+  ],
+  "owner_action_now":"NONE until validation/readiness package or new material semantic issue",
+  "cutover":"HOLD"
+}
