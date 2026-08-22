@@ -7,11 +7,42 @@ PARENT_PROJECT = AAA
 PRODUCT = ASSET AGENT ASA
 CHANNEL_WORKSTREAM = ASA-MI
 FORMAL_PERSONA = AAA-ASA (ASA)
-TIME_KST = 2026-08-23 03:42 KST
+TIME_KST = 2026-08-23 03:49 KST
 IMPLEMENTATION_AUTHORIZED = FALSE
 VALIDATION_CLAIM = NONE
 READ_PRIORITY = FIRST_WITHIN_BYUL_MEMORY
 ```
+
+## 0. NORTH STAR — Owner purpose refinement
+
+The most important practical purpose of this research is **Persona Orchestration for human diversity**.
+
+Owner statement:
+
+> "인간은 다양합니다. 관점도 다양합니다. 그 모두에게 그릇 또는 옷 또는 가면을 제공할수 있는 페르소나 오케스트레이션. 그것이 목적입니다."
+
+Current high-fidelity purpose statement:
+
+> **인간은 다양하고 관점도 다양하다. ASSET AI AGENT ASA INIT은 그 다양한 인간과 관점이 자신에게 맞는 Persona 구성으로 세계와 관계를 맺을 수 있도록, 몇 개의 seed View에서 시작해 다양한 Persona의 형성·분화·합성·진화를 허용하는 Persona Orchestration 기반을 제공하는 것을 목표로 한다.**
+
+Bootstrap necessity:
+
+> "우리가 몇개 설계할수밖에 없지요. 뭐 처음에 볼수가 없으면 (관계를 맺을수가 없으면) 어쩌겠어요. 당연히 다양한 진화를 꿈꾸고 있습니다."
+
+Therefore:
+
+```text
+SEVERAL HUMAN-DESIGNED SEED VIEWS
+    -> INITIAL ABILITY TO SEE / INTERPRET / RELATE
+    -> INITIAL PERSONA RELATION-BUNDLES
+    -> USE / EXPERIENCE / EMPIRICAL FEEDBACK
+    -> NEW OR REVISED VIEWS
+    -> DIVERSE PERSONA EVOLUTION
+```
+
+The seed Views are bootstrap instruments, not final truth, universal taxonomy, or permanent Persona boundaries.
+
+The metaphors `그릇 / 옷 / 가면` emphasize adaptable forms that can fit different people and perspectives. They do not freeze Persona as merely external or merely cosmetic; the prior `shell / membrane / wrapper / possible future part of human` ontology remains OPEN.
 
 ## 1. Why this project exists
 
@@ -28,7 +59,7 @@ The Owner's central questions are not merely how to implement a fixed number of 
 - What does split / merge / mutation / succession mean under different Views?
 - How should relations, memories, roles, purposes, and abstractions compose so that Persona structure can evolve rather than be frozen in advance?
 
-## 2. Owner raw statement
+## 2. Owner raw statement — initial purpose recovery
 
 > "네 이 요구사항은 ASSET AI AGENT ASA INIT 을 위한겁니다. 
 >
@@ -72,7 +103,24 @@ This does **not** establish a scientific claim that humans are literally a bundl
 
 The point is to avoid making a rigid one-human-one-static-persona assumption that would block later evolution.
 
-### 3.3 Shell / membrane / wrapping metaphor
+### 3.3 Persona as relation bundle — current implementation/worldview hypothesis
+
+The Owner's current working hypothesis is that a Persona itself may be understood as a **relation bundle** under an applicable View.
+
+Conceptually:
+
+```text
+relation network R
+   + View V1 -> Persona bundle P1
+   + View V2 -> Persona bundles P2, P3
+   + View V3 -> one broader Persona P0
+```
+
+This is a current hypothesis to test, not a proven ontology.
+
+If it survives implementation and empirical testing, Persona orchestration becomes less about managing a fixed list of Persona objects and more about finding useful Views by which relations compose into operational Persona bundles.
+
+### 3.4 Shell / membrane / wrapping metaphor
 
 The Owner has used metaphors such as:
 
@@ -94,7 +142,7 @@ PART OF THE HUMAN / SELF-BUNDLE ?
 
 Do not freeze one of these as the final answer prematurely.
 
-### 3.4 Long-term ambition
+### 3.5 Long-term ambition
 
 The initial domain may be Asset Agent / contracts / bounded practical relations, but the Owner's long-term ambition is much broader:
 
@@ -102,7 +150,7 @@ The initial domain may be Asset Agent / contracts / bounded practical relations,
 
 The current relation/View/composition research is intended to find abstraction methods capable of scaling beyond one narrow domain.
 
-### 3.5 Why View discovery matters
+### 3.6 Why View discovery matters
 
 Because Persona identity, Persona count, relation bundles, purposes, means, split/merge/mutation, and even what counts as one relation may change depending on how lower-level relations are composed and abstracted, **View discovery is central to Persona orchestration**.
 
@@ -119,18 +167,36 @@ change View / composition / resolution
 
 Thus the testbed is not merely looking for a best database, graph, or formalism. It is looking for useful methods to discover/construct Views that enable adaptive Persona orchestration for ASA INIT.
 
+### 3.7 Why several seed Views are necessary
+
+The project cannot bootstrap from complete interpretive emptiness. If the system has no initial way to see or group relations, it has no practical basis for forming useful relations.
+
+Therefore ASA INIT will likely need several deliberately designed seed Views as starting lenses.
+
+These seed Views should be treated as:
+
+- bootstrap lenses;
+- revisable hypotheses;
+- initial relation-forming machinery;
+- starting points for later View discovery/evolution.
+
+They must not be treated as a complete list of human perspectives or Persona forms.
+
 ## 4. Research orientation
 
 Current orientation:
 
 ```text
 ASA INIT REQUIREMENTS
-    -> PERSONA ORCHESTRATION RESEARCH
+    -> PERSONA ORCHESTRATION FOR HUMAN DIVERSITY
+        -> SEED VIEW DESIGN
         -> RELATION / RELATION-NETWORK WORLDVIEW HYPOTHESES
         -> VIEW / ABSTRACTION DISCOVERY
         -> COMPOSITION / RECURSION
         -> PERSONA EMERGENCE / DIVERGENCE / MERGE / SPLIT / SUCCESSION
         -> EMPIRICAL MODEL-DISCOVERY TESTBED
+        -> NEW / REVISED VIEWS
+        -> DIVERSE PERSONA EVOLUTION
 ```
 
 The arrows above are a research orientation, not a frozen architecture.
@@ -144,6 +210,10 @@ Do not infer:
 Do not infer:
 
 `HUMAN_IS_BUNDLE -> SCIENTIFICALLY_VALIDATED_ONTOLOGY`
+
+Do not infer:
+
+`PERSONA_AS_RELATION_BUNDLE -> FINAL ONTOLOGY`
 
 Do not infer:
 
@@ -161,6 +231,14 @@ Do not infer:
 
 `VIEW_DISCOVERY -> ONE GLOBAL BEST VIEW`
 
+Do not infer:
+
+`SEED VIEWS -> FINAL VIEW SET`
+
+Do not infer:
+
+`HUMAN DIVERSITY -> EVERY HUMAN MUST HAVE MULTIPLE PERSONAS`
+
 The current project remains explicitly compatible with multiple, mutable, purpose-conditioned Views and with empirical revision.
 
 ## 6. Read-order directive
@@ -171,7 +249,7 @@ Successor channels should read this purpose note **before** detailed worldview/i
 
 Suggested BYUL memory order:
 
-1. `00_00_PROJECT_PURPOSE_ASA_INIT_PERSONA_ORCHESTRATION.md` — WHY
+1. `00_00_PROJECT_PURPOSE_ASA_INIT_PERSONA_ORCHESTRATION.md` — WHY / NORTH STAR
 2. Owner Primary Record — WHAT THE OWNER ACTUALLY SAID
 3. current worldview / core principles — CURRENT HYPOTHESES
 4. recent interview memories — CURRENT OPEN AXES
@@ -180,7 +258,11 @@ Suggested BYUL memory order:
 ## 7. Current status
 
 - PURPOSE RECOVERED = YES
-- PERSONA ORCHESTRATION = PRIMARY PRACTICAL RESEARCH TARGET
+- NORTH STAR = PERSONA ORCHESTRATION FOR HUMAN DIVERSITY
+- ASSET AI AGENT ASA INIT = IMMEDIATE PRACTICAL TARGET
+- SEVERAL HUMAN-DESIGNED SEED VIEWS = CURRENT BOOTSTRAP DIRECTION
+- DIVERSE VIEW/PERSONA EVOLUTION = EXPLICIT PROJECT AIM
+- PERSONA AS RELATION BUNDLE = CURRENT WORKING HYPOTHESIS
 - VIEW / ABSTRACTION DISCOVERY = CORE ENABLING RESEARCH AXIS
 - HUMAN WRAPPER VS HUMAN PART = OPEN
 - FIXED PERSONA COUNT = NOT ASSUMED
