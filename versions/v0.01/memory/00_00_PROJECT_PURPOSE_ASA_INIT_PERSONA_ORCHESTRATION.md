@@ -7,7 +7,7 @@ PARENT_PROJECT = AAA
 PRODUCT = ASSET AGENT ASA
 CHANNEL_WORKSTREAM = ASA-MI
 FORMAL_PERSONA = AAA-ASA (ASA)
-TIME_KST = 2026-08-23 03:49 KST
+TIME_KST = 2026-08-23 03:58 KST
 IMPLEMENTATION_AUTHORIZED = FALSE
 VALIDATION_CLAIM = NONE
 READ_PRIORITY = FIRST_WITHIN_BYUL_MEMORY
@@ -43,6 +43,25 @@ SEVERAL HUMAN-DESIGNED SEED VIEWS
 The seed Views are bootstrap instruments, not final truth, universal taxonomy, or permanent Persona boundaries.
 
 The metaphors `그릇 / 옷 / 가면` emphasize adaptable forms that can fit different people and perspectives. They do not freeze Persona as merely external or merely cosmetic; the prior `shell / membrane / wrapper / possible future part of human` ontology remains OPEN.
+
+### Evolution openness guard
+
+Owner clarification:
+
+> "네 당연히 변화를 택했습니다. 다만 열어두는거지 뭐 지멋대로 다 할수 있고 이렇게 진화하는건 현실적으로 안되죠. 그냥 열어둘뿐입니다 ㅇㅇ"
+
+Therefore the North Star explicitly distinguishes:
+
+```text
+EVOLUTION POSSIBILITY = OPEN
+UNRESTRICTED SELF-MODIFICATION = NOT IMPLIED
+
+OPENNESS != AUTONOMOUS PERMISSION
+POSSIBLE TRANSITION != AUTHORIZED TRANSITION
+MUTABILITY != ARBITRARINESS
+```
+
+ASA INIT should preserve the possibility of future View/Persona evolution without assuming that every possible mutation is executable or authorized by default. The exact governance mechanism remains OPEN.
 
 ## 1. Why this project exists
 
@@ -182,6 +201,25 @@ These seed Views should be treated as:
 
 They must not be treated as a complete list of human perspectives or Persona forms.
 
+### 3.8 Change is enabled, not unconditionally authorized
+
+The current project intentionally leaves open the possibility that seed Views or Persona structures may later be revised, replaced, split, merged, mutated, succeeded, or even abandoned.
+
+But architectural representability must be separated from operational authority:
+
+```text
+CAN BE REPRESENTED / CAN EVOLVE
+        !=
+MAY CHANGE ITSELF WITHOUT GOVERNANCE
+```
+
+The project should avoid both extremes:
+
+- freezing the INIT structure so tightly that later human diversity cannot be expressed;
+- granting unrestricted self-modification merely because future evolution is possible.
+
+The exact mutation/admission/authority mechanism is still a research question.
+
 ## 4. Research orientation
 
 Current orientation:
@@ -239,7 +277,11 @@ Do not infer:
 
 `HUMAN DIVERSITY -> EVERY HUMAN MUST HAVE MULTIPLE PERSONAS`
 
-The current project remains explicitly compatible with multiple, mutable, purpose-conditioned Views and with empirical revision.
+Do not infer:
+
+`EVOLUTION OPEN -> UNRESTRICTED SELF-MODIFICATION`
+
+The current project remains explicitly compatible with multiple, mutable, purpose-conditioned Views and with empirical revision, while separating possible evolution from operational authorization.
 
 ## 6. Read-order directive
 
@@ -262,6 +304,8 @@ Suggested BYUL memory order:
 - ASSET AI AGENT ASA INIT = IMMEDIATE PRACTICAL TARGET
 - SEVERAL HUMAN-DESIGNED SEED VIEWS = CURRENT BOOTSTRAP DIRECTION
 - DIVERSE VIEW/PERSONA EVOLUTION = EXPLICIT PROJECT AIM
+- EVOLUTION POSSIBILITY = OPEN
+- UNRESTRICTED SELF-MODIFICATION = NOT IMPLIED
 - PERSONA AS RELATION BUNDLE = CURRENT WORKING HYPOTHESIS
 - VIEW / ABSTRACTION DISCOVERY = CORE ENABLING RESEARCH AXIS
 - HUMAN WRAPPER VS HUMAN PART = OPEN
