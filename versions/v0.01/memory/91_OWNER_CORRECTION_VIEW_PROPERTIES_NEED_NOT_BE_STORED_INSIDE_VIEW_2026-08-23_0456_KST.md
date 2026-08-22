@@ -1,4 +1,4 @@
-# 91. Owner correction — VIEW properties need not be stored inside a VIEW object
+# 91. Owner correction — Purpose need not be stored as an intrinsic property inside VIEW
 
 ```text
 STATUS = OWNER_MAJOR_CURRENT_HYPOTHESIS / CORRECTION / INTERVIEW_MEMORY
@@ -7,54 +7,47 @@ PARENT_PROJECT = AAA
 PRODUCT = ASSET AGENT ASA
 CHANNEL_WORKSTREAM = ASA-MI / BYUL MODEL-DISCOVERY INTERVIEW
 FORMAL_PERSONA = AAA-ASA (ASA)
-TIME_KST = 2026-08-23 04:56 KST
+TIME_KST = 2026-08-23 04:57 KST
 IMPLEMENTATION_AUTHORIZED = FALSE
 VALIDATION_CLAIM = NONE
 ```
 
-## Owner statement
+## Owner statements
 
 > "VIEW에 속성이 담겨야 하는지는 모르겠습니다."
 
-## Correction
+Owner immediately corrected the referent:
 
-Do not assume a container/object model in which VIEW contains fields such as `scope`, `resolution`, `purpose`, `routing`, or `temporal_scope`.
+> "목적 속성입니다."
 
-The current relation-first hypothesis only requires that some relation / relation-bundle can be distinguished or used as a VIEW because of how it participates in a larger relation network.
+## Corrected interpretation
 
-Possible descriptions such as:
+The uncertainty concerns specifically whether **Purpose should be an intrinsic property stored inside VIEW**.
+
+Do not generalize this statement to all possible VIEW properties.
+
+Current hypothesis:
+
+- a person relation-bundle may have / form a purpose or need;
+- that purpose may lead to selecting or using some VIEW;
+- therefore Purpose need not be constitutive of VIEW itself;
+- Purpose may instead stand in a relation to VIEW, such as selecting, conditioning, evaluating, or reusing it;
+- whether other characteristics such as scope, resolution, routing, temporal treatment, distinction/invariance, etc. are intrinsic properties, related structures, behaviors, or something else remains OPEN and must be investigated separately.
+
+Conceptually:
 
 ```text
-V.scope
-V.resolution
-V.routing
+Person relation-bundle H
+    + Purpose / Need P
+            |
+            +-- selects / uses --> View V
+
+P need not be stored inside V as an intrinsic field/property.
 ```
-
-are explanatory shorthand only and must not be treated as an implementation or ontology commitment.
-
-An equally compatible relation-centric representation is:
-
-```text
-V <-> SCOPE relation
-V <-> RESOLUTION relation
-V <-> ROUTING relation
-V <-> TEMPORAL relation
-V <-> PURPOSE relation
-```
-
-or another prior-art-grounded representation entirely.
-
-## Current open question
-
-The meaningful research question is not yet `what fields belong inside VIEW?` but rather:
-
-> what relational pattern / capability / behavior makes a relation or relation-bundle function as a VIEW?
-
-This may ultimately be characterized structurally, behaviorally, operationally, relationally, or by a combination of those approaches.
 
 ## Guard
 
-- `VIEW HAS PROPERTIES` does not imply `VIEW STORES PROPERTIES AS FIELDS`.
-- `VIEW IS A RELATION` does not imply a specific graph/node/edge encoding.
-- `VIEW-NESS` may be role-like or relational rather than a fixed class/type; this remains OPEN.
-- no canonical VIEW schema, field set, metadata model, execution contract, or persistence representation is fixed by this note.
+- `PURPOSE MAY SELECT VIEW` does not imply `PURPOSE IS A VIEW FIELD`.
+- `PURPOSE NOT INTRINSIC TO VIEW` does not imply `PURPOSE CANNOT SHAPE VIEW USE OR CONSTRUCTION`.
+- Do not infer from this note that VIEW has no properties or that all VIEW properties must be represented externally.
+- The property model of VIEW remains an open research question.
