@@ -1,15 +1,20 @@
-# 38. Owner Clarification — Common substrate may also reflect world structure
+# 38. Owner Worldview Oral Statement — Reality may itself exhibit lower-level structure → higher-level abstraction
 
 ```text
+RECORD_CLASS = OWNER_WORLDVIEW_ORAL_STATEMENT
+TOPIC = WORLDVIEW / REALITY_STRUCTURE_HYPOTHESIS
+EVIDENCE_CLASS = DIRECT_OWNER_WORDING
+PRIMARY_RECORD_RELATION = SUPPLEMENTAL_TO_OWNER_PRIMARY_RECORD
 STATUS = OWNER_CLARIFICATION / WORLDVIEW_HYPOTHESIS_REFINEMENT
 PROJECT = BYUL
 CHANNEL_WORKSTREAM = ASA-MI
-TIME_KST = 2026-08-23 01:35 KST
+ORIGINAL_TIME_KST = 2026-08-23 01:35 KST
+CLASSIFICATION_UPDATED_KST = 2026-08-23 01:37 KST
 IMPLEMENTATION_AUTHORIZED = FALSE
 VALIDATION_CLAIM = NONE
 ```
 
-## Owner statement
+## Owner worldview oral statement
 
 During discussion of prior-art patterns such as common authoritative substrate + derived views, the Owner clarified that the intended BYUL framing is not only an implementation heuristic.
 
@@ -53,5 +58,9 @@ Prior art such as Event Sourcing, Git DAGs, MVCC, CQRS, causal/event views, etc.
 - whether their structural pattern offers useful prior-art analogies for the Owner worldview hypothesis.
 
 Success as an implementation pattern does **not** validate the worldview hypothesis. Similarity is a research signal only.
+
+## Classification note
+
+This record is intentionally titled and classified as an `OWNER_WORLDVIEW_ORAL_STATEMENT` so that future retrieval does not collapse it into a generic implementation or pilot-design clarification. It is supplemental to, and does not overwrite, the designated high-resolution `OWNER PRIMARY RECORD` interview archive.
 
 No architecture freeze, scientific claim, or production decision is created by this note.
