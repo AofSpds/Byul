@@ -1,30 +1,37 @@
-# Cutover Readiness Report
+# Cutover Readiness / Bootstrap Completion Report
 
-STATE = NOT_CUTOVER_READY / EXECUTION_IN_PROGRESS
-WP9 = HOLD
+STATE = WP8_BOOTSTRAP_PACKAGE_COMPLETE / POST_BOOTSTRAP_VALIDATION_QUEUED / WP9_HOLD
+WP9 = HOLD / NOT_EXECUTED
+VALIDATION_CLAIM = NONE
 
-Completed as candidate authoring:
+Completed under Owner fast-track authorization:
 - WP0 source/decision/preserve register
 - WP1 organization registry
 - WP2 authority contracts
 - WP3 validation/audit contract
 - WP4 selector/memory/bootstrap artifacts
 - WP5 predecessor succession + Persona memory/worklogs
-- WP6 test specification and deterministic bootstrap harness
+- WP6 deterministic bootstrap harness and structural self-check evidence
 - WP7 PMO status/task/blocker control surfaces
-- WP8 rollback/readiness shell
+- WP8 readiness, rollback, pointer-candidate and completion package
 
-Blocking evidence still required:
-1. CONTROLV/PMOV validation of WP0.
-2. BYULV/CONTROLV validation of WP1.
-3. Paired validation of WP2.
-4. WP3 paired validation + mandatory IVA audit.
-5. CONTROLV/ENGV validation of WP4.
-6. Paired validation of WP5.
-7. Actual isolated fresh-channel T1-T8 executions plus ENGV/CONTROLV technical and BYULV/PMOV/MODELV semantic validation.
-8. PMOV/CONTROLV validation of WP7.
-9. All relevant paired validation + mandatory IVA audit for WP8.
-10. Separate running BYUL process completion and exact-state re-review.
-11. Owner D3 cutover receipt.
+Fast-track bootstrap rule:
+- the paired validators and IVA are part of the organization being created;
+- therefore their prior PASS is not a prerequisite to bootstrap materialization;
+- bootstrap artifacts may be persisted first under explicit Owner authority;
+- the newly available validators may then perform post-bootstrap paired/independent verification and append exact receipts;
+- this rule does not convert authoring/self-check evidence into independent validation evidence.
 
-No cutover claim is permitted until all applicable blockers close.
+Deterministic pre-merge safety observations:
+- migration artifacts live under an isolated organization-migration namespace;
+- the candidate history is additive-only relative to its original merge base;
+- selector codes and memory-index codes are one-to-one for all 11 initial Personas;
+- BYUL project object identity is distinct from BYUL Persona identity;
+- RES is absent from the initial active set;
+- ASA-MI/ASA-ME are typed predecessor workstream contexts with no authority inheritance;
+- active Persona organization pointer remains a NOT_ACTIVE candidate;
+- WP9 remains HOLD.
+
+Post-bootstrap verification queue remains open for quality assurance, but it is not a blocker to creating the organization itself.
+
+Cutover remains a separate act. Do not switch a current pointer or claim CUTOVER_ACTIVE without a later explicit Owner decision after re-reading the then-current BYUL Git state.
