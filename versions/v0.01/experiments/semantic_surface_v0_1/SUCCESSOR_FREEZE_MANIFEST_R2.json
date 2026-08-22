@@ -1,0 +1,667 @@
+{
+  "schema_version": "1.0",
+  "manifest_kind": "SEMANTIC_SURFACE_SUCCESSOR_SOURCE_FREEZE",
+  "manifest_revision": 2,
+  "repository": "AofSpds/Byul",
+  "branch": "asa-me/research-surface-conformance-v0.1",
+  "source_commit": "b1da8a8ee801da9898d273bb42210d7b3ca83595",
+  "source_parent_commit": "865f0892fe668e76c7c21822ff9474809b99520d",
+  "source_subtree_git_tree": "9a84e99f85f5cb09c4e280560efaf7bea0d419ce",
+  "source_root": "versions/v0.01/experiments/semantic_surface_v0_1",
+  "file_count": 89,
+  "supersedes_manifest_commit": "865f0892fe668e76c7c21822ff9474809b99520d",
+  "supersedes_source_commit": "78a1a992a2cfecea337a8610112b6dbaa0a7e127",
+  "prior_exact_gate_disposition": {
+    "dummy_transport": "DUMMY_TRANSPORT_CANCEL",
+    "candidate_trial": "CANDIDATE_TRIAL_CANCEL",
+    "freeze_integrity": "PASS_67_OF_67"
+  },
+  "source_contains_prior_freeze_evidence": true,
+  "source_contains_exact_gate_review_evidence": true,
+  "source_contains_harness_implementation": false,
+  "source_contains_candidate_implementation": false,
+  "holdout_plaintext_present": false,
+  "dummy_transport_scope": {
+    "status": "ELIGIBLE_FOR_FRESH_EXACT_REF_F5_D_REVIEW_ONLY",
+    "fixture_track": "F3-D_R2",
+    "actual_side_packet_count": 13,
+    "grader_oracle_count": 13,
+    "implementation_authority": false,
+    "candidate_authority": false,
+    "validation_claim": "NONE"
+  },
+  "candidate_trial_scope": {
+    "status": "CLOSED",
+    "local_blocker": "F3-C_EXPECTATION_REVERSAL_METAMORPHIC_AND_DETERMINISTIC_REBUILD_FIXTURES_ABSENT",
+    "external_blockers_present": true,
+    "implementation_authority": false,
+    "selection_authority": "NONE",
+    "validation_claim": "NONE"
+  },
+  "freeze_rule": "EVERY_REVIEWED_SOURCE_FILE_MUST_MATCH_SOURCE_COMMIT_PATH_GIT_BLOB_SHA256_AND_BYTE_LENGTH",
+  "files": [
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/DELTA_FROM_V0.md",
+      "mode": "100644",
+      "git_blob": "2d76736f040cc744eabbc6d2be81fad437c174cd",
+      "sha256": "f221d637c3691a1f828fdacfc9b77cacc4de2e37e67df1ddb111c67317947ddc",
+      "byte_length": 4437
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/README.md",
+      "mode": "100644",
+      "git_blob": "4367315584f28988a85f3cad454b6077f749dd94",
+      "sha256": "1727dc6f7cf9caa838715bcaa6f77cbbab6686e2dcbf889294400ae6e4cc18cd",
+      "byte_length": 5607
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/SUCCESSOR_FREEZE_MANIFEST.json",
+      "mode": "100644",
+      "git_blob": "f1d3495889de11ecfd36975bbcfc8f0e39628ed7",
+      "sha256": "0ea90f61044503b6902de473ec1c16a9d6dae8a3dfb511164e2498aba6c56534",
+      "byte_length": 23150
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/ADAPTER_AUDIT_CHECKLIST.yaml",
+      "mode": "100644",
+      "git_blob": "22cb76c245dc6ff8b5a4f52c470b0fba50c84d38",
+      "sha256": "1fa506e202ce8f8a9ef3acde603ed4e2c8c78c98baeb61232f48e1a19bbefa50",
+      "byte_length": 7970
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/BUILD_BUDGET.yaml",
+      "mode": "100644",
+      "git_blob": "990fd8da5b64304ecd85a960ad8a4628b96f12f6",
+      "sha256": "91db461bf4e8b27020b777f4a56ecb6074e2dc6502d0e60e65852746686e3fbf",
+      "byte_length": 5365
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/C0_ARCHIVAL_CALIBRATION.yaml",
+      "mode": "100644",
+      "git_blob": "5e0ad3079f9d45d3779cfb38c8ab09c2352abf04",
+      "sha256": "5f7f21345f34e3bf01bc72683a8fa4f98a1f794409fdc8098255cbb4d9bacbef",
+      "byte_length": 5094
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/C1_GIT_NATIVE_CONTROL.yaml",
+      "mode": "100644",
+      "git_blob": "30fbc04e6f51c5763350589ff6f0d7ab0f426171",
+      "sha256": "870c57807efbe0c33b593fd31ae00a0c2b55d8ef24bf0cd95918b8f23db23872",
+      "byte_length": 4438
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/C2_CANDIDATE_OWNED_CHANGE_LAYER.yaml",
+      "mode": "100644",
+      "git_blob": "8d57c14860cfc862d8672485ad25c35b0e49357b",
+      "sha256": "89761533c59085502cb76bf7edea7f7274c2633fe740c6e8489639dcfbce5f74",
+      "byte_length": 4508
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/C3_SUCCESSOR_TRIGGER.yaml",
+      "mode": "100644",
+      "git_blob": "cf579db5e3fc66d0dd12b724d20eea8945b20eea",
+      "sha256": "c66cefa53c7491a28815840cf7d9b986b03eec1d752fbb24b1cf0f5649ab9788",
+      "byte_length": 3731
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/CHARTER_AUDIT.md",
+      "mode": "100644",
+      "git_blob": "5e342efc82079ac491e0c4cda3f3aad73c860439",
+      "sha256": "87942329510000812c594928ac6626dfa2f673afb24a9359e8439658e1d77d98",
+      "byte_length": 6973
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/COMPLETENESS_CHECKLIST.yaml",
+      "mode": "100644",
+      "git_blob": "6500865ec33bf4911e7e597defab82ca8009f947",
+      "sha256": "3279ba95b1713858476d1dc160f6a75666509b6de1dd4da4441cb4580f33c8dd",
+      "byte_length": 6160
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/COST_MEASUREMENT_MANUAL.md",
+      "mode": "100644",
+      "git_blob": "57c1e57515bd2015327d8845c48cf1b5af402f39",
+      "sha256": "9aeb740fcb95a563bc2d552b6457ca7acf8af98e68f661f6f377897a010c668d",
+      "byte_length": 9750
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/EXECUTION_BUDGET.yaml",
+      "mode": "100644",
+      "git_blob": "5ba2fd56989f12f4b0f679bd70b4247cd56b27b5",
+      "sha256": "b4a81d0f3ed8dd8b47711563ff3f927f4f28568eb85af3f4902d207feea4fc3d",
+      "byte_length": 4730
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/INTERPRETATION_RULES.md",
+      "mode": "100644",
+      "git_blob": "4f6900b8f8b64ac4e4c2027d0150fa24f169fd95",
+      "sha256": "a46eac58591a469ea3791dd72c9d171cb9c4f3040f4770d0e8048043ca8821fb",
+      "byte_length": 9162
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/ISOLATION_CONTROLLER.schema.json",
+      "mode": "100644",
+      "git_blob": "026a72715ff328ec1d1db363f57a3f6e0c4d8bf8",
+      "sha256": "d2fa731c2a7687fb4f33d2dad83c70b86ea1260f065eac1f543f29043b5374e9",
+      "byte_length": 11240
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/candidate_protocol/README.md",
+      "mode": "100644",
+      "git_blob": "81bc0ecd77c200601ebd163309673a777c477ab0",
+      "sha256": "0bb965d3faa2eda30ef04f3c7fb87b76d3206f60a0b10fb8054c5a3045b6a0ed",
+      "byte_length": 5504
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/ADAPTER_PURITY.md",
+      "mode": "100644",
+      "git_blob": "b079c2d28cc2e19d03a5e046646d492982ffad4f",
+      "sha256": "bf7c714b61859ca02568bc400d0fa03ed0facb047c7598c2af20a88dd784ede9",
+      "byte_length": 5192
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/CROSS_FILE_INTEGRITY.md",
+      "mode": "100644",
+      "git_blob": "ea10ef2f32f2fc1b7787e07af7eab91ece661712",
+      "sha256": "a037fd47c0d7e488653a7ace558881357c660eb4bff89ec9d37c40df50103851",
+      "byte_length": 11752
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/MECHANICAL_CHECK_REGISTRY.json",
+      "mode": "100644",
+      "git_blob": "cad75c8e5c3ff3bc4b1f4e4258babe724ba12894",
+      "sha256": "02f2db7a9b9739d41dce70de156f668b59f5bbfb974edfef9578eafafd000fc2",
+      "byte_length": 7258
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/OUTCOME_SEMANTICS.md",
+      "mode": "100644",
+      "git_blob": "72d6d093c9f5edf51cb3462ec8e3ae19d1fb6bee",
+      "sha256": "a97436e4df5a4f89961bda8db5fe4aafac5128e9242fe4c6e144edee9fe74bd9",
+      "byte_length": 6816
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/README.md",
+      "mode": "100644",
+      "git_blob": "e0c2133bcd92ec535dd78ca96fe1862e91b38488",
+      "sha256": "e947d67c07883103e0ad0706c341e344848bae921078093bb49f7288f7ce1e9f",
+      "byte_length": 6904
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/README.md",
+      "mode": "100644",
+      "git_blob": "2cb84f1588640e76f8fcc88ab4a43baf81bb611f",
+      "sha256": "1445c083e9b03b1577c351e402d0a3fb56f446a3c26618eb3da53a9dd58fa2d0",
+      "byte_length": 3174
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_00d1efdc0a4d465e1bb61161d06d7244.json",
+      "mode": "100644",
+      "git_blob": "d49063dea48af65fe6ee8fa363241b6340ee7fea",
+      "sha256": "695cd500aa449095557b90e91b97d926f79b01192b35af376f5346d8fa59f171",
+      "byte_length": 3163
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_2643a02dd043c273c58a45fe9c95ab69.json",
+      "mode": "100644",
+      "git_blob": "8524a78ea603f02777e28eaf7eb23a6838fb759f",
+      "sha256": "959cc64d40e2414684a0d3720e7f22b46c0fd447d19f815afe29f0eb9213ffb9",
+      "byte_length": 3095
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_26a333cbb972021a8afc97eaa490096c.json",
+      "mode": "100644",
+      "git_blob": "e1adeb54ed7e72b4127f98ff5717d8b58ce3a0f0",
+      "sha256": "119b0a5a63684b655ce397f53a4c3aef42314c76f59204b5a3185201a68744f2",
+      "byte_length": 3051
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_44542b11f9f7bc8179512682868dc10c.json",
+      "mode": "100644",
+      "git_blob": "97b5999c836059058a4922d4ae9740cca6fa2b3f",
+      "sha256": "2e78d20d7b4238ce3e886bebbe19d47e4f4f04fb52bad4d6ccc95a51dd45462c",
+      "byte_length": 3046
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_44a0b27f317e095b4544c40080544749.json",
+      "mode": "100644",
+      "git_blob": "e1737136ee2c6f956a3634908debd97ce4ed885a",
+      "sha256": "03f1a38199f3d6c88f98e5bc5d420e815100c2d66c27c85e6e4e4960af64e189",
+      "byte_length": 2131
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_4a70fa7fc14bebfb3cde7b83c8d46327.json",
+      "mode": "100644",
+      "git_blob": "6f4089d9311099b976d63d301969f6823efed4b6",
+      "sha256": "250d51a2638b2179471e6067df36f64901c52dc6dbf90cee9d8d18b4aa6e7751",
+      "byte_length": 3019
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_4c893fc3ac9a72db9a02da45923e25d8.json",
+      "mode": "100644",
+      "git_blob": "ed7fb65eb210f0ecfd2bf05ace177ffe4b122abd",
+      "sha256": "a154639c0b38f3e3de41aa26295689b029c456a03f62fde843e1d406add612c7",
+      "byte_length": 2971
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_5a4e2748c3e2c83f76564111d2bbc049.json",
+      "mode": "100644",
+      "git_blob": "008a75d827a496053044d732c1dc057f65465b6a",
+      "sha256": "72eb2f994c1f2f23f72e35fd31bc39ff70af93eec31bdcc9882e7a59707013e2",
+      "byte_length": 2215
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_71b9b3a64905aba724b17f14131f583a.json",
+      "mode": "100644",
+      "git_blob": "566a3d275b55574548073733240070b9bfdd211d",
+      "sha256": "09fbc5ed47626c1ecbd4f0b0920ab538da791b7ba070e15889e35cfed30844cb",
+      "byte_length": 3052
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_7edecc51741de73453fe1465264f0f95.json",
+      "mode": "100644",
+      "git_blob": "2fb81997f4dd54777e2e92c001b405abfa44ee4d",
+      "sha256": "bd06a5bb8e2cf4481577b2468de8192bbd55769fe671465b5eb3ee00db3c9749",
+      "byte_length": 3056
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_861238b43149ef53c2de84ff8f1ded57.json",
+      "mode": "100644",
+      "git_blob": "3f688b82da3321c6dfef1a6c182100fcff100327",
+      "sha256": "44edc16f05d663c7ea10b4b3401c6718e00bac64ffc98698eb03d4de694afd0f",
+      "byte_length": 3095
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_91df9b503149a8db4c32e7d1e6b1cbdd.json",
+      "mode": "100644",
+      "git_blob": "c83e27371d15acb69555776ee34afbb002a8b3a4",
+      "sha256": "0e3a24a7747f858b1d3c433e787f0a71a342ce21321f1067d366e3876c5d044d",
+      "byte_length": 3095
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/actuals/af_b87159fc5df814014afaafc3e5b9cd4d.json",
+      "mode": "100644",
+      "git_blob": "41537b53a6b1765a3086932f1f2f2811f8117c2a",
+      "sha256": "4335d8729dd1af87d6c2d17c21321e175f35c535a4a0fdba648b79971d0e5df4",
+      "byte_length": 2064
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_01ceb13a4f4530fc93a153a539a6290b.json",
+      "mode": "100644",
+      "git_blob": "c8d8cf5bf072a7e54e698551e0667df37ae74fe6",
+      "sha256": "ffc047a166be0dd71ca7b3d763749b60289fc60f056885e8be7a9a7608540f1c",
+      "byte_length": 3998
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_041436a5ca9eaab507e491134d2cc1b1.json",
+      "mode": "100644",
+      "git_blob": "4cc1b52a9a35751318943005a559dd1352e4152b",
+      "sha256": "19528be7f4f6730a378932b9caee928f4e2799b720c08248d29e49d535559378",
+      "byte_length": 3809
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_1cd6639e80ee8a57cd3b7a6d8c53b9d5.json",
+      "mode": "100644",
+      "git_blob": "1c89da0c8a7fc397dc62db1b4cbb469e1d92dd41",
+      "sha256": "5e8477c33a5a96dba0afb88a87b04fd82795abd877f2de3cceaeb12f3649d056",
+      "byte_length": 3851
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_1e7e4f8c9799adb6ee1e61e6530bdd6d.json",
+      "mode": "100644",
+      "git_blob": "f9e528e89600acce9262ef76e341551539c0692e",
+      "sha256": "da90971eb177b4c08b08789e1fa4fc3f627481d3eb576943d89e6b220e8d58df",
+      "byte_length": 3515
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_47b07bf4a00e085a5ec5ed7bc7079158.json",
+      "mode": "100644",
+      "git_blob": "a6d2fd45e5b78038296423376863c25288654418",
+      "sha256": "bca41c67cfd825d22cda89787a3fb10def173bd1baafd2e770aaa744ef08a793",
+      "byte_length": 3861
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_57228a27f7d3602e438c9a0361bcd47b.json",
+      "mode": "100644",
+      "git_blob": "f0c000092bc8cfcddc5c3ba92c96f3df0a495c46",
+      "sha256": "0a3785f6eeb8adaf98b24fdffcb7c62796540770f4c6bf51c43d88ab4b01feae",
+      "byte_length": 2439
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_58c401d1c1da4457f9f0ebcb2df22269.json",
+      "mode": "100644",
+      "git_blob": "841bc49e681ca240d2774b153717270efdb2191c",
+      "sha256": "73704719605e11274bc6b7809f55cdfb37c96ca4c65de8391109e2c54ca38223",
+      "byte_length": 3575
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_725e9aee188f54af5176c00455d91c98.json",
+      "mode": "100644",
+      "git_blob": "aea38fdb83d3d62d16bff4d47b66270b46998435",
+      "sha256": "eefa66e1455929e0ba3337d423dbd4def298834ac46c80a554c5b8871894cd9a",
+      "byte_length": 3587
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_8a7779ae95d2924ddce9e5442894e248.json",
+      "mode": "100644",
+      "git_blob": "7b356dc6e05eca8aa8675045dceb6df883b01ead",
+      "sha256": "a74010b52940d35c48479f668118211b3e9312b311cf6b821bdcbaacee2d5abe",
+      "byte_length": 3458
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_a989a45842f8a12a08a4a4a5b9bfc357.json",
+      "mode": "100644",
+      "git_blob": "589bb5c3403afaefc727ea8cc9be4d95fb7ca423",
+      "sha256": "06071ebb6c34a15c66b9be4e10d47b1eb2d242660e3d891f77395639faf95c3b",
+      "byte_length": 1960
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_ad60b16cb831627c2222b5156399fafa.json",
+      "mode": "100644",
+      "git_blob": "baf77e54cca6d4f4e52e1600f5886bf4ffd55885",
+      "sha256": "6bcf2b82163fa2104bb77e31104fedde7d2fb40d2d942e768d13192fa90dd7dc",
+      "byte_length": 2547
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_b24f861e55339f746fda765bf70dbc51.json",
+      "mode": "100644",
+      "git_blob": "ae873c03bc75fdaced57ee01a3b56362d10a9953",
+      "sha256": "ffbdeccd40061b40676d3e2968fcca64f9563d370e1b728d37ceef8ee8150b64",
+      "byte_length": 1977
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/oracles/or_bf22b4cd6a48fc8725081db400bb808e.json",
+      "mode": "100644",
+      "git_blob": "792812e51ac91a0167574b4e1a62119e75eeb116",
+      "sha256": "c4f542eb3a75c0913f0fd5b649ecbe4e58bd716683ee85cbba8c4480af4347c5",
+      "byte_length": 3540
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_1fed5c9bbce6d4beb27d0dbfd622c9f8.json",
+      "mode": "100644",
+      "git_blob": "a553b24a0c623b638b947124c84152f175ad8a0c",
+      "sha256": "819e891f247e78c7390b54108c1199bb639a1117f18942ba39f137cb456c9b91",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_21a844d38ac5b0b6b0e4b6c6e9e26be7.json",
+      "mode": "100644",
+      "git_blob": "eb02fd08c3403b5ae40c4376f7d45e24640f50fb",
+      "sha256": "e4a91d245cda33057225ed46ff5105733ede23c3d02ea0503480a25d96a83f79",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_37d808b304597b5bd9b4cc9214e21a79.json",
+      "mode": "100644",
+      "git_blob": "ced73ca0cb439e5bdd6b9d5f1390a28404b23510",
+      "sha256": "7fe2110b697e10646e2883b2cc9ccdb291da06debe53b423a27d5251755b32d0",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_39f073f9c738fbb26f877e8254ac0c77.json",
+      "mode": "100644",
+      "git_blob": "43ddfb3aea322fd0d25bf6b28d19de8552b40974",
+      "sha256": "8a16cf7fa18bf41fccfe40e22b3cc3995ca7362626088f6fbcf4101958658af9",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_3e780756c06afaa10e1ae15b06830532.json",
+      "mode": "100644",
+      "git_blob": "5844e4e534cc40219c65e04c89cc0069a6c2cb1d",
+      "sha256": "e0417da42b26512d1a95ef39466dfcdd797fef57bd7612cc57b19d1a811f4a82",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_5317211bf31e2121a627390e70718ceb.json",
+      "mode": "100644",
+      "git_blob": "8086bb9817df43f8f5650398dbd1edcc51ca6010",
+      "sha256": "4e59cc6678e3b3cbc26b7c99f269e8141ab387cb48d1a535628c2bee71b38a51",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_58ab78767a4ab10e094598e6dcf8d4a3.json",
+      "mode": "100644",
+      "git_blob": "c9b2436294909b0fd4a64a652540c0576253a7a9",
+      "sha256": "76fdddadca51d8021b7df013ef04c93c14c48d742e84985b3d45fdddf79cf27a",
+      "byte_length": 893
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_694b98d7e6847e3f259b8e925ed219fd.json",
+      "mode": "100644",
+      "git_blob": "b2ac747062651ea21970457045d0a434f9e25dc8",
+      "sha256": "21eb7fa99de371308cddced7855a62a04a956ba7f1580b14b4ad8fd197c0e48a",
+      "byte_length": 853
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_70c20c9a9c0282f4ee3333d5b464cf60.json",
+      "mode": "100644",
+      "git_blob": "70b5beb5ea3deafa1886c9ce42b7e99a98dfd7f4",
+      "sha256": "b1cc763fe9de5666c8c7b92d0c2853e30e9ccbd8bfcb729c6e34d9823e131e0f",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_8dab6646317210c8dc149dd3607bdf97.json",
+      "mode": "100644",
+      "git_blob": "0181fa903fc6b88dd489b471dae75aeee705158c",
+      "sha256": "75ff08bc2eae9661ef092a7175ed66f231e7d8de601fbf057c79ca407eeb101a",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_9f172cabaa6b067a67c79003fb225122.json",
+      "mode": "100644",
+      "git_blob": "1ed0a799eb50bb2a42d9e5adb0fc2b8edb205059",
+      "sha256": "f7e4b54631f3cda0440142c24c10e2f9c66cd8ee767e5002d0d75fc8b3dba728",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_9fcdcef311fe1432dbead85df79e97e8.json",
+      "mode": "100644",
+      "git_blob": "7518898737aa04f6426001ae1322dd260d155599",
+      "sha256": "db49f47cb762fc5228fb41b53d2a60efc0b1fc8f3c95219899b896b6961d0266",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/dummy_oracles/stimuli/st_b94e44c450e911748891aea3385e5b77.json",
+      "mode": "100644",
+      "git_blob": "a893f8cf8463cdaa77af7b7104514376741cf41a",
+      "sha256": "b86c47ad05e83cf9badb5aec7df91ed76c2d3a2b1a41ee313e99c9d0ae82e9ed",
+      "byte_length": 780
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/dummy_actual_fixture.schema.json",
+      "mode": "100644",
+      "git_blob": "095bb9ecc24fc1f5f9ef490546b8d1d1b07a24f7",
+      "sha256": "5f3af0f64237b7d934d1da1d5d0b594e19f4a5b4f57c85b4ca327626d8c3366b",
+      "byte_length": 12882
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/mapping_receipt.schema.json",
+      "mode": "100644",
+      "git_blob": "662a58e6b5385aa1c815ff077be8607232bd0a61",
+      "sha256": "8586abd15aacd4f206d078a8443201f146a31ff74f1b2c78ba4fd96f2d178e85",
+      "byte_length": 12216
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/native_capture.schema.json",
+      "mode": "100644",
+      "git_blob": "8dc780c30cec754cf2087b836e553cd6f027b5d4",
+      "sha256": "cc349dafbc94d7a7f6e7c20949dd1921de816bd62ca3f31f5b9268e97775e950",
+      "byte_length": 7687
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/observation.schema.json",
+      "mode": "100644",
+      "git_blob": "fd8255e4418b59b484242057cc2900968cd3af42",
+      "sha256": "cbcb7ccbcf5c4d5dbfd6ce13085426f73ffc44588a99316c416ecf3eddaeee27",
+      "byte_length": 20519
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/oracle.schema.json",
+      "mode": "100644",
+      "git_blob": "6e12522796a930f893721d4909221517da466e34",
+      "sha256": "d9b402ba9eac7100aae985faff2abab9126dcc6afc5496d30b11cecd3e4dabd6",
+      "byte_length": 12870
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/run_manifest.schema.json",
+      "mode": "100644",
+      "git_blob": "95112edf76e0e3b1eaea8557bec23dcc0da913f5",
+      "sha256": "457fe7515ebba165b1a1bf09775e115b0cf3cadc5ac68d9ef18b34946c1667e7",
+      "byte_length": 12280
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/run_state.schema.json",
+      "mode": "100644",
+      "git_blob": "dc66984549314151d6e6b9c12e0b0541f9568d5e",
+      "sha256": "a85a5fdec8b603be2b5ae3bd0b6d0ff877eb41caac5814e84a1f3eb3e6fe7b35",
+      "byte_length": 4768
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/protocol/schemas/stimulus.schema.json",
+      "mode": "100644",
+      "git_blob": "474a52ab60aecde470a2d7826957f55d8ee54dbb",
+      "sha256": "1018b4ecc50fc6277cab05b609e781ee0a60eda3d4fc7100a41859f37cf0af75",
+      "byte_length": 4092
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/reviews/F5_GATE_DECISION_865F0892.md",
+      "mode": "100644",
+      "git_blob": "08278fceb4e6e41ff7cd3eb2fff5e22d19b047ea",
+      "sha256": "d33eb810f948a6e2d247a0cd9065bf3ef69b7361d5cc3c4fa52f4f5b6dbd8603",
+      "byte_length": 1404
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/reviews/raw/EXACT_SCHEMA_EXPLOIT_REVIEW_865F0892.md",
+      "mode": "100644",
+      "git_blob": "a6b33b79c2b52857468dda4985a3ed6cbd1dc798",
+      "sha256": "385a64bef26a7882b2140fd21c272cd5c6dc41236fdcd5cca23f3fdedaa1073e",
+      "byte_length": 1626
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/reviews/raw/F5C_EXACT_GATE_REVIEW_865F0892.md",
+      "mode": "100644",
+      "git_blob": "9bb6cea16672843a43ce8b9f3daa9acbfe73b9ee",
+      "sha256": "9643758b0700ecd83b62a6260afc98aa6bb11ac2acae7b8a3ea96474a420f8e0",
+      "byte_length": 2114
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/reviews/raw/F5D_EXACT_GATE_REVIEW_865F0892.md",
+      "mode": "100644",
+      "git_blob": "6e4ca6abf8dd99f7107ae6db16775b4aab74a52d",
+      "sha256": "9edfe6d05de907d26b27ac2be4f0aef310e154191a31cee9397a0caf63be3161",
+      "byte_length": 2611
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/reviews/raw/R2_PREFREEZE_ACTUAL_SIDE_AUDIT.md",
+      "mode": "100644",
+      "git_blob": "13092bf3d73c966fd0aebbb66a641e0e1b6e2bbf",
+      "sha256": "f1db5dec9df84d93c437d682e33532253d82d293c1ebcd9e8ea76a5042dfaec5",
+      "byte_length": 1551
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/ACCESSIBLE_PATH_POLICY.yaml",
+      "mode": "100644",
+      "git_blob": "5f14a2c2dab4d0c25f086260f6beeb76a7ed9872",
+      "sha256": "041df3fb7528c003f65f1f03af44632f0779e54275e6a7129198d126ed787660",
+      "byte_length": 5408
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/ADJUDICATION_PROTOCOL.md",
+      "mode": "100644",
+      "git_blob": "dd2f931d035fe0da7e2b947560eb9d129f54484a",
+      "sha256": "2f9efb7a70b4bc9a2c77f8366d424035ec5330245289fc17a29aec9d578f2842",
+      "byte_length": 10690
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/BUDGET_ACCOUNTING.md",
+      "mode": "100644",
+      "git_blob": "090ad9cf922e0d35e102433b22d5c2f76fc23c69",
+      "sha256": "ae2faec25c29b45f724632d633fc165dec9c621263c7c28433246cba5c9a004b",
+      "byte_length": 7692
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/C3_SUCCESSOR_HOLDOUT_RULE.md",
+      "mode": "100644",
+      "git_blob": "4c860b0c8bb5a4e551700c9b728521773577f602",
+      "sha256": "1f7ecffbbec64267e7955a86a7edf905abb1cdc5d6006c84990f8d6fa9ccd764",
+      "byte_length": 5922
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/CROSS_FILE_INTEGRITY.md",
+      "mode": "100644",
+      "git_blob": "6720b67e46cbc9919f6dfb364123a128448beef5",
+      "sha256": "834d71eae64b244e5a5bc2c9bfd7acf5726d20f2b56f1e1ef3039709b8c91fac",
+      "byte_length": 9256
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/EXECUTION_SCHEDULE.md",
+      "mode": "100644",
+      "git_blob": "7fdf4cf947463a5e3cb7762043d098ccf8810981",
+      "sha256": "e97d5c5dcc977827b506615327a4c2cee94b00598c67aacccf1bc0bed173e9d1",
+      "byte_length": 21830
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/HOLDOUT_PROTOCOL.md",
+      "mode": "100644",
+      "git_blob": "cc6768f4ba2513bf5f35db51fc6970a6f4250817",
+      "sha256": "a75d538ea2f7ca70b9c35b662754e4cb0707e633bb4e2ee3c53fc9857902e126",
+      "byte_length": 12869
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/MECHANICAL_CHECK_BINDINGS.json",
+      "mode": "100644",
+      "git_blob": "95f8a087b69367d53117becf65fe859dbca42669",
+      "sha256": "db32ef7e31ba64fe234e0f3d946aceb483e65a238482d0537770935233d818e1",
+      "byte_length": 2025
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/README.md",
+      "mode": "100644",
+      "git_blob": "9dd1a94b8d03b8fce5717dd53f327d740ec452e3",
+      "sha256": "371e088c0fe84afd3a7869af23247ca38765d79a4b26d8cef3738d6bcebe56e1",
+      "byte_length": 5890
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/VISIBILITY_PROTOCOL.md",
+      "mode": "100644",
+      "git_blob": "30623db3084748671a90b7b7a0aa26a536c316b5",
+      "sha256": "36fd5e2287c9000636dd1efeebcccd8f8a3325ba8de1349a4623387310b74b5a",
+      "byte_length": 11928
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/schemas/access_log.schema.json",
+      "mode": "100644",
+      "git_blob": "2d5be0e1ebfa4776c28840402eb24c87cd7f66f1",
+      "sha256": "acd2529c18e7a42215b5f4daaa1013ae7728507bd4b3372c5cb832606a9f4bdd",
+      "byte_length": 10597
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/schemas/adjudication.schema.json",
+      "mode": "100644",
+      "git_blob": "cb37adcb9ca6a807c56fed43e5afd556f4df6589",
+      "sha256": "30bc62a4dbf35810cca610d496bc17389685c2ec6f8ec4aa991653b8738b48bf",
+      "byte_length": 38965
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/schemas/holdout_oracle_bridge.schema.json",
+      "mode": "100644",
+      "git_blob": "3cfd191d58395c4a8ab1ef486390757d71d559a9",
+      "sha256": "2ca64ca6b99facb48a35e2d26a240f6b4fc583cf401c39f1184b60d460c6df4f",
+      "byte_length": 6159
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/schemas/holdout_private_manifest.schema.json",
+      "mode": "100644",
+      "git_blob": "cec56a25f341d9649cbdcb51285d3f67e0782b32",
+      "sha256": "2e166759ac71dff5b20d17976b4db2a6489226e4b4587b15ba21cf1db6732e65",
+      "byte_length": 19709
+    },
+    {
+      "path": "versions/v0.01/experiments/semantic_surface_v0_1/study_protocol/schemas/holdout_public_commitment.schema.json",
+      "mode": "100644",
+      "git_blob": "96558eb86c57570ad552b1d85bbe50396874df75",
+      "sha256": "ed8d731fae0b3a695e940e35bf450728485f37694b4b32fd1e41edbcf9feeddb",
+      "byte_length": 5354
+    }
+  ]
+}
