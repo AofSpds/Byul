@@ -1,21 +1,27 @@
-# Authoring Self-Check — Not a Validation PASS
+# Bootstrap Self-Check — Not an Independent Validation PASS
 
-STATE = AUTHORING_SELF_CHECK_COMPLETE / PAIRED_VALIDATION_PENDING
-BASE = 993d6707ecd4deab25a5cb51909056379aefddea
-MATERIALIZATION_COMMIT = e4768a7ff5f5bd08093e2f8f313becdca0b058dd
+STATE = BOOTSTRAP_SELF_CHECK_COMPLETE / POST_BOOTSTRAP_VALIDATION_QUEUED
+ORIGINAL_MERGE_BASE = 993d6707ecd4deab25a5cb51909056379aefddea
+VALIDATION_CLAIM = NONE
 
-Deterministic Git compare result:
-- head is exactly 1 commit ahead of base at the materialization point;
-- all 41 changed files are `added`;
-- zero base files were modified, removed, or renamed;
-- main/current pointer was not changed by the materialization commit.
+Deterministic structural checks executed before fast-track merge preparation:
 
-Static contract observations from authored candidate:
-- 11 initial Persona objects exist: BYUL/BYULV, PMO/PMOV, CONTROL/CONTROLV, MODEL/MODELV, ENG/ENGV, IVA.
-- Project object ID `BYUL-PROJECT` and Persona object ID `BYUL-PERSONA-BYUL` are distinct.
-- paired relationships are explicitly represented; IVA has no pair.
-- RES is absent from initial selector and memory registries.
-- ASA-MI and ASA-ME are typed as predecessor WORKSTREAM_CONTEXT, with no authority inheritance.
-- WP9 remains HOLD and candidate pointer remains NOT_ACTIVE.
+| Check | Result |
+|---|---|
+| Initial selector uniqueness | PASS — 11/11 unique |
+| Selector ↔ memory-index code bijection | PASS — 11/11 |
+| Project object vs BYUL Persona identity separation | PASS |
+| RES absent from initial active selector set | PASS |
+| WP0–WP8 authorized set exact | PASS |
+| WP9 held / current-pointer cutover absent | PASS |
+| Persona MEMORY/WORKLOG paths materialized | PASS by Git changed-file inventory |
+| Candidate change set additive under organization-migration namespace | PASS — no deletion/rename of merge-base files |
+| Predecessor contexts carry no inherited authority | PASS by succession/authority contracts |
 
-This is an authoring-level integrity check only. It does not substitute for CONTROLV/PMOV/other paired validation, IVA audit, or fresh-channel execution evidence.
+Important concurrent-main observation:
+- after the migration branch was opened, BYUL main advanced independently on the separate running workstream;
+- this does not authorize this migration to interpret or alter that workstream;
+- the organization-migration candidate remains namespace-isolated and any integration must preserve the newer main history;
+- WP9/current-pointer semantics therefore remain explicitly outside this fast track.
+
+This evidence is sufficient for bootstrap integrity and persistence under the Owner's explicit fast-track direction. It is not paired validation, IVA audit, scientific validation, release, or production evidence.
