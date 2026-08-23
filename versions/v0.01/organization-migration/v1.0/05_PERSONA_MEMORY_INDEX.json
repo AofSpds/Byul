@@ -1,5 +1,5 @@
 {
-  "state":"CANDIDATE_NOT_ACTIVE",
+  "state":"ACTIVE",
   "common_runtime_view":"06_COMMON_RUNTIME_VIEW.md",
   "entries":[
     {"code":"BYUL","memory":"personas/BYUL/MEMORY.md","worklog":"personas/BYUL/WORKLOG.md"},
@@ -13,5 +13,6 @@
     {"code":"ENG","memory":"personas/ENG/MEMORY.md","worklog":"personas/ENG/WORKLOG.md"},
     {"code":"ENGV","memory":"personas/ENGV/MEMORY.md","worklog":"personas/ENGV/WORKLOG.md"},
     {"code":"IVA","memory":"personas/IVA/MEMORY.md","worklog":"personas/IVA/WORKLOG.md"}
-  ]
+  ],
+  "activated_by":"OWNER_D3_WP9_2026-08-24T01:35+09:00"
 }

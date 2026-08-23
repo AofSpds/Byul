@@ -1,11 +1,19 @@
 {
-  "object_type":"ACTIVE_PERSONA_ORG_POINTER_CANDIDATE",
-  "state":"NOT_ACTIVE",
+  "object_type":"ACTIVE_PERSONA_ORG_POINTER",
+  "state":"ACTIVE",
   "project_id":"BYUL-PROJECT",
-  "candidate_ref":"execution/byul-org-migration-wp0-wp8-20260823",
+  "active_ref":"main",
   "registry_path":"versions/v0.01/organization-migration/v1.0/01_ORGANIZATION_REGISTRY.json",
   "selector_path":"versions/v0.01/organization-migration/v1.0/04_PERSONA_SELECTOR_REGISTRY.json",
   "memory_index_path":"versions/v0.01/organization-migration/v1.0/05_PERSONA_MEMORY_INDEX.json",
-  "activation_requires":["M5_CUTOVER_READY","OWNER_D3_RECEIPT","SEPARATE_PROCESS_COMPLETION","EXACT_TARGET_COMMIT","POST_SWITCH_READBACK"],
-  "activation_authorized":false
+  "common_runtime_view_path":"versions/v0.01/organization-migration/v1.0/06_COMMON_RUNTIME_VIEW.md",
+  "authority_contract_path":"versions/v0.01/organization-migration/v1.0/02_PERSONA_AUTHORITY_CONTRACT_SET.md",
+  "validation_contract_path":"versions/v0.01/organization-migration/v1.0/03_VALIDATION_AUDIT_CONTRACT.md",
+  "cutover_target_base_commit":"f388ef37b1823d0e1aba3bd3e8d3c6b1b4cc7939",
+  "activation_event_commit":"7fa2fa461635cbb543228c69f593e4fdf137f262",
+  "owner_d3_ref":"OWNER_MESSAGE_2026-08-24T01:35+09:00_WP9_PROCEED",
+  "separate_process_completion_basis":"OWNER_OPERATIONAL_CONFIRMATION_BY_D3_EXECUTION_INSTRUCTION_AFTER_DEPENDENCY_DISCLOSURE",
+  "post_bootstrap_validation_state":"QUEUED_NOT_RETROACTIVE_PASS",
+  "rollback_reference_path":"versions/v0.01/organization-migration/v1.0/11_PREVIOUS_ACTIVE_POINTER_REF.json",
+  "activation_authorized":true
 }

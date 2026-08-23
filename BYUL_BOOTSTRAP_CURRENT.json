@@ -1,0 +1,32 @@
+{
+  "artifact_id":"BYUL-BOOTSTRAP-CURRENT-v1.0",
+  "project":"BYUL",
+  "parent_project":"AAA",
+  "state":"ACTIVE",
+  "activation_event_commit":"7fa2fa461635cbb543228c69f593e4fdf137f262",
+  "current_state_path":"versions/v0.01/BYUL_CURRENT_STATE.md",
+  "current_persona_org_pointer_path":"versions/v0.01/BYUL_PERSONA_ORG_CURRENT.json",
+  "registry_path":"versions/v0.01/organization-migration/v1.0/01_ORGANIZATION_REGISTRY.json",
+  "selector_registry_path":"versions/v0.01/organization-migration/v1.0/04_PERSONA_SELECTOR_REGISTRY.json",
+  "memory_index_path":"versions/v0.01/organization-migration/v1.0/05_PERSONA_MEMORY_INDEX.json",
+  "common_runtime_view_path":"versions/v0.01/organization-migration/v1.0/06_COMMON_RUNTIME_VIEW.md",
+  "authority_contract_path":"versions/v0.01/organization-migration/v1.0/02_PERSONA_AUTHORITY_CONTRACT_SET.md",
+  "validation_contract_path":"versions/v0.01/organization-migration/v1.0/03_VALIDATION_AUDIT_CONTRACT.md",
+  "task_registry_path":"versions/v0.01/organization-migration/v1.0/08_CURRENT_TASK_BLOCKER_REGISTRY.json",
+  "pmo_status_path":"versions/v0.01/organization-migration/v1.0/09_PMO_MASTER_STATUS.md",
+  "bootstrap_order":[
+    "READ_CURRENT_STATE",
+    "READ_ACTIVE_PERSONA_ORG_POINTER",
+    "READ_COMMON_RUNTIME_VIEW",
+    "RESOLVE_OWNER_SELECTOR_OR_PROVEN_PERSONA",
+    "READ_PERSONA_MEMORY_AND_WORKLOG",
+    "READ_CURRENT_TASK_BLOCKERS_AND_EXACT_REFS",
+    "RESPOND_WITH_CURRENT_PERSONA_LOCK",
+    "BEGIN_MATERIAL_WORK"
+  ],
+  "default_persona":"BYUL",
+  "selector_does_not_create_authority":true,
+  "conflict_rule":"GIT_CURRENT_STATE_CONFLICT=>REVIEW_REQUIRED",
+  "post_bootstrap_validation_claim":"NONE_UNLESS_EXACT_RECEIPT_EXISTS",
+  "activated_by":"OWNER_D3_WP9_2026-08-24T01:35+09:00"
+}

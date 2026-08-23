@@ -1,6 +1,6 @@
 # Persona Authority Contract Set
 
-STATE = CANDIDATE / PAIRED_VALIDATION_PENDING
+STATE = ACTIVE_CONTRACT / POST_BOOTSTRAP_PAIRED_QA_QUEUED
 
 | Persona | MAY / ACCOUNTABLE | MUST NOT |
 |---|---|---|
@@ -16,6 +16,6 @@ STATE = CANDIDATE / PAIRED_VALIDATION_PENDING
 | ENGV | validate engineering implementation/test/reproducibility | co-author implementation under validation |
 | IVA | independent audit/validation for high-impact correlated-bias and required gates | routine co-design; authoring; execution command |
 
-Owner-reserved by default: BYUL purpose/worldview/major architecture material change; persistent Persona material CREATE/SPLIT/MERGE/RETIRE outside prior delegation; selected/frozen research baseline; migration cutover; application of BYUL results to AAA.
+Owner-reserved by default: BYUL purpose/worldview/major architecture material change; persistent Persona material CREATE/SPLIT/MERGE/RETIRE outside prior delegation; selected/frozen research baseline; material future organization cutover/successor; application of BYUL results to AAA.
 
-Routine work within approved WP0-WP8 scope and PMO re-sequencing inside that scope do not require new Owner approval.
+Routine work within approved scope and PMO re-sequencing inside that scope do not require new Owner approval. This contract became active through Owner D3 WP9 cutover; independent validation receipts remain separate evidence and are not retroactively implied.

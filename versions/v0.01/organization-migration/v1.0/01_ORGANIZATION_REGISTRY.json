@@ -1,6 +1,6 @@
 {
   "project_id":"BYUL-PROJECT",
-  "state":"CANDIDATE_PRE_CUTOVER",
+  "state":"ACTIVE",
   "core_ab_grouping":"REMOVED",
   "research_persona_initially_created":false,
   "personas":[
@@ -15,5 +15,6 @@
     {"persona_id":"BYUL-PERSONA-ENG","canonical_name":"ENG","code":"ENG","pair":"ENGV","class":"IMPLEMENTATION_TEST_TOOLING"},
     {"persona_id":"BYUL-PERSONA-ENGV","canonical_name":"ENGV","code":"ENGV","pair":"ENG","class":"PAIRED_VALIDATOR"},
     {"persona_id":"BYUL-PERSONA-IVA","canonical_name":"IVA","code":"IVA","pair":null,"class":"ORGANIZATION_EXTERNAL_INDEPENDENT_AUDITOR"}
-  ]
+  ],
+  "activated_by":"OWNER_D3_WP9_2026-08-24T01:35+09:00"
 }

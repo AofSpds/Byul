@@ -1,23 +1,24 @@
-# PMO Master Status — BYUL Org Migration
+# PMO Master Status — BYUL Persona Organization
 
-STATE = WP0_WP8_FAST_TRACK_BOOTSTRAP_COMPLETE / POST_BOOTSTRAP_VALIDATION_QUEUED / WP9_HOLD
-BASE_AT_EXECUTION_START = main@993d6707ecd4deab25a5cb51909056379aefddea
-BRANCH = execution/byul-org-migration-wp0-wp8-20260823
-OWNER_SCOPE = WP0-WP8 authorized; Owner later clarified that validation-org creation must not wait for prior validation by the not-yet-existing organization; WP9 remains HOLD.
+STATE = WP9_CUTOVER_ACTIVE / ORGANIZATION_CURRENT / POST_BOOTSTRAP_QA
+CUTOVER_TARGET_BASE = main@f388ef37b1823d0e1aba3bd3e8d3c6b1b4cc7939
+CUTOVER_BRANCH = cutover/byul-persona-org-wp9-20260824
+OWNER_D3 = APPROVED 2026-08-24 01:35 KST
 
 | WP | State | Primary output | Follow-up |
 |---|---|---|---|
-| WP0 | BOOTSTRAP_COMPLETE | source/decision/preserve register | post-bootstrap CONTROLV/PMOV review queued |
-| WP1 | BOOTSTRAP_COMPLETE | organization registry | post-bootstrap BYULV/CONTROLV review queued |
-| WP2 | BOOTSTRAP_COMPLETE | authority contracts | post-bootstrap paired review queued |
-| WP3 | BOOTSTRAP_COMPLETE | validation/audit contract | post-bootstrap paired + IVA review queued |
-| WP4 | BOOTSTRAP_COMPLETE | selector/memory/bootstrap candidate | deterministic structural checks complete; post-bootstrap CONTROLV/ENGV queued |
-| WP5 | BOOTSTRAP_COMPLETE | memory/worklog + succession map | post-bootstrap paired review queued |
-| WP6 | BOOTSTRAP_SELF_CHECK_COMPLETE | bootstrap test code/matrix + structural evidence | true fresh-channel verification queued after bootstrap availability |
-| WP7 | BOOTSTRAP_COMPLETE | task registry / PMO status | post-bootstrap PMOV/CONTROLV review queued |
-| WP8 | BOOTSTRAP_PACKAGE_COMPLETE | readiness/rollback/completion package | independent evidence may be appended after organization exists |
-| WP9 | HOLD / NOT_EXECUTED | no current-pointer cutover | separate Owner-reserved decision |
+| WP0 | COMPLETE | source/decision/preserve register | paired QA may append receipt |
+| WP1 | COMPLETE | active organization registry | paired QA may append receipt |
+| WP2 | COMPLETE | active authority contracts | paired QA may append receipt |
+| WP3 | COMPLETE | validation/audit contract | IVA/paired QA may append receipt |
+| WP4 | ACTIVE | selector/memory/bootstrap | exercise in normal runtime |
+| WP5 | ACTIVE | Persona memory/worklog + succession | curate by governed deltas |
+| WP6 | ACTIVE_QA_SURFACE | bootstrap harness / fresh-channel checks | record operational regression evidence |
+| WP7 | ACTIVE | PMO status/task/blocker control surfaces | normal operation |
+| WP8 | COMPLETE | readiness/rollback/completion package | historical evidence retained |
+| WP9 | CUTOVER_ACTIVE | current BYUL Persona organization | post-switch readback required |
 
-Bootstrap completion is not a Validation PASS. The purpose of this fast track is to create the validators and persistent Persona surfaces first, then let those newly created roles validate the bootstrap artifacts without circular dependency.
-
-No Owner relay is required for routine post-bootstrap verification. Any material scope expansion or WP9 cutover remains outside this fast-track completion.
+Execution interpretation:
+- The validation organization is now an active runtime organization, not a pre-cutover candidate.
+- Post-bootstrap validation is quality/independence evidence and may identify successor corrections; it is not represented as having already independently passed.
+- No AAA mutation, model/worldview freeze, release, production authorization, or scientific-model validation claim is created by this organization cutover.

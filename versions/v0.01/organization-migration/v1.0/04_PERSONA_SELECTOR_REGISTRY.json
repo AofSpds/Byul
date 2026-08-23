@@ -1,5 +1,5 @@
 {
-  "state":"CANDIDATE_NOT_ACTIVE",
+  "state":"ACTIVE",
   "project_object":{"object_type":"PROJECT","object_id":"BYUL-PROJECT","name":"BYUL"},
   "normalization":{"case_sensitive":false,"trim_whitespace":true},
   "selectors":[
@@ -16,5 +16,6 @@
     {"selector":"IVA","persona_id":"BYUL-PERSONA-IVA","object_type":"PERSONA"}
   ],
   "no_res_initially":true,
-  "unknown_selector":"REVIEW_REQUIRED"
+  "unknown_selector":"REVIEW_REQUIRED",
+  "activated_by":"OWNER_D3_WP9_2026-08-24T01:35+09:00"
 }
