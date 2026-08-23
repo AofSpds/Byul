@@ -1,25 +1,24 @@
-# Cutover Readiness / WP9 Activation Report
+# WP9 Cutover Completion Report
 
-STATE = OWNER_D3_AUTHORIZED / CUTOVER_EXECUTING
-WP9 = AUTHORIZED_AND_EXECUTING
+STATE = CUTOVER_ACTIVE / READBACK_PASS_AFTER_FORWARD_CORRECTION / MIGRATION_CLOSED
 VALIDATION_CLAIM = NONE
-CUTOVER_TARGET_BASE = f388ef37b1823d0e1aba3bd3e8d3c6b1b4cc7939
+OWNER_D3_TIME_KST = 2026-08-24 01:35
+ACTIVATION_EVENT_COMMIT = 7fa2fa461635cbb543228c69f593e4fdf137f262
+CUTOVER_MERGE_COMMIT = aa0d1a7cf6f9b335f7ff68b65f9f9bc560531c0c
+MEMORY_CURRENTIZATION_MERGE = d12c0241c4d793465bf46efd037aa587d63a32a1
 
-Preconditions observed:
-- WP0-WP8 organization bootstrap is complete and persisted on main.
-- organization registry, selector registry, memory index, authority/validation contracts, Persona memory/worklogs, rollback refs, PMO surfaces and bootstrap runtime artifacts exist.
-- latest main was re-read immediately before cutover and remained `f388ef37b1823d0e1aba3bd3e8d3c6b1b4cc7939`; no newer contradictory separate-workstream commit was observed.
-- Owner was previously informed that WP9 requires the separate-process dependency to be cleared and then explicitly instructed `WP9 진행하세요` on 2026-08-24 01:35 KST. This is recorded as D3 cutover authority and operational confirmation to proceed.
+Completion evidence:
+- stable root bootstrap exists and is ACTIVE;
+- stable current Persona-org pointer exists and is ACTIVE;
+- organization registry, selector registry and memory index are ACTIVE;
+- 11 initial Persona/auditor runtime routes exist;
+- BYUL, PMO and IVA exact memory readbacks return `STATE=ACTIVE`; all 11 memories were currentized in the same correction merge;
+- project object and BYUL Persona object remain distinct;
+- RES remains excluded from the initial active set;
+- ASA-MI/ASA-ME remain typed predecessor contexts with no authority inheritance;
+- rollback/predecessor evidence remains preserved;
+- no newer contradictory main state appeared between exact target reread and cutover merge.
 
-Cutover action:
-- switch Persona selector/memory/runtime state from candidate to ACTIVE;
-- activate current BYUL Persona organization pointer;
-- establish stable BYUL bootstrap/current-state locators;
-- preserve predecessor ASA-MI/ASA-ME as historical workstream-context succession evidence;
-- preserve post-bootstrap paired/IVA/fresh-channel QA as queued evidence, not retroactive PASS;
-- perform post-switch readback and record exact merge/activation refs.
+A stale Persona-memory marker was detected after the first switch and corrected forward before migration closure. The finding is preserved in `23_WP9_POST_SWITCH_READBACK_FINDING.md`.
 
-Rollback rule:
-- if post-switch readback cannot resolve the active pointer, selectors, memory routes, or project/persona identity separation, disable the active pointer and restore pre-cutover runtime interpretation using the predecessor reference package.
-
-No AAA mutation, model/worldview freeze, production authorization, release claim, or scientific-model validation claim is created by WP9.
+Migration completion does not constitute independent validation of the organization artifacts. Post-bootstrap paired/IVA QA remains queued and may create governed successor corrections if material findings arise.

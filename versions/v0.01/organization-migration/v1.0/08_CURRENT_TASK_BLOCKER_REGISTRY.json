@@ -1,16 +1,17 @@
 {
   "program":"BYUL-ORG-MIGRATION-v1.0",
-  "state":"WP9_CUTOVER_ACTIVE / POST_BOOTSTRAP_QA",
-  "cutover_branch":"cutover/byul-persona-org-wp9-20260824",
+  "state":"MIGRATION_CLOSED / ACTIVE_PERSONA_ORGANIZATION / POST_BOOTSTRAP_QA",
+  "cutover_merge_commit":"aa0d1a7cf6f9b335f7ff68b65f9f9bc560531c0c",
+  "post_switch_memory_currentization_merge":"d12c0241c4d793465bf46efd037aa587d63a32a1",
   "authorized_wps":["WP0","WP1","WP2","WP3","WP4","WP5","WP6","WP7","WP8","WP9"],
   "held_wps":[],
-  "bootstrap_policy":"OWNER_FAST_TRACK: validation organization was created first; post-bootstrap validation is follow-up QA, not a prerequisite to its own existence",
+  "migration_blockers":[],
   "post_bootstrap_validation":[
     {"id":"V1","state":"QUEUED","text":"Paired validation receipts may be produced by the active validators."},
-    {"id":"V2","state":"QUEUED","text":"IVA audit for bootstrap/cutover is follow-up independent evidence and is not retroactively claimed as already passed."},
-    {"id":"V3","state":"QUEUED","text":"Fresh-channel Persona recovery verification should be exercised in normal operation and recorded."}
+    {"id":"V2","state":"QUEUED","text":"IVA audit is follow-up independent evidence and is not retroactively claimed as already passed."},
+    {"id":"V3","state":"ONGOING_RUNTIME_QA","text":"Fresh-channel Persona recovery should be exercised in normal operation and recorded."}
   ],
-  "cutover_dependency":{"state":"OWNER_CONFIRMED_FOR_EXECUTION","basis":"Owner issued explicit WP9 execution instruction after the separate-process completion dependency was explained; no contradictory newer Git execution state exists."},
+  "readback":"PASS_AFTER_FORWARD_MEMORY_CURRENTIZATION",
   "validation_claim":"NONE",
   "owner_action_now":"NONE",
   "cutover":"ACTIVE"
