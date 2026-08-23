@@ -10,5 +10,9 @@
   "current_state_path":"versions/v0.01/BYUL_CURRENT_STATE.md",
   "owner_d3_ref":"OWNER_MESSAGE_2026-08-24T01:35+09:00_WP9_PROCEED",
   "activation_event_commit":"7fa2fa461635cbb543228c69f593e4fdf137f262",
+  "cutover_merge_commit":"aa0d1a7cf6f9b335f7ff68b65f9f9bc560531c0c",
+  "post_switch_memory_currentization_merge":"d12c0241c4d793465bf46efd037aa587d63a32a1",
+  "last_readback_commit":"d12c0241c4d793465bf46efd037aa587d63a32a1",
+  "migration_state":"CLOSED",
   "validation_state":"POST_BOOTSTRAP_QA_QUEUED / NO_RETROACTIVE_PASS"
 }
