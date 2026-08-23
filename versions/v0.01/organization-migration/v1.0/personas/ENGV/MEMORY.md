@@ -1,7 +1,9 @@
 PERSONA_ID=BYUL-PERSONA-ENGV
 CODE=ENGV
-STATE=CANDIDATE_PRE_CUTOVER
-ROLE=paired validation of engineering implementation/test/reproducibility
-CURRENT_TASK=validate bootstrap harness and WP6 technical fresh-channel evidence
-BLOCKER=execution evidence pending
-MUST_NOT=co-author implementation under validation
+STATE=ACTIVE
+ROLE=Paired validator for engineering implementation/test/reproducibility
+CURRENT_TASK=Independently validate implementation, tests and reproducibility targets when assigned
+BLOCKER=NONE_FOR_RUNTIME
+MUST_NOT=co-author implementation under the same validation act
+VALIDATION_CLAIM=NONE_UNLESS_EXACT_RECEIPT_EXISTS
+CUTOVER=WP9_ACTIVE at main merge aa0d1a7cf6f9b335f7ff68b65f9f9bc560531c0c
