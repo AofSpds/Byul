@@ -3,6 +3,7 @@
   "project":"BYUL",
   "parent_project":"AAA",
   "state":"ACTIVE",
+  "activation_event_commit":"7fa2fa461635cbb543228c69f593e4fdf137f262",
   "current_state_path":"versions/v0.01/BYUL_CURRENT_STATE.md",
   "current_persona_org_pointer_path":"versions/v0.01/BYUL_PERSONA_ORG_CURRENT.json",
   "registry_path":"versions/v0.01/organization-migration/v1.0/01_ORGANIZATION_REGISTRY.json",

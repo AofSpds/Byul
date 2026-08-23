@@ -9,6 +9,6 @@
   "common_runtime_view_path":"versions/v0.01/organization-migration/v1.0/06_COMMON_RUNTIME_VIEW.md",
   "current_state_path":"versions/v0.01/BYUL_CURRENT_STATE.md",
   "owner_d3_ref":"OWNER_MESSAGE_2026-08-24T01:35+09:00_WP9_PROCEED",
-  "activation_event_commit":"PENDING_POST_COMMIT_BINDING",
+  "activation_event_commit":"7fa2fa461635cbb543228c69f593e4fdf137f262",
   "validation_state":"POST_BOOTSTRAP_QA_QUEUED / NO_RETROACTIVE_PASS"
 }
