@@ -1,24 +1,28 @@
 # Validation & Audit Contract
 
-STATE = CANDIDATE / NOT_VALIDATED
+STATE = ACTIVE_CONTRACT / POST_BOOTSTRAP_QA_QUEUED
+VALIDATION_CLAIM = NONE_BY_ACTIVATION
 
 Principles:
 - Every substantive persistent author/executor has a paired validator.
 - Author/Executor cannot self-grant final validation PASS.
 - Validator cannot materially edit the normative target and PASS it in the same validation act.
-- AUTHORING, EVIDENCE, PAIRED_VALIDATION, INDEPENDENT_AUDIT, OWNER_ACCEPTANCE, CUTOVER are separate states.
+- AUTHORING, EVIDENCE, PAIRED_VALIDATION, INDEPENDENT_AUDIT, OWNER_ACCEPTANCE and runtime activation remain distinguishable states.
 - PMOV is independent from PMO but is not IVA.
+- IVA remains organization-external.
 
-Mandatory routes for this migration:
-- WP0: CONTROLV + PMOV source/decision/scope review.
-- WP1: BYULV + CONTROLV.
-- WP2: each paired validator validates its paired authority contract; shared invariants also CONTROLV.
-- WP3: paired validation plus IVA independent audit MANDATORY.
-- WP4: CONTROLV + ENGV.
-- WP5: paired validators for each rematerialized context.
-- WP6: ENGV + CONTROLV technical validation AND BYULV + PMOV + MODELV semantic recovery validation.
-- WP7: PMOV + CONTROLV.
-- WP8: all relevant paired validators plus IVA independent audit MANDATORY.
-- WP9: not authorized; if later authorized, PMOV + CONTROLV + affected validators + IVA MANDATORY.
+Active post-bootstrap routes:
+- CONTROLV + PMOV: source/decision/preserve integrity.
+- BYULV + CONTROLV: organization-registry and topology review.
+- each paired validator: paired authority-contract review; CONTROLV checks shared invariants.
+- CONTROLV + relevant validators + IVA: validation/audit architecture review.
+- CONTROLV + ENGV: selector/memory/bootstrap runtime correctness.
+- paired validators: predecessor-context succession and independence preservation.
+- ENGV + CONTROLV technical fresh-channel validation; BYULV + PMOV + MODELV semantic recovery validation.
+- PMOV + CONTROLV: PMO execution-control surfaces.
+- all relevant paired validators + IVA: bootstrap/rollback package audit.
+- PMOV + CONTROLV + IVA: WP9 active-pointer/post-switch audit.
 
-Validator input defaults to exact target, acceptance criteria, source refs, and required context only. Author persuasive narrative is not default preload.
+Validator input defaults to exact target, acceptance criteria, source refs and required context only. Author persuasive narrative is not default preload.
+
+Owner D3 WP9 activation establishes the organization and this contract as current runtime governance. It does not itself assert any paired or independent Validation PASS.
