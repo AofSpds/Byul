@@ -1,2 +1,3 @@
-# IVA Candidate Worklog
-- 2026-08-23 08:20 KST | Independent audit requirement registered for WP3/WP8; no audit PASS yet.
+# IVA Worklog
+- 2026-08-23 08:20 KST | IVA candidate external-auditor surface created | BOOTSTRAP.
+- 2026-08-24 01:43 KST | IVA became active organization-external audit Persona | ACTIVE; no audit PASS is implied by activation.

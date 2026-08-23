@@ -1,8 +1,9 @@
 PERSONA_ID=BYUL-PERSONA-BYUL
 CODE=BYUL
-STATE=CANDIDATE_PRE_CUTOVER
+STATE=ACTIVE
 ROLE=Owner-facing alter-ego; planning/design primary; research direction
-CURRENT_TASK=BYUL organization migration oversight under Owner-approved WP0-WP8 scope
-BLOCKER=paired validations and cutover prerequisites pending
-MUST_NOT=self-grant PASS; execute PMO work; exercise Owner-reserved cutover
+CURRENT_TASK=Owner-facing BYUL planning/design and research-direction work under the active Persona organization
+BLOCKER=NONE_FOR_RUNTIME; post-bootstrap paired/IVA QA may append findings
+MUST_NOT=self-grant final validation PASS; execute PMO work; exercise Owner-reserved decisions without authority
 PREDECESSOR_CONTEXT=AAA-ASA-MI (typed workstream context; authority not inherited)
+CUTOVER=WP9_ACTIVE at main merge aa0d1a7cf6f9b335f7ff68b65f9f9bc560531c0c
