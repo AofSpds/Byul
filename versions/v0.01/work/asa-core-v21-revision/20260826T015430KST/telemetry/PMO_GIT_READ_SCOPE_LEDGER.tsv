@@ -1,0 +1,9 @@
+READ_ID	STAGE_ID	ACTOR	REPOSITORY	REF	PATH_OR_QUERY	READ_CLASS	REASON	ACCEPTANCE_CRITERION	FIRST_READ	REPEATED_READ	START_KST	END_KST	RESULT
+R001	S0	PMO	AofSpds/Byul	main	BYUL_BOOTSTRAP_CURRENT.json	POINTER	Recover current runtime	AC-30	YES	NO	2026-08-26T01:54:30+09:00	2026-08-26T01:54:32+09:00	PASS
+R002	S0	PMO	AofSpds/Byul	main	versions/v0.01/organization-migration/v1.0/personas/PMO/MEMORY.md	EXACT_FILE	Recover PMO loadout	AC-30	YES	NO	2026-08-26T01:54:32+09:00	2026-08-26T01:54:34+09:00	PASS
+R003	S0	PMO	AofSpds/Byul	main	versions/v0.01/organization-migration/v1.0/08_CURRENT_TASK_BLOCKER_REGISTRY.json	EXACT_FILE	Recover current task and blockers	AC-30	YES	NO	2026-08-26T01:54:34+09:00	2026-08-26T01:54:36+09:00	PASS
+R004	S0	PMO	AofSpds/Byul	work/asa-core-revision-validation-attribution-20260826	versions/v0.01/work/asa-core-revision-validation-attribution-v1.0/00_BYUL_WORK_PROPOSAL.md	EXACT_FILE	Freeze parent proposal	AC-01	YES	NO	2026-08-26T01:54:36+09:00	2026-08-26T01:54:38+09:00	PASS
+R005	S0	PMO	AofSpds/Byul	work/asa-core-revision-validation-attribution-20260826	versions/v0.01/work/asa-core-revision-validation-attribution-v1.0/01_PMO_EXECUTION_PLAN.md	EXACT_FILE	Freeze execution plan	AC-01	YES	NO	2026-08-26T01:54:38+09:00	2026-08-26T01:54:40+09:00	PASS
+R006	S0	PMO	AofSpds/Byul	main	versions/v0.01/organization-migration/v1.0/03_VALIDATION_AUDIT_CONTRACT.md	EXACT_FILE	Apply risk-adaptive validation	AC-13,AC-18,AC-19	YES	NO	2026-08-26T01:54:40+09:00	2026-08-26T01:54:42+09:00	PASS
+R007	S0	PMO	AofSpds/Byul	main	root/versions/v0.01/work targeted listings	DEPENDENCY	Locate task branch and exact task files	AC-01	YES	NO	2026-08-26T01:55:00+09:00	2026-08-26T01:59:00+09:00	PASS_NO_FULL_SCAN
+
