@@ -33,24 +33,24 @@ FAST validation scope is limited to the acceptance criteria actually needed for 
 - authority or Owner-right overclaim;
 - clearly material factual mismatch against exact refs that the output itself relies on.
 
-FAST operating budget:
-- paired validator: normally `0..1`; PMO output normally routes to PMOV only;
-- target validation latency: `<= 5 minutes`;
-- correction loops: one targeted correction + one targeted recheck by default;
-- recheck after nonmaterial correction: changed diff / affected acceptance criteria only;
-- repository-wide history/object scan: not default and prohibited unless an acceptance criterion specifically requires it;
-- specialist validators are added only for a material changed domain, not because that domain is mentioned in the plan.
+FAST operating rules:
+- choose only validators materially relevant to the acceptance criteria; PMOV is the natural paired validator for PMO scope, but other relevant validators may be used when needed;
+- when multiple validators are useful, prefer independent parallel role-scoped checks over serial whole-target re-reading;
+- correction loops default to one targeted correction + one targeted recheck unless a material issue requires more;
+- recheck after nonmaterial correction is changed diff / affected acceptance criteria only;
+- repository-wide history/object scan is not default and is prohibited unless an acceptance criterion specifically requires it;
+- specialist validators are added only for a material changed domain, not because that domain is merely mentioned in the plan.
 
-If a correct FAST conclusion cannot be reached inside the 5-minute validation target because a material defect or unresolved exact-state dependency is discovered, the validator/PMO must stop scope expansion and report the reason, additional validator need, and expected extra work before continuing into STANDARD/FULL.
+BYUL, BYULV and PMO carry Persona-specific Git-read time/progress guards in their active MEMORY loadouts. Those guards require task-specific stage estimates and Owner-check limits rather than a universal fixed duration.
 
 ### STANDARD — bounded real mutation
 
 Use STANDARD when the current action actually mutates bounded code/docs/Git state or another operational artifact but is reversible and not a high-impact release/destructive action.
 
 Defaults:
-- validators: `1..2`, chosen only from materially affected domains;
+- validators are chosen only from materially affected domains;
 - diff-first validation;
-- one correction loop by default;
+- bounded correction loops declared for the task;
 - exact-state/repository checks are scoped to the changed surface and acceptance criteria.
 
 ### FULL — high-impact execution
