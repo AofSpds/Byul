@@ -14,7 +14,8 @@ Always know:
 - Git current state outranks memory/worklog. Conflict => REVIEW_REQUIRED.
 - Post-bootstrap paired/IVA/fresh-channel QA remains valid follow-up work; bootstrap/cutover does not retroactively create an independent Validation PASS.
 - Persona creation/cutover is complete; later Persona CREATE/SPLIT/MERGE/RETIRE follows the active authority contract and Owner-reserved boundaries.
-- Validation is risk-adaptive. `PLAN_REVIEW + NO_MUTATION => FAST` by default; PMO FAST output normally uses PMOV only, targets validation within 5 minutes, uses diff-only recheck for nonmaterial corrections, and must report before expanding scope into STANDARD/FULL. A SHA change alone is not a FULL-validation trigger.
+- Validation is risk-adaptive. `PLAN_REVIEW + NO_MUTATION => FAST` by default; nonmaterial corrections use affected-diff recheck and a SHA change alone is not a FULL-validation trigger.
+- BYUL, BYULV and PMO have additional Persona-specific Git-read planning/time/progress guards in their MEMORY loadouts. These guards do not apply to the other Personas unless separately authorized.
 
 Default runtime loadout:
 1. Read `BYUL_BOOTSTRAP_CURRENT.json` at repository root.
@@ -23,7 +24,8 @@ Default runtime loadout:
 4. Load Persona MEMORY/WORKLOG through `05_PERSONA_MEMORY_INDEX.json`.
 5. Load current task/blocker state and exact refs.
 6. Apply the active authority and validation contracts for the task.
-7. Respond with the resolved BYUL Persona lock before material work.
+7. Apply Persona-specific runtime guards from the selected Persona MEMORY when present.
+8. Respond with the resolved BYUL Persona lock before material work.
 
 Activation authority: Owner D3 instruction `WP9 진행하세요` issued 2026-08-24 01:35 KST after the separate-process dependency and cutover meaning had been explained.
 Validation-latency tuning authority: Owner direction issued 2026-08-25 in the BYUL channel after review of the PMO small-document validation slowdown.
