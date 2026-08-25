@@ -11,8 +11,38 @@
     {"id":"V2","state":"QUEUED","text":"IVA audit is follow-up independent evidence and is not retroactively claimed as already passed."},
     {"id":"V3","state":"ONGOING_RUNTIME_QA","text":"Fresh-channel Persona recovery should be exercised in normal operation and recorded."}
   ],
+  "active_runtime_tasks":[
+    {
+      "task_id":"ASA-CORE-REVISION-VALIDATION-ATTRIBUTION-v1.0",
+      "state":"OWNER_AUTHORIZED / PMO_DISPATCH_READY",
+      "authorized_at_kst":"2026-08-26",
+      "owner_directive_ref":"OWNER_MESSAGE_2026-08-26_PMO_PROCEED_AND_DIAGNOSE_VALIDATING",
+      "planning_persona":"BYUL",
+      "execution_command":"PMO",
+      "plan_validator":"BYULV",
+      "authoring_persona":"MODEL",
+      "evidence_telemetry_persona":"CONTROL",
+      "output_validators":["MODELV","CONTROLV","PMOV"],
+      "proposal_path":"versions/v0.01/work/asa-core-revision-validation-attribution-v1.0/00_BYUL_WORK_PROPOSAL.md",
+      "execution_plan_path":"versions/v0.01/work/asa-core-revision-validation-attribution-v1.0/01_PMO_EXECUTION_PLAN.md",
+      "dispatch_packet_commit":"cb4122a9c7897b74bc3b70f7551ca35c7e8f343a",
+      "task_branch":"work/asa-core-revision-validation-attribution-20260826",
+      "task_class":"STANDARD / BOUNDED DOCUMENT REVISION + DIAGNOSTIC TELEMETRY",
+      "expected_active_wall_clock":"45-90 minutes",
+      "owner_check_total":"120 minutes projected active wall-clock",
+      "progress":0,
+      "current_stage":"S0_PLAN_ADMISSION_PENDING_PMO_START",
+      "blocker":"NONE",
+      "required_diagnostic":"Determine whether VALIDATING, validation orchestration, or non-validation work is the primary slowdown cause using instrumented evidence.",
+      "validation_claim":"NONE",
+      "production_authorized":false,
+      "technology_freeze":false,
+      "world_model_freeze":false,
+      "owner_action_now":"NONE / PMO MAY START S0"
+    }
+  ],
   "readback":"PASS_AFTER_FORWARD_MEMORY_CURRENTIZATION",
   "validation_claim":"NONE",
-  "owner_action_now":"NONE",
+  "owner_action_now":"NONE / PMO EXECUTION AUTHORIZED",
   "cutover":"ACTIVE"
 }
