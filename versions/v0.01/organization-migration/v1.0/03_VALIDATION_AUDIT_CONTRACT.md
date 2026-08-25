@@ -12,6 +12,7 @@ Principles:
 - IVA remains organization-external.
 - Validation depth follows the **current action and material risk**, not alarming words or future steps merely described inside a document.
 - Hash/SHA identifies an exact target. `SHA_CHANGED` alone is not a validation-depth trigger.
+- All active Personas load `11_COMMON_EXECUTION_VALIDATION_GUARD.md`; that guard governs shared planning, read-scope, progress, readback, correction, telemetry and persistence discipline without lowering this contract.
 
 ## Risk-adaptive routing
 
@@ -41,7 +42,7 @@ FAST operating rules:
 - repository-wide history/object scan is not default and is prohibited unless an acceptance criterion specifically requires it;
 - specialist validators are added only for a material changed domain, not because that domain is merely mentioned in the plan.
 
-BYUL, BYULV and PMO carry Persona-specific Git-read time/progress guards in their active MEMORY loadouts. Those guards require task-specific stage estimates and Owner-check limits rather than a universal fixed duration.
+All active Personas use task-specific stage estimates and Owner-check limits from the common guard rather than a universal fixed duration.
 
 ### STANDARD — bounded real mutation
 
@@ -63,13 +64,23 @@ Use FULL for actual high-impact actions such as:
 - material authority or organization cutover;
 - other explicitly required independent-audit gates.
 
-FULL may use multiple paired validators and IVA when the active gate requires them. Before expanding an existing FAST/STANDARD task into FULL, PMO reports the escalation reason, validators required, and additional work to the Owner unless an emergency/standing Owner authorization explicitly permits immediate escalation.
+FULL may use multiple paired validators and IVA when the active gate requires them. Before expanding an existing FAST/STANDARD task into FULL, the responsible Persona/PMO reports the escalation reason, validators required, and additional work to the Owner unless an emergency/standing Owner authorization explicitly permits immediate escalation.
+
+## Frozen-target and finding discipline
+
+For bounded substantive validation, prefer:
+
+`AUTHORING -> D0 FREEZE -> ROLE-SCOPED VALIDATION -> FINDING FREEZE -> BOUNDED CORRECTION -> AFFECTED-DIFF RECHECK`
+
+Do not keep moving the target while independent validators are reviewing different versions.
 
 ## Revalidation rule
 
 - `NONMATERIAL_CHANGE => DIFF_ONLY_RECHECK`.
 - A new SHA invalidates byte-identical identity of an earlier receipt but does not automatically invalidate unaffected semantic findings.
 - Full revalidation is required only when the changed content can materially affect previously validated acceptance criteria, authority, execution safety, or exact-state conclusions.
+- `MATERIAL_LOCAL` changes route to affected domains/criteria.
+- `MATERIAL_GLOBAL` changes require a broader-validation proposal before silent expansion.
 
 ## Validator role guard
 
@@ -77,9 +88,25 @@ Validators identify defects against the target acceptance criteria. They may pro
 
 Validators must not become routine co-designers of the target under validation. New control architectures, publication gates, rollback schemes, branch-protection regimes, or similar mechanisms discovered during review are advisory unless the current task actually requires them.
 
-## Context-efficiency rule
+## Context-efficiency and current-state rule
 
 Validator input defaults to exact target, acceptance criteria, source refs and required context only. Author persuasive narrative is not default preload. Prefer delta packets, role-scoped context and lazy history loading; do not repeatedly reload full project/repository history when a narrower exact context is sufficient.
+
+Narrow-first reading does not permit stale completion. For substantive frozen/persistent outputs, perform bounded current-state readback before candidate freeze and completion as defined by the common guard.
+
+## Telemetry and completion states
+
+Substantive validation should separate, when available:
+- context loading;
+- direct review;
+- finding integration;
+- correction;
+- recheck;
+- parallel compute sum from non-overlapping wall-clock.
+
+Missing splits remain unverified rather than retrospectively invented.
+
+Keep `AUTHORING_COMPLETE`, `VALIDATION_COMPLETE`, `PERSISTENCE_COMPLETE`, `OWNER_ACCEPTED`, and `ACTIVATED` distinct. Local output or a progress bar at 100% does not itself establish persistent completion or validation PASS.
 
 Active post-bootstrap routes:
 - CONTROLV + PMOV: source/decision/preserve integrity.
@@ -97,4 +124,4 @@ These post-bootstrap routes describe their relevant QA/gate surfaces; they are n
 
 Owner D3 WP9 activation establishes the organization and this contract as current runtime governance. It does not itself assert any paired or independent Validation PASS.
 
-Owner tuning direction on 2026-08-25 establishes the risk-adaptive routing above to prevent validation scope overexpansion and small-task latency regression. This policy change does not create a Validation PASS for any prior artifact.
+Owner tuning directions on 2026-08-25 and 2026-08-26 establish the risk-adaptive and all-Persona common operating rules above. These policy changes do not create a Validation PASS for any prior artifact.
