@@ -12,10 +12,26 @@ This directory preserves current Owner-facing BYUL World Model design snapshots 
    - source-traceable and explicitly OPEN where unresolved.
 
 2. `BYUL_WORLD_MODEL_ROADMAP_2026-08-26_v1.0.md`
-   - CATALOG-first research maturity roadmap;
+   - current merged CATALOG-first research maturity roadmap;
    - Coverage + Saturation rather than a fixed candidate count;
    - Decomposition, flexibility stress, performance viability, Primitive admission, Grammar, FIRST BYUL and scale phases.
 
+## Deep-review candidate packet — Owner decision pending
+
+3. `BYUL_WORLD_MODEL_DEEP_DESIGN_REVIEW_2026-08-26_v1.0_CANDIDATE.md`
+   - objective suitability review against current Git design and primary/official prior art;
+   - performance and flexibility assessment, risk register, alternative architectures and recommended multi-level design;
+   - candidate only; no Validation PASS or design adoption.
+
+4. `BYUL_WORLD_MODEL_ROADMAP_2026-08-26_v2.0_CANDIDATE.md`
+   - proposed successor to Roadmap v1.0;
+   - adds semantic stratification, explicit execution profiles, mandatory FOLD contract work, early probes/benchmarks and multi-slice FIRST BYUL acceptance;
+   - does not supersede v1.0 until Owner adoption.
+
+5. `BYUL_WORLD_MODEL_OWNER_QUESTIONS_2026-08-26_v1.0.md`
+   - prioritized Owner decision register;
+   - recommended provisional defaults are non-frozen research defaults only.
+
 ## Interpretation order
 
-Git governed current state and active contracts remain authoritative over these research artifacts. These files are design/research context and do not replace `BYUL_BOOTSTRAP_CURRENT.json`, Persona runtime pointers, authority contracts, validation contracts, MEMORY, or WORKLOG.
+Git governed current state and active contracts remain authoritative over these research artifacts. Candidate files do not replace `BYUL_BOOTSTRAP_CURRENT.json`, Persona runtime pointers, authority contracts, validation contracts, MEMORY, WORKLOG, the current design baseline, or Roadmap v1.0 unless a later Owner decision explicitly adopts them.
