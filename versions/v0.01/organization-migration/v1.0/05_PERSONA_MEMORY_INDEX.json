@@ -1,18 +1,66 @@
 {
-  "state":"ACTIVE",
-  "common_runtime_view":"06_COMMON_RUNTIME_VIEW.md",
-  "entries":[
-    {"code":"BYUL","memory":"personas/BYUL/MEMORY.md","worklog":"personas/BYUL/WORKLOG.md"},
-    {"code":"BYULV","memory":"personas/BYULV/MEMORY.md","worklog":"personas/BYULV/WORKLOG.md"},
-    {"code":"PMO","memory":"personas/PMO/MEMORY.md","worklog":"personas/PMO/WORKLOG.md"},
-    {"code":"PMOV","memory":"personas/PMOV/MEMORY.md","worklog":"personas/PMOV/WORKLOG.md"},
-    {"code":"CONTROL","memory":"personas/CONTROL/MEMORY.md","worklog":"personas/CONTROL/WORKLOG.md"},
-    {"code":"CONTROLV","memory":"personas/CONTROLV/MEMORY.md","worklog":"personas/CONTROLV/WORKLOG.md"},
-    {"code":"MODEL","memory":"personas/MODEL/MEMORY.md","worklog":"personas/MODEL/WORKLOG.md"},
-    {"code":"MODELV","memory":"personas/MODELV/MEMORY.md","worklog":"personas/MODELV/WORKLOG.md"},
-    {"code":"ENG","memory":"personas/ENG/MEMORY.md","worklog":"personas/ENG/WORKLOG.md"},
-    {"code":"ENGV","memory":"personas/ENGV/MEMORY.md","worklog":"personas/ENGV/WORKLOG.md"},
-    {"code":"IVA","memory":"personas/IVA/MEMORY.md","worklog":"personas/IVA/WORKLOG.md"}
+  "state": "ACTIVE",
+  "common_runtime_view": "06_COMMON_RUNTIME_VIEW.md",
+  "common_execution_validation_guard": "11_COMMON_EXECUTION_VALIDATION_GUARD.md",
+  "common_guard_scope": "ALL_ENTRIES",
+  "active_persona_count": 11,
+  "entries": [
+    {
+      "code": "BYUL",
+      "memory": "personas/BYUL/MEMORY.md",
+      "worklog": "personas/BYUL/WORKLOG.md"
+    },
+    {
+      "code": "BYULV",
+      "memory": "personas/BYULV/MEMORY.md",
+      "worklog": "personas/BYULV/WORKLOG.md"
+    },
+    {
+      "code": "PMO",
+      "memory": "personas/PMO/MEMORY.md",
+      "worklog": "personas/PMO/WORKLOG.md"
+    },
+    {
+      "code": "PMOV",
+      "memory": "personas/PMOV/MEMORY.md",
+      "worklog": "personas/PMOV/WORKLOG.md"
+    },
+    {
+      "code": "CONTROL",
+      "memory": "personas/CONTROL/MEMORY.md",
+      "worklog": "personas/CONTROL/WORKLOG.md"
+    },
+    {
+      "code": "CONTROLV",
+      "memory": "personas/CONTROLV/MEMORY.md",
+      "worklog": "personas/CONTROLV/WORKLOG.md"
+    },
+    {
+      "code": "MODEL",
+      "memory": "personas/MODEL/MEMORY.md",
+      "worklog": "personas/MODEL/WORKLOG.md"
+    },
+    {
+      "code": "MODELV",
+      "memory": "personas/MODELV/MEMORY.md",
+      "worklog": "personas/MODELV/WORKLOG.md"
+    },
+    {
+      "code": "ENG",
+      "memory": "personas/ENG/MEMORY.md",
+      "worklog": "personas/ENG/WORKLOG.md"
+    },
+    {
+      "code": "ENGV",
+      "memory": "personas/ENGV/MEMORY.md",
+      "worklog": "personas/ENGV/WORKLOG.md"
+    },
+    {
+      "code": "IVA",
+      "memory": "personas/IVA/MEMORY.md",
+      "worklog": "personas/IVA/WORKLOG.md"
+    }
   ],
-  "activated_by":"OWNER_D3_WP9_2026-08-24T01:35+09:00"
+  "activated_by": "OWNER_D3_WP9_2026-08-24T01:35+09:00",
+  "common_guard_authorized_by": "OWNER_DIRECTION_2026-08-26_APPLY_TO_BYUL_ALL_PERSONAS"
 }
