@@ -32,6 +32,16 @@ This directory preserves current Owner-facing BYUL World Model design snapshots 
    - prioritized Owner decision register;
    - recommended provisional defaults are non-frozen research defaults only.
 
+6. `BYUL_PRIOR_ART_ATLAS_2026-08-26_v1.0.md`
+   - durable routing map of legacy theory beyond Causal Set Theory;
+   - covers relation/data, category/open-system composition, concurrency/process, graph rewriting, abstraction/recovery, multi-view, provenance, incremental computation, time/state, probability and agent/economic composition;
+   - includes BYUL relevance, cautions, priority and source routes so later CATALOG/Primitive work can follow PRIOR-ART-FIRST rather than reinventing established results.
+
+7. `BYUL_OWNER_DECISION_Q0-1_IDENTITY_2026-08-26.md`
+   - Owner direction that BYUL is fundamentally a Relation-first data/world-model project, not a programming-language project;
+   - programming languages, compiler/IR and runtime remain optional interoperable/tooling surfaces;
+   - preserves flexibility, multi-resolution modeling, AI-era human View and faithful world-operation modeling as primary goals.
+
 ## Interpretation order
 
 Git governed current state and active contracts remain authoritative over these research artifacts. Candidate files do not replace `BYUL_BOOTSTRAP_CURRENT.json`, Persona runtime pointers, authority contracts, validation contracts, MEMORY, WORKLOG, the current design baseline, or Roadmap v1.0 unless a later Owner decision explicitly adopts them.
