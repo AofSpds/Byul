@@ -1,0 +1,47 @@
+# ASA Core v2.1 Candidate D0 Manifest
+
+```text
+PROGRAM_ID = ASA-CORE-REVISION-VALIDATION-ATTRIBUTION-v1.0
+RUN_ID = 20260826T015430KST
+CANDIDATE_ID = D0
+FREEZE_KST = 2026-08-26T02:09:37+09:00
+TARGET_FILE_COUNT = 6
+TARGET_HASH_MANIFEST = ../revision/SHA256SUMS.txt
+TARGET_HASH_MANIFEST_SHA256 = 78c1d15e395ad53e04a3ba2388ce049c1355c27b7f9f53e24ab2e9bc00df2a6e
+STATUS = V2.1_CANDIDATE / NON_FROZEN / OWNER_REVIEW_PENDING
+VALIDATION_MUTATION = PROHIBITED
+```
+
+## Frozen target
+
+| Role | File | SHA-256 |
+|---|---|---|
+| R1 | `ASA_CORE_WORLD_MODEL_PRO_MODE_REVISION_v2.1_CANDIDATE_2026-08-26.md` | `773438549cfd6c0e05aedc17ccbf44dd610cde4c806a2cbb6bd354a5eab2e9af` |
+| R2 | `ASA_CORE_OWNER_DECISION_CROSSWALK_v2.1_CANDIDATE_2026-08-26.md` | `81974fabb08f53f12e638daf93a12df5a336e1a770b76ea7265cdffe1f695591` |
+| R3 | `ASA_CORE_WORLD_MODEL_v2.1_CANDIDATE_CHANGELOG_2026-08-26.md` | `a8f88a37495fd2cdef034e5b1746a69c24ba2572f3e203b9f650e0196477a156` |
+| R4 | `ASA_CLOSURE_TOOLKIT_EXTERNAL_RESEARCH_MATRIX_v2.1_SYNC_2026-08-26.md` | `434c26ec179ad26da45ea495c778a6a4e38472c14ee2428de0e502265c94124b` |
+| R5 | `ASA_CORE_WORLD_MODEL_OPEN_QUESTIONS_v2.1_SYNC_2026-08-26.md` | `aaf8e5eab6342ddf2a75ff875694ce99a9f98566fd6b70658ec043ddfe44e4c1` |
+| R6 | `ASA_CORE_REVISION_PACKET_INDEX_v2.1_CANDIDATE_2026-08-26.md` | `e2736577ec323fb69ed40c40c052f70ff91790f117ea1fba7b67623fb0b595e3` |
+
+The D0 identity is the exact six-file mapping above, anchored by the SHA-256
+of `SHA256SUMS.txt`. This manifest and the validation-slice manifest are
+control metadata and are not members of the semantic candidate target.
+
+## Deterministic pre-freeze checks
+
+```text
+SHA256_CHECK = PASS 6/6
+OD_MAPPED = 73/73
+OPEN_MAPPED = 10/10
+PI_MAPPED = 7/7
+QUESTIONS_DISPOSITIONED = 180/180
+EXTERNAL_REFERENCES = 21 R1-local + 21 R4-local
+HYBRID_CANDIDATES = 4
+COMMON_PROBES = 20
+UNAUTHORIZED_FINAL_ACTIVE_FROZEN_PROMOTIONS = 0
+MARKDOWN_FENCE_PARITY = PASS 6/6
+```
+
+The external-reference value is recorded by document-local namespace. It is
+not reported as 42 distinct works and does not imply external research was
+re-run.

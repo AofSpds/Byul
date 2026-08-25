@@ -11,7 +11,7 @@ EXECUTION_COMMAND = PMO
 PLAN_VALIDATOR = BYULV
 DATE_KST = 2026-08-26
 
-STATUS = OWNER_AUTHORIZED / PMO_DISPATCH_CANDIDATE
+STATUS = OWNER_AUTHORIZED / PMO_DISPATCH_READY
 TASK_CLASS = STANDARD / BOUNDED DOCUMENT REVISION + EXECUTION TELEMETRY
 REPOSITORY_MUTATION = BOUNDED DOCUMENT OUTPUTS ONLY
 PRODUCTION_AUTHORIZATION = NONE
@@ -581,6 +581,20 @@ INDETERMINATE_DUE_TO_EVIDENCE_GAP
   stage boundary/timestamps가 신뢰 불가능
 ```
 
+분모 경계:
+
+```text
+IF TOTAL_OVERRUN = 0:
+  - overrun 기여율은 계산하지 않는다.
+  - 필수 판정 enum은 VALIDATING_NOT_PRIMARY로 기록한다.
+  - qualifier는 NO_OVERRUN_CURRENT_RUN으로 기록한다.
+  - category별 active-time share는 기술 통계로만 보고한다.
+```
+
+또한 이번 계측은 조정된 현행 실행의 원인을 판정한다. 과거 지연 사건은
+동시점 원시 timing evidence가 없으면 이번 결과만으로 확정하지 않고
+`HISTORICAL_INCIDENT = INDETERMINATE_DUE_TO_EVIDENCE_GAP`으로 분리한다.
+
 이 threshold는 과학적 보편법칙이 아니라 이번 operational root-cause classification rule이다.
 보고서에는 원시 시간표와 계산식을 함께 남긴다.
 
@@ -597,10 +611,12 @@ INDETERMINATE_DUE_TO_EVIDENCE_GAP
 
 # 7. 예상시간과 Owner-check
 
-본 제안은 현재 알려진 6-document packet과 main v2.0을 기준으로 한다.
+본 제안은 main v2.0을 포함한 현재 알려진 6-document packet을 기준으로 한다.
 
 ```text
-EXPECTED ACTIVE WALL-CLOCK = 45~90분
+DISPATCH BASELINE = 45~90분
+REVISED CONSERVATIVE PLANNING RANGE = 61~120분
+PARALLEL BEST-CASE ENVELOPE = 53~105분
 OWNER_CHECK TOTAL = 120분 초과 전망 시 확인
 OWNER WAIT = 제외
 ```
@@ -730,7 +746,9 @@ OUTPUT VALIDATION = MODELV + CONTROLV + PMOV in parallel
 ENG / ENGV = NOT PLANNED
 IVA = NOT PLANNED
 
-EXPECTED ACTIVE WALL-CLOCK = 45~90분
+DISPATCH BASELINE = 45~90분
+REVISED CONSERVATIVE PLANNING RANGE = 61~120분
+PARALLEL BEST-CASE ENVELOPE = 53~105분
 TOTAL OWNER CHECK = 120분 초과 전망
 
 PRIMARY DIAGNOSTIC QUESTION =

@@ -51,14 +51,20 @@ TASK_CLASS =
 STANDARD / BOUNDED DOCUMENT REVISION + DIAGNOSTIC TELEMETRY
 
 EXPECTED_ACTIVE_WALL_CLOCK =
-45~90분
+61~120분 conservative planning range
+
+DISPATCH_BASELINE =
+45~90분 (superseded at S0 after dependency arithmetic review)
+
+PARALLEL_BEST_CASE =
+53~105분 only if S4 fully overlaps the eligible late-S3 window
 
 TOTAL_OWNER_CHECK =
 120분 초과 전망 시 Owner 확인
 
 PRIMARY_INPUTS =
 6-document revision packet
-+ ASA_CORE_WORLD_MODEL_PRO_MODE_REVISION_v2.0_2026-08-25.md
+(includes ASA_CORE_WORLD_MODEL_PRO_MODE_REVISION_v2.0_2026-08-25.md)
 
 PLANNED_GIT_READ =
 current bootstrap/pointers
@@ -185,10 +191,10 @@ BYUL_CLOSURE_TOOLKIT_CORE_COMBINATION_NEXT_CHANNEL_PACKET_2026-08-24.md
 
 # 3. Branch와 output structure
 
-PMO는 task-specific isolated branch를 생성한다.
+PMO는 current task registry에 고정된 task-specific isolated branch를 사용한다.
 
 ```text
-work/asa-core-v21-revision-<timestamp-or-run-id>
+work/asa-core-revision-validation-attribution-20260826
 ```
 
 권장 output path:
@@ -978,6 +984,13 @@ TOTAL_OVERRUN = max(0, ACTUAL_TOTAL - EXPECTED_TOTAL_UPPER)
 VALIDATION_OVERRUN = validation-related stage/correction/recheck overrun
 ```
 
+If `TOTAL_OVERRUN = 0`, overrun contribution percentages are undefined.
+Use the required enum `VALIDATING_NOT_PRIMARY` with qualifier
+`NO_OVERRUN_CURRENT_RUN`, report category active-time shares only as
+descriptive statistics, and do not use this run alone to prove the cause of a
+historical incident. Historical attribution without contemporaneous raw timing
+evidence remains `INDETERMINATE_DUE_TO_EVIDENCE_GAP`.
+
 ## Root-cause classification
 
 ```text
@@ -1033,7 +1046,11 @@ PROGRESS = [██████████] 100%
 
 ```text
 SERIAL RANGE SUM = 약 61~120분
-EXPECTED ACTIVE WALL-CLOCK WITH DECLARED PARALLELISM = 45~90분
+CONSERVATIVE PLANNING RANGE = 61~120분
+PARALLEL BEST-CASE FORMULA = S0 + S1 + S2 + max(S3,S4) + S5 + S6 + S7 + S8
+PARALLEL BEST-CASE ENVELOPE = 53~105분
+BEST-CASE CONDITION = S4 fully overlaps its eligible late-S3 window after definition lock
+OVERRUN BASELINE UPPER = 120분
 TOTAL OWNER CHECK = 120분 초과 전망
 OWNER WAIT = excluded
 ```
